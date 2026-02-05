@@ -1,3 +1,5 @@
+package main;
+
 import abstractClasses.Person;
 import enums.StudyForm;
 import enums.StudyStatus;
@@ -9,7 +11,7 @@ public class Student extends Person {
 
     private static int studentIdCounter = 0;
 
-    private int studentId;
+    private final int studentId;
     private int course;
     private StudyForm studyForm;
     private StudyStatus studyStatus;
@@ -62,14 +64,6 @@ public class Student extends Person {
         return course;
     }
 
-    public StudyForm getStudyForm() {
-        return studyForm;
-    }
-
-    public StudyStatus getStudyStatus() {
-        return studyStatus;
-    }
-
     public void setCourse(int course) {
         if (course < 1 || course > 5) {
             throw new IllegalCourseException("Invalid course number");
@@ -78,11 +72,29 @@ public class Student extends Person {
         this.course = course;
     }
 
+    public StudyForm getStudyForm() {
+        return studyForm;
+    }
+
     public void setStudyForm(StudyForm studyForm) {
         this.studyForm = studyForm;
     }
 
+    public StudyStatus getStudyStatus() {
+        return studyStatus;
+    }
+
     public void setStudyStatus(StudyStatus studyStatus) {
         this.studyStatus = studyStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Student {" + '\n' +
+                "   studentId=" + studentId + ',' + '\n' +
+                "   course=" + course + ',' + '\n' +
+                "   studyForm=" + studyForm + ',' + '\n' +
+                "   studyStatus=" + studyStatus + ',' + '\n' +
+                "} "  + super.toString();
     }
 }

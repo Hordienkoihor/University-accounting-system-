@@ -11,7 +11,7 @@ import java.util.Date;
 public abstract class Person {
     private static int idCounter = 0;
 
-    private int id;
+    private final int id;
 
     private String name;
     private String surname;
@@ -124,5 +124,34 @@ public abstract class Person {
         }
 
         this.phoneNumber = phoneNumber;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", fatherName='" + fatherName + '\'' +
+//                ", age=" + age +
+//                ", dateOfBirth=" + dateOfBirth +
+//                ", email='" + email + '\'' +
+//                ", phoneNumber='" + phoneNumber + '\'' +
+//                '}';
+//    }
+
+
+    @Override
+    public String toString() {
+        return "Person {" + '\n' +
+                "   id=" + id + ',' + '\n' +
+                "   name=" + name + ',' + '\n' +
+                "   surname=" + surname + ',' + '\n' +
+                "   fatherName=" + fatherName + ',' + '\n' +
+                "   age=" + age + ',' + '\n' +
+                "   dateOfBirth=" + dateOfBirth + ',' + '\n' +
+                "   email=" + email + ',' + '\n' +
+                "   phoneNumber=" + phoneNumber + ',' + '\n' +
+                '}';
     }
 }
