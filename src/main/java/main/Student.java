@@ -31,9 +31,9 @@ public class Student extends Person {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
 
         this.studentId = studentIdCounter++;
-        this.course = 1;
-        this.studyForm = studyForm;
-        this.studyStatus = studyStatus;
+        setCourse(1);
+        setStudyForm(studyForm);
+        setStudyStatus(studyStatus);
     }
 
     public Student(
@@ -51,9 +51,9 @@ public class Student extends Person {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
 
         this.studentId = studentIdCounter++;
-        this.course = course;
-        this.studyForm = studyForm;
-        this.studyStatus = studyStatus;
+        setCourse(course);
+        setStudyForm(studyForm);
+        setStudyStatus(studyStatus);
     }
 
     public int getStudentId() {

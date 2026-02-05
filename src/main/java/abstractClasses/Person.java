@@ -33,13 +33,13 @@ public abstract class Person {
             Date dateOfBirth
     ) {
         this.id = idCounter++;
-        this.name = name;
-        this.surname = surname;
-        this.fatherName = fatherName;
-        this.age = age;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.dateOfBirth = dateOfBirth;
+        setName(name);
+        setSurname(surname);
+        setFatherName(fatherName);
+        setAge(age);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+        setDateOfBirth(dateOfBirth);
     }
 
     public String getPhoneNumber() {
@@ -68,6 +68,10 @@ public abstract class Person {
 
     public String getName() {
         return name;
+    }
+
+    public String getFullName() {
+        return getName() + " " + getSurname() + " " + getFatherName();
     }
 
     public int getId() {

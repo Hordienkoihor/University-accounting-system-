@@ -20,7 +20,11 @@ public abstract class Staff extends Person {
         staffId = staffIdCounter++;
     }
 
-//    @Override
+    public int getStaffId() {
+        return staffId;
+    }
+
+    //    @Override
 //    public String toString() {
 //        return "{" + '\'' +
 //                "staffId=" + staffId + '\'' +

@@ -4,6 +4,9 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
+import main.Faculty;
+
+import java.util.Map;
 
 
 public abstract class Validator {
@@ -11,7 +14,7 @@ public abstract class Validator {
         try {
             InternetAddress emailAddr = new InternetAddress(email);
             emailAddr.validate();
-        } catch (AddressException ex) {
+        } catch (AddressException _) {
             return false;
         }
 
@@ -27,4 +30,22 @@ public abstract class Validator {
             return false;
         }
     }
+
+    public static boolean isValidString(String string) {
+        if (string == null || string.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isValidFaculty(String name, String code, Map<String, Faculty> facultyMap) {
+        if (facultyMap.containsKey(code) || facultyMap.containsValue(name)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

@@ -31,13 +31,13 @@ public class Teacher extends Staff {
             double hourlyRate
     ) {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
-        this.universityPosition = universityPosition;
-        this.scientificDegree = scientificDegree;
+        setUniversityPosition(universityPosition);
+        setScientificDegree(scientificDegree);
 
-        this.dateOfHiring = new Date();
+        setDateOfHiring(dateOfHiring);
 
-        this.weeklyHours = hours;
-        this.hourlyRate = hourlyRate;
+        setWeeklyHours(weeklyHours);
+        setHourlyRate(hourlyRate);
     }
 
     public UniversityPosition getUniversityPosition() {
