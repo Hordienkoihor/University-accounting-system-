@@ -1,4 +1,4 @@
-package main;
+package domain;
 
 import Utilitys.Validator;
 import exceptions.IllegalNameException;

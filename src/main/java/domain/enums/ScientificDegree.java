@@ -1,4 +1,4 @@
-package enums;
+package domain.enums;
 
 public enum ScientificDegree {
     ASSOCIATE("Associate of Science"),

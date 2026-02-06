@@ -1,8 +1,8 @@
-package main;
+package domain;
 
-import abstractClasses.Staff;
-import enums.ScientificDegree;
-import enums.UniversityPosition;
+import domain.abstractClasses.Staff;
+import domain.enums.ScientificDegree;
+import domain.enums.UniversityPosition;
 import exceptions.IllegalHourlyRateNumber;
 import exceptions.IllegalHoursNumber;
 

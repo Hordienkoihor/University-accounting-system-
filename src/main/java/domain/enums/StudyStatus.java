@@ -1,4 +1,4 @@
-package enums;
+package domain.enums;
 
 public enum StudyStatus {
     STUDYING("studying"),

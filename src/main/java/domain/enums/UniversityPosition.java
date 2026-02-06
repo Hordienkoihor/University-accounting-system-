@@ -1,4 +1,4 @@
-package enums;
+package domain.enums;
 
 public enum UniversityPosition {
     ASSISTANT_PROFESSOR("Assistant Professor"),

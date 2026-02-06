@@ -1,8 +1,8 @@
-package main;
+package domain;
 
-import abstractClasses.Person;
-import enums.StudyForm;
-import enums.StudyStatus;
+import domain.abstractClasses.Person;
+import domain.enums.StudyForm;
+import domain.enums.StudyStatus;
 import exceptions.IllegalCourseException;
 
 import java.util.Date;

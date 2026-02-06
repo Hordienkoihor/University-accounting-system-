@@ -4,7 +4,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
-import main.Faculty;
+import domain.Faculty;
 
 import java.util.Map;
 

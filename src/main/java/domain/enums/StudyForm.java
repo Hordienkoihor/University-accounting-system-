@@ -1,4 +1,4 @@
-package enums;
+package domain.enums;
 
 public enum StudyForm {
     TUITION_FREE("tuition free"),

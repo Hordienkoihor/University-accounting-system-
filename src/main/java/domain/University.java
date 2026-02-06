@@ -1,8 +1,7 @@
-package main;
+package domain;
 
 import Utilitys.Validator;
-import abstractClasses.Person;
-import abstractClasses.Staff;
+import domain.abstractClasses.Staff;
 import exceptions.*;
 
 import java.util.ArrayList;

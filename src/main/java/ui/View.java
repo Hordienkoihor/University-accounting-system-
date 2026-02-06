@@ -1,6 +1,9 @@
-package main;
+package ui;
 
 import Utilitys.Validator;
+import domain.Faculty;
+import domain.Specialty;
+import domain.University;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
 

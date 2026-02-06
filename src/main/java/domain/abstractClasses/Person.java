@@ -1,4 +1,4 @@
-package abstractClasses;
+package domain.abstractClasses;
 
 import Utilitys.Validator;
 import exceptions.IllegalAgeException;

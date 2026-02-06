@@ -1,7 +1,7 @@
-package main;
+package domain;
 
 import Utilitys.Validator;
-import abstractClasses.Staff;
+import domain.abstractClasses.Staff;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
 
@@ -17,7 +17,7 @@ public class Faculty {
 
     Map<String, Specialty> specialtyList = new HashMap<>();
 
-    Faculty(String name, String code) {
+    public Faculty(String name, String code) {
         setName(name);
         setCode(code);
     }
