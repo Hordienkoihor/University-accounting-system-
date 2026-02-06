@@ -154,7 +154,7 @@ public class View {
             System.out.println("2. Manage Faculties");
             System.out.println("3. Manage Students");
             System.out.println("4. Manage Staff");
-            System.out.println("3. Exit");
+            System.out.println("5. Exit");
 
             String choice = scanner.nextLine();
 
