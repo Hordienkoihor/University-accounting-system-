@@ -13,7 +13,7 @@ public class Faculty {
 
     ArrayList<Staff> staffList = new ArrayList<>();
 
-
+    ArrayList<Specialty> specialtyList = new ArrayList<>();
 
     Faculty(String name, String code) {
         setName(name);
@@ -42,5 +42,17 @@ public class Faculty {
         }
 
         this.code = code;
+    }
+
+    public ArrayList<Specialty> getSpecialtyList() {
+        return specialtyList;
+    }
+
+    @Override
+    public String toString() {
+        return "Faculty {" + '\n' +
+                "   name='" + name + ',' + '\n' +
+                "   code='" + code + ',' + '\n' +
+                '}';
     }
 }

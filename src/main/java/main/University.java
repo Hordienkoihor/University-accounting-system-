@@ -173,4 +173,37 @@ public class University {
         this.studentMap.remove(student.getStudentId());
     }
 
+    public List<Faculty> getFacultyList() {
+        return new ArrayList<>(facultyMap.values());
+    }
+
+    public List<Student> getGroup(String groupName) {
+        return getFacultyList().stream()
+                .flatMap(faculty -> faculty.getSpecialtyList().stream())
+                .flatMap(specialty -> specialty.getGroups().stream())
+                .filter(group -> group.getName().equals(groupName))
+                .findFirst()
+                .map(group -> group.getStudents().stream()
+                        .map(this::findStudentById)
+                        .toList())
+                .orElse(null);
+    }
+
+    public List<Student> getStudentsAsList() {
+        return new ArrayList<>(studentMap.values());
+    }
+
+    public List<Staff> getStaffAsList() {
+        return new ArrayList<>(staffMap.values());
+    }
+
+    @Override
+    public String toString() {
+        return "University {"+ '\n' +
+                "   address='" + address + ',' + '\n' +
+                "   city='" + city + ',' + '\n' +
+                "   shortName='" + shortName + ',' + '\n' +
+                "   fullName='" + fullName + ',' + '\n' +
+                '}';
+    }
 }
