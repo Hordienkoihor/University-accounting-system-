@@ -104,6 +104,7 @@ public class View {
                 manageUniMenu();
                 break;
             case "3":
+                System.exit(0);
                 return;
             default:
                 break;
@@ -264,7 +265,7 @@ public class View {
 
                     break;
                 case "3":
-                    System.out.println("wip: ");
+                    System.out.println("wip: "); //todo
 
                     break;
                 default:
@@ -317,11 +318,28 @@ public class View {
 
     }
 
-    // todo
     private static void manageFacultyPropertiesMenu(Faculty faculty) {
-        System.out.println();
-        System.out.println("    -- Manage Faculty Properties");
-        System.out.println("1.");
+        boolean running = true;
+        while (running) {
+            System.out.println("\n    -- Manage Faculty: " + faculty.getName() + " --");
+            System.out.println("1. Change Name");
+            System.out.println("2. Change Code");
+            System.out.println("3. Back");
+
+            switch (scanner.nextLine()) {
+                case "1":
+                    System.out.print("Enter new name: ");
+                    faculty.setName(scanner.nextLine());
+                    break;
+                case "2":
+                    System.out.print("Enter new code: ");
+                    faculty.setCode(scanner.nextLine());
+                    break;
+                default:
+                    running = false;
+                    break;
+            }
+        }
     }
 
     // todo test
