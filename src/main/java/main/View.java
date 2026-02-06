@@ -152,6 +152,8 @@ public class View {
             System.out.println("    -- Manage UniMenu --");
             System.out.println("1. Manage University Properties");
             System.out.println("2. Manage Faculties");
+            System.out.println("3. Manage Students");
+            System.out.println("4. Manage Staff");
             System.out.println("3. Exit");
 
             String choice = scanner.nextLine();
@@ -163,12 +165,28 @@ public class View {
                 case "2":
                     manageFacultiesMenu();
                     break;
+                case "3":
+                    manageStudentsMenu();
+                    break;
+                case "4":
+                    manageStaffMenu();
+                    break;
                 default:
                     running = false;
                     break;
             }
         }
 
+    }
+
+    // todo
+    private static void manageStudentsMenu() {
+        System.out.println("wip");
+    }
+
+    // todo
+    private static void manageStaffMenu() {
+        System.out.println("wip");
     }
 
     private static void manageUniPropertiesMenu() {
