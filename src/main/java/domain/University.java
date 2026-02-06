@@ -102,6 +102,11 @@ public class University {
         return this.facultyMap.containsKey(code);
     }
 
+    public boolean doesFacultyExistByName(String name) {
+        return this.facultyMap.values().stream()
+                .anyMatch(faculty -> faculty.getName().equalsIgnoreCase(name));
+    }
+
     public void removeFaculty(Faculty faculty) {
         if (!doesFacultyExist(faculty.getCode())) {
             throw new FacultyDoesNotExistException(faculty.getCode());
