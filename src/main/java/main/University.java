@@ -177,6 +177,7 @@ public class University {
         return new ArrayList<>(facultyMap.values());
     }
 
+
     public List<Student> getGroup(String groupName) {
         return getFacultyList().stream()
                 .flatMap(faculty -> faculty.getSpecialtyList().stream())

@@ -1,5 +1,9 @@
 package main;
 
+import Utilitys.Validator;
+import exceptions.IllegalCodeException;
+import exceptions.IllegalNameException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,13 +21,15 @@ public class View {
     }
 
     private static void boot() {
-        System.out.println("-- Welcome to the University Management System --");
+        System.out.println();
+        System.out.println("    -- Welcome to the University Management System --");
         System.out.println("1. Create University");
         System.out.println("2. Load University\n");
         System.out.println("3. Exit ");
         System.out.println("Input: ");
 
         String choice = scanner.nextLine();
+        System.out.println();
 
         if (choice.equals("3")) {
             System.exit(0);
@@ -56,6 +62,7 @@ public class View {
 
         university = new University(full, shortName, city, address);
         System.out.println("Університет створено!");
+        System.out.println();
     }
 
     private static University loadUniversity(String name) {
@@ -82,7 +89,8 @@ public class View {
     }
 
     private static void mainMenu() {
-        System.out.println("-- Managing " + university.getFullName() + " --");
+        System.out.println();
+        System.out.println("    -- Managing " + university.getFullName() + " --");
         System.out.println("1. display");
         System.out.println("2. manage");
         System.out.println("3. exit");
@@ -103,9 +111,10 @@ public class View {
     }
 
     private static void displayUniMenu() {
+        System.out.println();
         boolean running = true;
         while (running) {
-            System.out.println("-- Display UniMenu --");
+            System.out.println("    -- Display UniMenu --");
             System.out.println("1. Display University");
             System.out.println("2. Display Faculties");
             System.out.println("3. Display Students");
@@ -136,10 +145,11 @@ public class View {
     }
 
     private static void manageUniMenu() {
+        System.out.println();
         boolean running = true;
 
         while (running) {
-            System.out.println("-- Manage UniMenu --");
+            System.out.println("    -- Manage UniMenu --");
             System.out.println("1. Manage University Properties");
             System.out.println("2. Manage Faculties");
             System.out.println("3. Exit");
@@ -151,7 +161,7 @@ public class View {
                     manageUniPropertiesMenu();
                     break;
                 case "2":
-                    university.getFacultyList().forEach(System.out::println);
+                    manageFacultiesMenu();
                     break;
                 default:
                     running = false;
@@ -162,10 +172,11 @@ public class View {
     }
 
     private static void manageUniPropertiesMenu() {
+        System.out.println();
         boolean running = true;
 
         while (running) {
-            System.out.println("-- Manage UniProperties Menu --");
+            System.out.println("    -- Manage UniProperties Menu --");
             System.out.println("1. Manage University Full Name");
             System.out.println("2. Manage University ShortName");
             System.out.println("3. Manage University City");
@@ -196,6 +207,146 @@ public class View {
                     break;
             }
         }
+
+
     }
+
+    private static void manageFacultiesMenu() {
+        System.out.println();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("    -- Manage Faculties Menu --");
+            System.out.println("1. Add Faculty");
+            System.out.println("2. Edit Faculty");
+            System.out.println("3. Find Faculty");
+            System.out.println("4. exit");
+
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    System.out.println();
+                    university.addFaculty(createFaculty());
+                    break;
+                case "2":
+                    System.out.println();
+                    university.getFacultyList().forEach(System.out::println);
+                    System.out.println();
+
+                    System.out.println("Please enter chosen faculty code");
+                    System.out.println();
+
+                    try {
+                        manageFacultyMenu(university.findFacultyByCode(scanner.nextLine()));
+                    } catch (Exception e) {
+                        System.out.println("please enter a valid tag");
+                    }
+
+
+                    break;
+                case "3":
+                    System.out.println("wip: ");
+
+                    break;
+                default:
+                    running = false;
+                    break;
+            }
+        }
+
+
+    }
+
+    private static void manageFacultyMenu(Faculty faculty) {
+        System.out.println();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("    -- Manage Faculty --");
+            System.out.println("1.Manage Faculty properties");
+            System.out.println("2. Add Speciality");
+            System.out.println("3. Edit Speciality");
+            System.out.println("4. Exit");
+
+            switch (scanner.nextLine()) {
+                case "1":
+                    manageFacultyPropertiesMenu(faculty);
+                    break;
+                case "2":
+                    faculty.addSpecialty(createSpecialty(faculty));
+                    break;
+                case "3":
+                    System.out.println();
+                    faculty.getSpecialtyList().forEach(System.out::println);
+                    System.out.println();
+
+                    System.out.println("Please enter chosen speciality tag");
+                    System.out.println();
+
+                    try {
+                        manageSpecialtyMenu(faculty.getSpecialty(scanner.nextLine()));
+                    } catch (Exception e) {
+                        System.out.println("please enter a valid tag");
+                    }
+                    break;
+                default:
+                    running = false;
+                    break;
+            }
+        }
+
+
+    }
+
+    // todo
+    private static void manageFacultyPropertiesMenu(Faculty faculty) {
+        System.out.println();
+        System.out.println("    -- Manage Faculty Properties");
+        System.out.println("1.");
+    }
+
+    // todo test
+    private static Specialty createSpecialty(Faculty faculty) {
+        try {
+            Specialty res = new Specialty(getValidString("Speciality Name"), getValidString("Speciality Tag"), faculty);
+            return res;
+        } catch (IllegalNameException | IllegalCodeException e) {
+            System.out.println("Please provide valid information.");
+            return createSpecialty(faculty);
+        }
+    }
+
+    // todo
+    private static void manageSpecialtyMenu(Specialty specialty) {
+
+    }
+
+    private static Faculty createFaculty() {
+        try {
+            Faculty res = new Faculty(getValidString("Faculty Name"), getValidString("Faculty Code"));
+            return res;
+        } catch (IllegalNameException | IllegalCodeException e) {
+            System.out.println("Please provide valid information.");
+            return createFaculty();
+        }
+
+    }
+
+    private static String getValidString(String input) {
+        System.out.println("Please enter " + input + ": ");
+        String res = scanner.nextLine();
+        while (true) {
+
+            if (Validator.isValidString(res)) {
+                return res;
+            } else {
+                System.out.println("Please enter valid " + input + ": ");
+                res = scanner.nextLine();
+            }
+        }
+
+    }
+
 
 }

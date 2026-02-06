@@ -6,6 +6,8 @@ import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Faculty {
     private String name;
@@ -13,7 +15,7 @@ public class Faculty {
 
     ArrayList<Staff> staffList = new ArrayList<>();
 
-    ArrayList<Specialty> specialtyList = new ArrayList<>();
+    Map<String, Specialty> specialtyList = new HashMap<>();
 
     Faculty(String name, String code) {
         setName(name);
@@ -45,7 +47,19 @@ public class Faculty {
     }
 
     public ArrayList<Specialty> getSpecialtyList() {
-        return specialtyList;
+        return new ArrayList<>(specialtyList.values());
+    }
+
+    public void addSpecialty(Specialty specialty) {
+        if (specialty == null) {
+            throw new IllegalNameException("Specialty cannot be null");
+        }
+
+        specialtyList.put(specialty.getTag(), specialty);
+    }
+
+    public Specialty getSpecialty(String tag) {
+        return specialtyList.get(tag);
     }
 
     @Override
