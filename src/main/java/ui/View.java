@@ -6,6 +6,10 @@ import domain.Specialty;
 import domain.University;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
+import repository.UniversityRepository;
+import repository.interfaces.UniversityRepositoryInt;
+import service.UniversityService;
+import service.interfaces.UniversityServiceInt;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,13 +18,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class View {
-    private static University university;
+    private static UniversityServiceInt universityService;
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        UniversityRepositoryInt universityRepository = new UniversityRepository();
+        universityService = new UniversityService(universityRepository);
         boot();
-
-
     }
 
     private static void boot() {
@@ -40,7 +44,14 @@ public class View {
             System.out.print("Please enter path to the config: ");
             String path = scanner.nextLine();
 
-            university = loadUniversity(path);
+            universityService.loadUniversity(path);
+
+            if (!universityService.isUniversityLoaded()) {
+                System.out.println("Помилка: Університет не завантажено. Повернення до стартового меню...");
+                boot();
+                return;
+            }
+
         } else {
             createUniversity();
         }
@@ -63,37 +74,16 @@ public class View {
         System.out.println("Enter Address: ");
         String address = scanner.nextLine();
 
-        university = new University(full, shortName, city, address);
+        universityService.createUniversity(full, shortName, city, address);
         System.out.println("Університет створено!");
         System.out.println();
     }
 
-    private static University loadUniversity(String name) {
-        University university = null;
 
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(name));
-            for (String line : lines) {
-                String[] parts = line.split(",");
-
-                switch (parts[0]) {
-                    case "UNIVERSITY":
-                        university = new University(parts[1], parts[2], parts[3], parts[4]);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return university;
-    }
 
     private static void mainMenu() {
         System.out.println();
-        System.out.println("    -- Managing " + university.getFullName() + " --");
+        System.out.println("    -- Managing " + universityService.getUniversity().getFullName() + " --");
         System.out.println("1. display");
         System.out.println("2. manage");
         System.out.println("3. exit");
@@ -129,16 +119,16 @@ public class View {
 
             switch (choice) {
                 case "1":
-                    System.out.println(university);
+                    System.out.println(universityService.getUniversity());
                     break;
                 case "2":
-                    university.getFacultyList().forEach(System.out::println);
+                    universityService.getUniversity().getFacultyList().forEach(System.out::println);
                     break;
                 case "3":
-                    university.getStudentsAsList().forEach(System.out::println);
+                    universityService.getUniversity().getStudentsAsList().forEach(System.out::println);
                     break;
                 case "4":
-                    university.getStaffAsList().forEach(System.out::println);
+                    universityService.getUniversity().getStaffAsList().forEach(System.out::println);
                     break;
                 default:
                     running = false;
@@ -210,19 +200,19 @@ public class View {
             switch (choice) {
                 case "1":
                     System.out.println("Please enter new University full name: ");
-                    university.setFullName(scanner.nextLine());
+                    universityService.getUniversity().setFullName(scanner.nextLine());
                     break;
                 case "2":
                     System.out.println("Please enter new University short name: ");
-                    university.setShortName(scanner.nextLine());
+                    universityService.getUniversity().setShortName(scanner.nextLine());
                     break;
                 case "3":
                     System.out.println("Please enter new University city: ");
-                    university.setCity(scanner.nextLine());
+                    universityService.getUniversity().setCity(scanner.nextLine());
                     break;
                 case "4":
                     System.out.println("Please enter new University address: ");
-                    university.setAddress(scanner.nextLine());
+                    universityService.getUniversity().setAddress(scanner.nextLine());
                     break;
                 default:
                     running = false;
@@ -249,18 +239,18 @@ public class View {
             switch (choice) {
                 case "1":
                     System.out.println();
-                    university.addFaculty(createFaculty());
+                    universityService.getUniversity().addFaculty(createFaculty());
                     break;
                 case "2":
                     System.out.println();
-                    university.getFacultyList().forEach(System.out::println);
+                    universityService.getUniversity().getFacultyList().forEach(System.out::println);
                     System.out.println();
 
                     System.out.println("Please enter chosen faculty code");
                     System.out.println();
 
                     try {
-                        manageFacultyMenu(university.findFacultyByCode(scanner.nextLine()));
+                        manageFacultyMenu(universityService.getUniversity().findFacultyByCode(scanner.nextLine()));
                     } catch (Exception e) {
                         System.out.println("please enter a valid tag");
                     }

@@ -4,7 +4,7 @@ import domain.Faculty;
 
 import java.util.List;
 
-public interface FacultyRepository {
+public interface FacultyRepositoryInt {
     void save(Faculty faculty);
 
     boolean existsByCode(String code);
