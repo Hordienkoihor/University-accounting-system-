@@ -4,25 +4,17 @@ import Utilitys.Validator;
 import domain.Faculty;
 import domain.Group;
 import domain.Specialty;
+import domain.Student;
+import domain.enums.StudyForm;
+import domain.enums.StudyStatus;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
-import repository.FacultyRepository;
-import repository.GroupRepository;
-import repository.SpecialityRepository;
-import repository.UniversityRepository;
-import repository.interfaces.FacultyRepositoryInt;
-import repository.interfaces.GroupRepositoryInt;
-import repository.interfaces.SpecialityRepositoryInt;
-import repository.interfaces.UniversityRepositoryInt;
-import service.FacultyService;
-import service.GroupService;
-import service.SpecialityService;
-import service.UniversityService;
-import service.interfaces.FacultyServiceInt;
-import service.interfaces.GroupServiceInt;
-import service.interfaces.SpecialityServiceInt;
-import service.interfaces.UniversityServiceInt;
+import repository.*;
+import repository.interfaces.*;
+import service.*;
+import service.interfaces.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,6 +23,7 @@ public class View {
     private static FacultyServiceInt facultyService;
     private static SpecialityServiceInt specialityService;
     private static GroupServiceInt groupService;
+    private static StudentServiceInt studentService;
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -46,6 +39,9 @@ public class View {
 
         GroupRepositoryInt groupRepository = new GroupRepository(specialityService);
         groupService = new GroupService(groupRepository, specialityRepository);
+
+        StudentRepositoryInt studentRepository = new StudentRepository(universityService);
+        studentService = new StudentService(studentRepository, groupService);
 
         boot();
     }
@@ -209,9 +205,203 @@ public class View {
 
     }
 
-    // todo
     private static void manageStudentsMenu() {
-        System.out.println("wip");
+        System.out.println();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("    -- Manage Students Menu --");
+            System.out.println("1. Add students");
+            System.out.println("2. Edit student");
+            System.out.println("3. Link student to the group");
+            System.out.println("4. Unlink student from the group");
+            System.out.println("5. Transfer student to another group");
+            System.out.println("6. exit");
+
+
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1": {
+                    Student student = createStudentObject();
+                    studentService.save(student);
+                    break;
+                }
+                case "2": {
+                    System.out.print("Enter student ID to edit: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+
+                    Student student = studentService.findById(id);
+                    if (student != null) {
+                        manageStudentProperties(student);
+                    } else {
+                        System.out.println("Student not found.");
+                    }
+                    break;
+                }
+                case "3": {
+                    System.out.print("Enter student ID: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+
+                    System.out.print("Enter group name: ");
+                    String groupName = scanner.nextLine();
+
+                    try {
+                        studentService.registerToGroup(studentService.findById(id), groupName);
+                        System.out.println("linked to group: " + groupName);
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+                }
+                case "4": {
+                    System.out.print("Enter student ID: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+
+                    System.out.print("Enter group name: ");
+                    String groupName = scanner.nextLine();
+
+                    try {
+                        studentService.unregisterFromGroup(studentService.findById(id), groupName);
+                        System.out.println("unlinked from group: " + groupName);
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+                }
+                case "5": {
+                    System.out.print("Enter student ID: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+
+                    System.out.print("Enter old group name: ");
+                    String oldGroupName = scanner.nextLine();
+
+                    System.out.print("Enter new group name: ");
+                    String newGroupName = scanner.nextLine();
+
+                    try {
+                        studentService.transfer(studentService.findById(id), oldGroupName, newGroupName);
+                        System.out.println("transfered from " + oldGroupName + " to group: " + newGroupName);
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+                }
+                case "6": {
+                    running = false;
+                    break;
+                }
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }
+    }
+
+    private static Student createStudentObject() {
+        System.out.println("\n    -- Creating New Student --");
+
+        String name = getValidString("First Name");
+        String surname = getValidString("Surname");
+        String fatherName = getValidString("Father Name");
+
+        System.out.print("Enter age: ");
+        int age = Integer.parseInt(scanner.nextLine());
+
+        String email = getValidString("Email");
+        String phone = getValidString("Phone Number");
+
+        Date dob = new Date();
+
+        System.out.println("Select Study Form: 1. TUITION_FREE, 2. TUITION");
+        StudyForm form = scanner.nextLine().equals("1") ? StudyForm.TUITION_FREE : StudyForm.TUITION;
+
+        System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
+        String statusChoice = scanner.nextLine();
+        StudyStatus status = null;
+
+        switch (statusChoice) {
+            case "1": {
+                status = StudyStatus.STUDYING;
+                break;
+            }
+            case "2": {
+                status = StudyStatus.EXPELLED;
+                break;
+            }
+            case "3": {
+                status = StudyStatus.ACADEMIC_LEAVE;
+                break;
+            }
+            case "4": {
+                status = StudyStatus.PENDING;
+                break;
+            }
+            default: {
+                System.out.println("Invalid option");
+                status = StudyStatus.PENDING;
+                break;
+            }
+        }
+
+        System.out.print("Enter course (1-5): ");
+        int course = Integer.parseInt(scanner.nextLine());
+
+        return new Student(name, surname, fatherName, age, email, phone, dob, course, form, status);
+    }
+
+    private static void manageStudentProperties(Student student) {
+        boolean running = true;
+        while (running) {
+            System.out.println("\n    -- Editing Student: " + student.getFullName() + " --");
+            System.out.println("1. Change Course");
+            System.out.println("2. Change Status");
+            System.out.println("3. Back");
+
+            switch (scanner.nextLine()) {
+                case "1":
+                    System.out.print("Enter new course (1-5): ");
+                    student.setCourse(Integer.parseInt(scanner.nextLine()));
+                    break;
+                case "2":
+                    System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
+                    String statusChoice = scanner.nextLine();
+                    StudyStatus status = null;
+
+                    switch (statusChoice) {
+                        case "1": {
+                            status = StudyStatus.STUDYING;
+                            break;
+                        }
+                        case "2": {
+                            status = StudyStatus.EXPELLED;
+                            break;
+                        }
+                        case "3": {
+                            status = StudyStatus.ACADEMIC_LEAVE;
+                            break;
+                        }
+                        case "4": {
+                            status = StudyStatus.PENDING;
+                            break;
+                        }
+                        default: {
+                            System.out.println("Invalid option");
+                            status = StudyStatus.PENDING;
+                            break;
+                        }
+                    }
+                    student.setStudyStatus(status);
+                    break;
+                case "3": {
+                    running = false;
+                    break;
+                }
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }
     }
 
     // todo
@@ -455,7 +645,7 @@ public class View {
                     }
                 }
 
-                    break;
+                break;
                 default:
                     running = false;
                     break;
