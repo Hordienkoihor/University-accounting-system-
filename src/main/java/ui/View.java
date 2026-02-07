@@ -3,27 +3,28 @@ package ui;
 import Utilitys.Validator;
 import domain.Faculty;
 import domain.Specialty;
-import domain.University;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
 import repository.FacultyRepository;
+import repository.SpecialityRepository;
 import repository.UniversityRepository;
 import repository.interfaces.FacultyRepositoryInt;
+import repository.interfaces.SpecialityRepositoryInt;
 import repository.interfaces.UniversityRepositoryInt;
 import service.FacultyService;
+import service.SpecialityService;
 import service.UniversityService;
 import service.interfaces.FacultyServiceInt;
+import service.interfaces.SpecialityServiceInt;
 import service.interfaces.UniversityServiceInt;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.Scanner;
 
 public class View {
     private static UniversityServiceInt universityService;
     private static FacultyServiceInt facultyService;
+    private static SpecialityServiceInt specialityService;
+
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -32,6 +33,9 @@ public class View {
 
         FacultyRepositoryInt facultyRepository = new FacultyRepository(universityService);
         facultyService = new FacultyService(facultyRepository);
+
+        SpecialityRepositoryInt specialityRepository = new SpecialityRepository(facultyService);
+        specialityService = new SpecialityService(specialityRepository);
 
         boot();
     }
@@ -89,7 +93,6 @@ public class View {
     }
 
 
-
     private static void mainMenu() {
         System.out.println();
         System.out.println("    -- Managing " + universityService.getUniversity().getFullName() + " --");
@@ -120,27 +123,41 @@ public class View {
             System.out.println("    -- Display UniMenu --");
             System.out.println("1. Display University");
             System.out.println("2. Display Faculties");
-            System.out.println("3. Display Students");
-            System.out.println("4. Display Staff");
-            System.out.println("5. Exit");
+            System.out.println("3. Display specialities");
+            System.out.println("4. Display Students");
+            System.out.println("5. Display Staff");
+            System.out.println("6. Exit");
 
             String choice = scanner.nextLine();
 
             switch (choice) {
-                case "1":
+                case "1": {
                     System.out.println(universityService.getUniversity());
                     break;
-                case "2":
-                    universityService.getUniversity().getFacultyList().forEach(System.out::println);
+                }
+                case "2": {
+                    facultyService.getAllAsList().forEach(System.out::println);
                     break;
-                case "3":
+                }
+                case "3": {
+                    facultyService.getAllAsList().
+                            forEach(f -> specialityService.findAllOnFaculty(f.getCode())
+                                    .forEach(System.out::println));
+                }
+                case "4": {
                     universityService.getUniversity().getStudentsAsList().forEach(System.out::println);
                     break;
-                case "4":
+                }
+                case "5": {
                     universityService.getUniversity().getStaffAsList().forEach(System.out::println);
                     break;
-                default:
+                }
+                case "6": {
                     running = false;
+                    break;
+                }
+                default:
+                    System.out.println("Invalid option");
                     break;
             }
         }
@@ -240,8 +257,7 @@ public class View {
             System.out.println("    -- Manage Faculties Menu --");
             System.out.println("1. Add Faculty");
             System.out.println("2. Edit Faculty");
-            System.out.println("3. Find Faculty");
-            System.out.println("4. exit");
+            System.out.println("3. exit");
 
             String choice = scanner.nextLine();
 
@@ -267,11 +283,10 @@ public class View {
 
                     break;
                 case "3":
-                    System.out.println("wip: "); //todo
-
+                    running = false;
                     break;
                 default:
-                    running = false;
+                    System.out.println("Invalid option");
                     break;
             }
         }
@@ -295,7 +310,7 @@ public class View {
                     manageFacultyPropertiesMenu(faculty);
                     break;
                 case "2":
-//                    faculty.addSpecialty(createSpecialty(faculty)); todo speciality serv
+                    specialityService.register(faculty.getCode(), createSpecialty(faculty));
                     break;
                 case "3":
                     System.out.println();
@@ -306,7 +321,7 @@ public class View {
                     System.out.println();
 
                     try {
-//                        manageSpecialtyMenu(faculty.getSpecialty(scanner.nextLine())); todo speciality serv
+                        manageSpecialtyMenu(specialityService.findByTag(getValidString("SpecialityTag")));
                     } catch (Exception e) {
                         System.out.println("please enter a valid tag");
                     }
@@ -325,7 +340,7 @@ public class View {
         while (running) {
             System.out.println("\n    -- Manage Faculty: " + faculty.getName() + " --");
             System.out.println("1. Change Name");
-            System.out.println("3. Back");
+            System.out.println("2. Back");
 
             switch (scanner.nextLine()) {
                 case "1":
@@ -334,14 +349,16 @@ public class View {
 
                     facultyService.update(faculty.getCode(), newName);
                     break;
-                default:
+                case "2":
                     running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option");
                     break;
             }
         }
     }
 
-    // todo test
     private static Specialty createSpecialty(Faculty faculty) {
         try {
             Specialty res = new Specialty(getValidString("Speciality Name"), getValidString("Speciality Tag"), faculty);
@@ -352,9 +369,43 @@ public class View {
         }
     }
 
-    // todo
-    private static void manageSpecialtyMenu(Specialty specialty) {
 
+    private static void manageSpecialtyMenu(Specialty specialty) {
+        if (specialty == null) {
+            System.out.println("Error: Specialty not found.");
+            return;
+        }
+
+        boolean running = true;
+        while (running) {
+            System.out.println("\n    -- Managing Specialty: [" + specialty.getTag() + "] " + specialty.getName() + " --");
+            System.out.println("1. Change Name");
+            System.out.println("2. Remove Specialty");
+            System.out.println("3. Back");
+            System.out.print("Input: ");
+
+            switch (scanner.nextLine()) {
+                case "1":
+                    System.out.print("Enter new name for specialty: ");
+                    String newName = scanner.nextLine();
+                    specialityService.update(newName, specialty.getTag());
+                    break;
+                case "2":
+                    System.out.print("Are you sure you want to delete this specialty? (y/n): ");
+
+                    if (scanner.nextLine().equalsIgnoreCase("y")) {
+                        specialityService.removeByTag(specialty.getTag());
+                        running = false;
+                    }
+                    break;
+                case "3":
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }
     }
 
     private static Faculty createFaculty() {

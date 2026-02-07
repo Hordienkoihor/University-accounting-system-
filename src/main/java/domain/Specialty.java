@@ -4,6 +4,7 @@ import Utilitys.Validator;
 import exceptions.IllegalNameException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Specialty {
     private String name;
@@ -11,7 +12,7 @@ public class Specialty {
 
     private final Faculty faculty;
 
-    private ArrayList<Group> groups = new ArrayList<>();
+    private List<Group> groups = new ArrayList<>();
 
     public Specialty(String name, String tag, Faculty faculty) {
         setName(name);
@@ -47,7 +48,16 @@ public class Specialty {
         this.tag = tag;
     }
 
-    public ArrayList<Group> getGroups() {
+    public List<Group> getGroups() {
         return groups;
+    }
+
+    @Override
+    public String toString() {
+        return "Specialty {" + '\n' +
+                "   name='" + name + ',' + '\n' +
+                "   tag='" + tag + ',' + '\n' +
+                "   faculty=" + faculty.getName() + ',' + '\n' +
+                '}';
     }
 }

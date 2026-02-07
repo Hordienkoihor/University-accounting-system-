@@ -7,6 +7,7 @@ import exceptions.IllegalNameException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Faculty {
@@ -38,7 +39,7 @@ public class Faculty {
         this.name = name;
     }
 
-    public ArrayList<Specialty> getSpecialtyList() {
+    public List<Specialty> getSpecialtyList() {
         return new ArrayList<>(specialtyList.values());
     }
 
@@ -47,7 +48,19 @@ public class Faculty {
             throw new IllegalNameException("Specialty cannot be null");
         }
 
+        if (specialty.getTag() == null || specialty.getTag().isBlank()) {
+            throw new IllegalCodeException("Specialty tag cannot be empty");
+        }
+
+        if (specialtyList.containsKey(specialty.getTag())) {
+            throw new IllegalCodeException("Specialty with tag " + specialty.getTag() + " already exists in this faculty");
+        }
+
         specialtyList.put(specialty.getTag(), specialty);
+    }
+
+    public boolean removeSpecialty(String tag) {
+        return specialtyList.remove(tag) != null;
     }
 
     public Specialty getSpecialty(String tag) {
