@@ -68,4 +68,13 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 
         return List.of();
     }
+
+    @Override
+    public List<Specialty> findAll() {
+        return facultyService.getAllAsList().stream()
+                .flatMap(f -> f.getSpecialtyList().stream())
+                .toList();
+    }
+
+
 }

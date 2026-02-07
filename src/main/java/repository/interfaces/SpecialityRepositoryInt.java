@@ -18,4 +18,6 @@ public interface SpecialityRepositoryInt {
 
     List<Specialty> findAllOnFaculty(String code);
 
+    List<Specialty> findAll();
+
 }

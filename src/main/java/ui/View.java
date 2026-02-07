@@ -2,28 +2,35 @@ package ui;
 
 import Utilitys.Validator;
 import domain.Faculty;
+import domain.Group;
 import domain.Specialty;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
 import repository.FacultyRepository;
+import repository.GroupRepository;
 import repository.SpecialityRepository;
 import repository.UniversityRepository;
 import repository.interfaces.FacultyRepositoryInt;
+import repository.interfaces.GroupRepositoryInt;
 import repository.interfaces.SpecialityRepositoryInt;
 import repository.interfaces.UniversityRepositoryInt;
 import service.FacultyService;
+import service.GroupService;
 import service.SpecialityService;
 import service.UniversityService;
 import service.interfaces.FacultyServiceInt;
+import service.interfaces.GroupServiceInt;
 import service.interfaces.SpecialityServiceInt;
 import service.interfaces.UniversityServiceInt;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class View {
     private static UniversityServiceInt universityService;
     private static FacultyServiceInt facultyService;
     private static SpecialityServiceInt specialityService;
+    private static GroupServiceInt groupService;
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -36,6 +43,9 @@ public class View {
 
         SpecialityRepositoryInt specialityRepository = new SpecialityRepository(facultyService);
         specialityService = new SpecialityService(specialityRepository);
+
+        GroupRepositoryInt groupRepository = new GroupRepository(specialityService);
+        groupService = new GroupService(groupRepository, specialityRepository);
 
         boot();
     }
@@ -280,7 +290,6 @@ public class View {
                         System.out.println("please enter a valid tag");
                     }
 
-
                     break;
                 case "3":
                     running = false;
@@ -303,16 +312,19 @@ public class View {
             System.out.println("1.Manage Faculty properties");
             System.out.println("2. Add Speciality");
             System.out.println("3. Edit Speciality");
-            System.out.println("4. Exit");
+            System.out.println("4. Manage Groups");
+            System.out.println("5. Exit");
 
             switch (scanner.nextLine()) {
-                case "1":
+                case "1": {
                     manageFacultyPropertiesMenu(faculty);
                     break;
-                case "2":
+                }
+                case "2": {
                     specialityService.register(faculty.getCode(), createSpecialty(faculty));
                     break;
-                case "3":
+                }
+                case "3": {
                     System.out.println();
                     faculty.getSpecialtyList().forEach(System.out::println);
                     System.out.println();
@@ -326,13 +338,129 @@ public class View {
                         System.out.println("please enter a valid tag");
                     }
                     break;
-                default:
+                }
+                case "4": {
+                    manageGroupsMenu(faculty);
+                    break;
+                }
+                case "5": {
                     running = false;
+                    break;
+                }
+                default:
+                    System.out.println("Invalid option");
                     break;
             }
         }
 
 
+    }
+
+    private static void manageGroupsMenu(Faculty faculty) {
+        System.out.println();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("    -- Manage Groups in " + faculty.getName() + " --");
+            System.out.println("1. Add Group to Specialty");
+            System.out.println("2. Edit/Remove Group");
+            System.out.println("3. Display all groups in Faculty");
+            System.out.println("4. Exit");
+
+            switch (scanner.nextLine()) {
+                case "1": {
+                    addGroupToSpecialty(faculty);
+                    break;
+                }
+                case "2": {
+                    System.out.print("Enter Group Name to manage: ");
+
+                    String name = scanner.nextLine();
+                    manageGroupPropertiesMenu(groupService.findByName(name));
+
+                    break;
+                }
+                case "3": {
+                    specialityService.findAllOnFaculty(faculty.getCode()).forEach(s -> {
+                        System.out.println("Specialty: " + s.getName());
+                        groupService.findAllBySpecialty(s.getTag()).forEach(System.out::println);
+                    });
+
+                    break;
+                }
+                default:
+                    running = false;
+                    break;
+            }
+        }
+    }
+
+    private static void addGroupToSpecialty(Faculty faculty) {
+        System.out.println("Available specialties:");
+
+        List<Specialty> s = specialityService.findAllOnFaculty(faculty.getCode());
+
+        if (s.isEmpty()) {
+            System.out.println("no specialities found");
+            return;
+        }
+
+        s.forEach(System.out::println);
+
+        String specTag = getValidString("Specialty Tag");
+        String groupName = getValidString("Group Name");
+
+        try {
+            groupService.registerGroup(specTag, groupName);
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+
+    private static void manageGroupPropertiesMenu(Group group) {
+        if (group == null) {
+            System.out.println("Group not found");
+            return;
+        }
+
+        boolean running = true;
+        while (running) {
+            System.out.println("\n    -- Managing Group: " + group.getName() + " --");
+            System.out.println("1. Change Name");
+            System.out.println("2. Remove Group");
+            System.out.println("3. Back");
+
+            switch (scanner.nextLine()) {
+                case "1": {
+                    System.out.print("Enter new name: ");
+                    String newName = scanner.nextLine();
+
+                    try {
+                        groupService.updateName(group.getName(), newName);
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+
+                    break;
+                }
+                case "2": {
+                    System.out.print("Are you sure? (y/n): ");
+
+                    if (scanner.nextLine().equalsIgnoreCase("y")) {
+                        groupService.deleteByName(group.getName());
+                        System.out.println("Group deleted");
+                        running = false;
+                    }
+                }
+
+                    break;
+                default:
+                    running = false;
+                    break;
+            }
+        }
     }
 
     private static void manageFacultyPropertiesMenu(Faculty faculty) {

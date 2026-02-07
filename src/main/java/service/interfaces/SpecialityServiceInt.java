@@ -17,5 +17,7 @@ public interface SpecialityServiceInt {
 
     void removeByTag(String tag);
 
+    List<Specialty> getAllSpecialties();
+
 
 }

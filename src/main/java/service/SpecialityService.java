@@ -61,4 +61,9 @@ public class SpecialityService implements SpecialityServiceInt {
 
         specialityRepository.deleteByTag(tag);
     }
+
+    @Override
+    public List<Specialty> getAllSpecialties() {
+        return specialityRepository.findAll();
+    }
 }

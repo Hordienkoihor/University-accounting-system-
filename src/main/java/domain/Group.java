@@ -30,8 +30,8 @@ public class Group {
     }
 
     public void setName(String name) {
-        if (!name.contains(specialty.getName())) {
-            throw new IllegalNameException("Name of the group must contain the speciality name");
+        if (!name.contains(specialty.getTag())) {
+            throw new IllegalNameException("Name of the group must contain the speciality tag");
         }
 
         this.name = name;
@@ -39,7 +39,7 @@ public class Group {
 
     public void addStudent(Student student) {
         if (student == null) {
-            throw new StaffAddingError("Student cannot be null");
+            throw new StudentAddingError("Student cannot be null");
         }
 
         if (students.contains(student.getId())) {
@@ -59,5 +59,14 @@ public class Group {
 
     public ArrayList<Integer> getStudents() {
         return students;
+    }
+
+    @Override
+    public String toString() {
+        return "Group {" + '\n' +
+                "   specialty=" + specialty.getName() + '\n' +
+                "   name=" + name + '\'' + '\n' +
+                "   students=" + students.size()  + '\n' +
+                '}';
     }
 }
