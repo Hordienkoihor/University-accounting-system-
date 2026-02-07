@@ -5,12 +5,13 @@ import exceptions.StaffAddingError;
 import exceptions.StudentAddingError;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Group {
     private Specialty specialty;
     private String name;
 
-    private ArrayList<Integer> students = new ArrayList<>();
+    private final List<Integer> students = new ArrayList<>();
 
     public Group(Specialty specialty, String name) {
         setSpecialty(specialty);
@@ -57,7 +58,7 @@ public class Group {
         students.remove(student.getId());
     }
 
-    public ArrayList<Integer> getStudents() {
+    public List<Integer> getStudents() {
         return students;
     }
 

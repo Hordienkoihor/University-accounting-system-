@@ -147,9 +147,9 @@ public class University {
     }
 
     public void addStudent(Student student) {
-        if (studentMap.containsKey(student.getStudentId())) {
-            throw new StaffAddingError("Student with id " + student.getStudentId() + " or " + student.getFullName() + " full name " + "already exists");
-        }
+//        if (studentMap.containsKey(student.getStudentId())) {
+//            throw new StaffAddingError("Student with id " + student.getStudentId() + " or " + student.getFullName() + " full name " + "already exists");
+//        }
 
         studentMap.put(student.getStudentId(), student);
     }
@@ -169,12 +169,13 @@ public class University {
         return this.studentMap.containsKey(studentId);
     }
 
-    public void removeStudent(Student student) {
-        if (!doesStaffExist(student.getStudentId())) {
+    public Student removeStudent(Student student) {
+        if (!doesStudentExist(student.getStudentId())) {
             throw new StudentDoesNotExistException(student.getStudentId() + "");
         }
 
-        this.studentMap.remove(student.getStudentId());
+        return this.studentMap.remove(student.getStudentId());
+
     }
 
     public List<Faculty> getFacultyList() {
@@ -196,6 +197,10 @@ public class University {
 
     public List<Student> getStudentsAsList() {
         return new ArrayList<>(studentMap.values());
+    }
+
+    public Map<Integer, Student> getStudentsAsMap() {
+        return new HashMap<>(studentMap);
     }
 
     public List<Staff> getStaffAsList() {
