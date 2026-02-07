@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Faculty {
     private String name;
-    private String code;
+    private final String code;
 
     ArrayList<Staff> staffList = new ArrayList<>();
 
@@ -19,7 +19,7 @@ public class Faculty {
 
     public Faculty(String name, String code) {
         setName(name);
-        setCode(code);
+        this.code = code;
     }
 
     public String getName() {
@@ -36,14 +36,6 @@ public class Faculty {
         }
 
         this.name = name;
-    }
-
-    public void setCode(String code) {
-        if (!Validator.isValidString(code)) {
-            throw new IllegalCodeException("code field cannot be empty");
-        }
-
-        this.code = code;
     }
 
     public ArrayList<Specialty> getSpecialtyList() {

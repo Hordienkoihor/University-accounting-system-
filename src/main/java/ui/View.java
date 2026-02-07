@@ -6,9 +6,13 @@ import domain.Specialty;
 import domain.University;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
+import repository.FacultyRepository;
 import repository.UniversityRepository;
+import repository.interfaces.FacultyRepositoryInt;
 import repository.interfaces.UniversityRepositoryInt;
+import service.FacultyService;
 import service.UniversityService;
+import service.interfaces.FacultyServiceInt;
 import service.interfaces.UniversityServiceInt;
 
 import java.io.IOException;
@@ -19,11 +23,16 @@ import java.util.Scanner;
 
 public class View {
     private static UniversityServiceInt universityService;
+    private static FacultyServiceInt facultyService;
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         UniversityRepositoryInt universityRepository = new UniversityRepository();
         universityService = new UniversityService(universityRepository);
+
+        FacultyRepositoryInt facultyRepository = new FacultyRepository(universityService);
+        facultyService = new FacultyService(facultyRepository);
+
         boot();
     }
 
@@ -239,7 +248,7 @@ public class View {
             switch (choice) {
                 case "1":
                     System.out.println();
-                    universityService.getUniversity().addFaculty(createFaculty());
+                    facultyService.register(createFaculty());
                     break;
                 case "2":
                     System.out.println();
@@ -250,7 +259,7 @@ public class View {
                     System.out.println();
 
                     try {
-                        manageFacultyMenu(universityService.getUniversity().findFacultyByCode(scanner.nextLine()));
+                        manageFacultyMenu(facultyService.findByCode(scanner.nextLine()));
                     } catch (Exception e) {
                         System.out.println("please enter a valid tag");
                     }
@@ -286,7 +295,7 @@ public class View {
                     manageFacultyPropertiesMenu(faculty);
                     break;
                 case "2":
-                    faculty.addSpecialty(createSpecialty(faculty));
+//                    faculty.addSpecialty(createSpecialty(faculty)); todo speciality serv
                     break;
                 case "3":
                     System.out.println();
@@ -297,7 +306,7 @@ public class View {
                     System.out.println();
 
                     try {
-                        manageSpecialtyMenu(faculty.getSpecialty(scanner.nextLine()));
+//                        manageSpecialtyMenu(faculty.getSpecialty(scanner.nextLine())); todo speciality serv
                     } catch (Exception e) {
                         System.out.println("please enter a valid tag");
                     }
@@ -316,17 +325,14 @@ public class View {
         while (running) {
             System.out.println("\n    -- Manage Faculty: " + faculty.getName() + " --");
             System.out.println("1. Change Name");
-            System.out.println("2. Change Code");
             System.out.println("3. Back");
 
             switch (scanner.nextLine()) {
                 case "1":
                     System.out.print("Enter new name: ");
-                    faculty.setName(scanner.nextLine());
-                    break;
-                case "2":
-                    System.out.print("Enter new code: ");
-                    faculty.setCode(scanner.nextLine());
+                    String newName = scanner.nextLine();
+
+                    facultyService.update(faculty.getCode(), newName);
                     break;
                 default:
                     running = false;
