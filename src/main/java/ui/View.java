@@ -18,14 +18,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class View {
+    private static final Scanner scanner = new Scanner(System.in);
     private static UniversityServiceInt universityService;
     private static FacultyServiceInt facultyService;
     private static SpecialityServiceInt specialityService;
     private static GroupServiceInt groupService;
     private static StudentServiceInt studentService;
     private static StaffServiceInt staffService;
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         UniversityRepositoryInt universityRepository = new UniversityRepository();
@@ -359,14 +358,21 @@ public class View {
             System.out.println("\n    -- Editing Student: " + student.getFullName() + " --");
             System.out.println("1. Change Course");
             System.out.println("2. Change Status");
-            System.out.println("3. Back");
+            System.out.println("3. Change phone number");
+            System.out.println("4. Change email");
+            System.out.println("5. Change name");
+            System.out.println("6. Change age");
+            System.out.println("7. Change surname");
+            System.out.println("8. Change fathername");
+            System.out.println("9. Back");
 
             switch (scanner.nextLine()) {
-                case "1":
+                case "1": {
                     System.out.print("Enter new course (1-5): ");
                     student.setCourse(Integer.parseInt(scanner.nextLine()));
                     break;
-                case "2":
+                }
+                case "2": {
                     System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
                     String statusChoice = scanner.nextLine();
                     StudyStatus status = null;
@@ -396,7 +402,28 @@ public class View {
                     }
                     student.setStudyStatus(status);
                     break;
+                }
                 case "3": {
+                    student.setPhoneNumber(getValidString("Phone Number"));
+                    break;
+                }
+                case "4": {
+                    student.setEmail(getValidString("Email"));
+                    break;
+                }
+                case "5": {
+                    student.setName(getValidString("Name"));
+                }
+                case "6": {
+                    student.setAge(Integer.parseInt(getValidString("Age")));
+                }
+                case "7": {
+                    student.setSurname(getValidString("Surname"));
+                }
+                case "8": {
+                    student.setFatherName(getValidString("Fathername"));
+                }
+                case "9": {
                     running = false;
                     break;
                 }
@@ -404,6 +431,8 @@ public class View {
                     System.out.println("Invalid option");
                     break;
             }
+
+            studentService.save(student);
         }
     }
 

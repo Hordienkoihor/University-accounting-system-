@@ -60,72 +60,7 @@ public class UniversityRepository implements UniversityRepositoryInt {
                         break;
                     }
                     case "STUDENT": {
-                        if (loadedUniversity) {
-                            if (parts.length < 6) {
-                                break;
-                            }
-
-                            if (parts.length < 8) {
-                                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
-                                        ? StudyForm.TUITION
-                                        : StudyForm.TUITION_FREE;
-
-
-                                result.addStudent(new Student(
-                                        parts[1],
-                                        parts[2],
-                                        parts[3],
-                                        Integer.parseInt(parts[4]),
-                                        parts[5],
-                                        parts[6],
-                                        new Date(),
-                                        studyForm,
-                                        StudyStatus.PENDING));
-
-                            } else {
-                                StudyStatus studyStatus = StudyStatus.PENDING;
-
-                                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
-                                        ? StudyForm.TUITION
-                                        : StudyForm.TUITION_FREE;
-
-                                switch (parts[8].toUpperCase()) {
-                                    case "STUDYING": {
-                                        studyStatus = StudyStatus.STUDYING;
-                                        break;
-                                    }
-                                    case "EXPELLED": {
-                                        studyStatus = StudyStatus.EXPELLED;
-                                        break;
-                                    }
-                                    case "ACADEMIC_LEAVE": {
-                                        studyStatus = StudyStatus.ACADEMIC_LEAVE;
-                                        break;
-                                    }
-                                    case "PENDING": {
-                                        studyStatus = StudyStatus.PENDING;
-                                        break;
-                                    }
-                                    default: {
-                                        break;
-                                    }
-
-
-                                }
-
-                                result.addStudent(new Student(
-                                        parts[1],
-                                        parts[2],
-                                        parts[3],
-                                        Integer.parseInt(parts[4]),
-                                        parts[5],
-                                        parts[6],
-                                        new Date(),
-                                        studyForm,
-                                        studyStatus
-                                ));
-                            }
-                        }
+                        loadStudent(loadedUniversity, parts, result);
                         break;
                     }
                     default:
@@ -137,5 +72,74 @@ public class UniversityRepository implements UniversityRepositoryInt {
         }
 
         this.university = result;
+    }
+
+    private static void loadStudent(boolean loadedUniversity, String[] parts, University result) {
+        if (loadedUniversity) {
+            if (parts.length < 6) {
+                return;
+            }
+
+            if (parts.length < 8) {
+                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
+                        ? StudyForm.TUITION
+                        : StudyForm.TUITION_FREE;
+
+
+                result.addStudent(new Student(
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        Integer.parseInt(parts[4]),
+                        parts[5],
+                        parts[6],
+                        new Date(),
+                        studyForm,
+                        StudyStatus.PENDING));
+
+            } else {
+                StudyStatus studyStatus = StudyStatus.PENDING;
+
+                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
+                        ? StudyForm.TUITION
+                        : StudyForm.TUITION_FREE;
+
+                switch (parts[8].toUpperCase()) {
+                    case "STUDYING": {
+                        studyStatus = StudyStatus.STUDYING;
+                        break;
+                    }
+                    case "EXPELLED": {
+                        studyStatus = StudyStatus.EXPELLED;
+                        break;
+                    }
+                    case "ACADEMIC_LEAVE": {
+                        studyStatus = StudyStatus.ACADEMIC_LEAVE;
+                        break;
+                    }
+                    case "PENDING": {
+                        studyStatus = StudyStatus.PENDING;
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+
+
+                }
+
+                result.addStudent(new Student(
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        Integer.parseInt(parts[4]),
+                        parts[5],
+                        parts[6],
+                        new Date(),
+                        studyForm,
+                        studyStatus
+                ));
+            }
+        }
     }
 }
