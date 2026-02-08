@@ -464,6 +464,7 @@ public class View {
                     String facultyCode = scanner.nextLine();
 
                     staffService.registerToFaculty(staffService.findById(id), facultyCode);
+                    break;
                 }
                 case "6": {
                     System.out.print("Enter Staff ID to unlink: ");
@@ -473,6 +474,7 @@ public class View {
                     String facultyCode = scanner.nextLine();
 
                     staffService.unregisterFromFaculty(staffService.findById(id), facultyCode);
+                    break;
                 }
                 case "7":
                     running = false;
