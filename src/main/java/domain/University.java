@@ -138,12 +138,12 @@ public class University {
         return this.staffMap.containsKey(staffId);
     }
 
-    public void removeStaff(Staff staff) {
+    public Staff removeStaff(Staff staff) {
         if (!doesStaffExist(staff.getStaffId())) {
             throw new StaffDoesNotExistException(staff.getStaffId() + "");
         }
 
-        this.staffMap.remove(staff.getStaffId());
+        return this.staffMap.remove(staff.getStaffId());
     }
 
     public void addStudent(Student student) {
@@ -205,6 +205,10 @@ public class University {
 
     public List<Staff> getStaffAsList() {
         return new ArrayList<>(staffMap.values());
+    }
+
+    public Map<Integer, Staff> getStaffAsMap() {
+        return new HashMap<>(staffMap);
     }
 
     @Override

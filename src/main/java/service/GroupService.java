@@ -46,6 +46,12 @@ public class GroupService implements GroupServiceInt {
     }
 
     @Override
+    public List<Group> findAll() {
+        return repository.findAll();
+    }
+
+
+    @Override
     public void updateName(String oldName, String newName) {
         Group group = repository.findByName(oldName);
         if (group != null) {

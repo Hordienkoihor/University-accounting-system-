@@ -4,6 +4,7 @@ import Utilitys.Validator;
 import domain.abstractClasses.Staff;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
+import exceptions.StudentAddingError;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class Faculty {
     private String name;
     private final String code;
 
-    ArrayList<Staff> staffList = new ArrayList<>();
+    Map<String, Staff> staffMap = new HashMap<>();
 
     Map<String, Specialty> specialtyList = new HashMap<>();
 
@@ -57,6 +58,44 @@ public class Faculty {
         }
 
         specialtyList.put(specialty.getTag(), specialty);
+    }
+
+    public void updateSpecialty(Specialty specialty) {
+        if (specialty == null) {
+            throw new IllegalNameException("Specialty cannot be null");
+        }
+
+        if (specialty.getTag() == null || specialty.getTag().isBlank()) {
+            throw new IllegalCodeException("Specialty tag cannot be empty");
+        }
+
+        if (specialtyList.containsKey(specialty.getTag())) {
+            specialtyList.put(specialty.getTag(), specialty);
+        }
+    }
+
+    public void addStaff(Staff staff) {
+        if (staff == null) {
+            throw new StudentAddingError("Staff cannot be null");
+        }
+
+        staffMap.put(staff.getName(), staff);
+    }
+
+    public Staff removeStaff(Staff staff) {
+        if (staff == null) {
+            throw new StudentAddingError("Staff cannot be null");
+        }
+
+        return staffMap.remove(staff.getName());
+    }
+
+    public boolean containsStaff(Staff staff) {
+        return staffMap.containsKey(staff.getName());
+    }
+
+    public Map<String, Staff> getStaffMap() {
+        return staffMap;
     }
 
     public boolean removeSpecialty(String tag) {

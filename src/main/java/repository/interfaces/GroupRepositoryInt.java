@@ -13,4 +13,6 @@ public interface GroupRepositoryInt {
     List<Group> findAllBySpecialty(String specialtyTag);
 
     void deleteByName(String name);
+
+    List<Group> findAll();
 }

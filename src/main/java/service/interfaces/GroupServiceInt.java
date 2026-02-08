@@ -8,6 +8,7 @@ public interface GroupServiceInt {
 
     Group findByName(String name);
     List<Group> findAllBySpecialty(String specialtyTag);
+    List<Group> findAll();
 
     void updateName(String oldName, String newName);
     void deleteByName(String name);

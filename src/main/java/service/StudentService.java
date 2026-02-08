@@ -3,6 +3,7 @@ package service;
 import domain.Group;
 import domain.Student;
 import exceptions.GroupDoesNotExistException;
+import exceptions.StudentAddingError;
 import repository.interfaces.StudentRepositoryInt;
 import service.interfaces.GroupServiceInt;
 import service.interfaces.StudentServiceInt;
@@ -24,6 +25,13 @@ public class StudentService implements StudentServiceInt {
     @Override
     public void registerToGroup(Student student, String groupName) {
         save(student);
+
+        boolean alrInGroup = groupService.findAll().stream()
+                .anyMatch(group -> group.getStudents().contains(student));
+
+        if (alrInGroup) {
+            throw new StudentAddingError("Student already exists in group " + groupName);
+        }
 
         Group group = groupService.findByName(groupName);
 

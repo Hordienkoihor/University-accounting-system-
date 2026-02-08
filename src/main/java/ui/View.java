@@ -1,12 +1,11 @@
 package ui;
 
 import Utilitys.Validator;
-import domain.Faculty;
-import domain.Group;
-import domain.Specialty;
-import domain.Student;
+import domain.*;
+import domain.enums.ScientificDegree;
 import domain.enums.StudyForm;
 import domain.enums.StudyStatus;
+import domain.enums.UniversityPosition;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
 import repository.*;
@@ -24,8 +23,9 @@ public class View {
     private static SpecialityServiceInt specialityService;
     private static GroupServiceInt groupService;
     private static StudentServiceInt studentService;
+    private static StaffServiceInt staffService;
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         UniversityRepositoryInt universityRepository = new UniversityRepository();
@@ -42,6 +42,9 @@ public class View {
 
         StudentRepositoryInt studentRepository = new StudentRepository(universityService);
         studentService = new StudentService(studentRepository, groupService);
+
+        StaffRepositoryInt staffRepository = new StaffRepository(universityService);
+        staffService = new StaffService(staffRepository, facultyService);
 
         boot();
     }
@@ -404,9 +407,148 @@ public class View {
         }
     }
 
-    // todo
     private static void manageStaffMenu() {
-        System.out.println("wip");
+        System.out.println();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("    -- Manage Staff Menu --");
+            System.out.println("1. Register Staff member");
+            System.out.println("2. Display all Staff");
+            System.out.println("3. Transfer Staff to another Faculty");
+            System.out.println("4. Remove Staff member");
+            System.out.println("5. Link Staff to faculty");
+            System.out.println("6. Un;ink Staff from faculty");
+            System.out.println("7. Exit");
+            System.out.print("Input: ");
+
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1": {
+                    registerStaff();
+                    break;
+                }
+                case "2": {
+                    staffService.findAll().values().forEach(System.out::println);
+                    break;
+                }
+                case "3": {
+                    System.out.print("Enter Staff ID: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    System.out.print("From Faculty Code: ");
+                    String from = scanner.nextLine();
+                    System.out.print("To Faculty Code: ");
+                    String to = scanner.nextLine();
+
+                    try {
+                        staffService.transfer(staffService.findById(id), from, to);
+                        System.out.println("Transfer successful!");
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+                }
+                case "4": {
+                    System.out.print("Enter Staff ID to remove: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    staffService.delete(id);
+                    System.out.println("Staff member removed from system.");
+                    break;
+                }
+                case "5": {
+                    System.out.print("Enter Staff ID to link: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println("Enter faculty code: ");
+                    String facultyCode = scanner.nextLine();
+
+                    staffService.registerToFaculty(staffService.findById(id), facultyCode);
+                }
+                case "6": {
+                    System.out.print("Enter Staff ID to unlink: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println("Enter faculty code: ");
+                    String facultyCode = scanner.nextLine();
+
+                    staffService.unregisterFromFaculty(staffService.findById(id), facultyCode);
+                }
+                case "7":
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }
+    }
+
+    private static void registerStaff() {
+        System.out.println("\n    -- Registering New Teacher --");
+
+        String name = getValidString("First Name");
+        String surname = getValidString("Surname");
+        String fatherName = getValidString("Father Name");
+
+        System.out.print("Enter age: ");
+        int age = Integer.parseInt(scanner.nextLine());
+
+        String email = getValidString("Email");
+        String phone = getValidString("Phone Number");
+        Date dob = new Date();
+
+        UniversityPosition pos = selectPosition();
+        ScientificDegree degree = selectDegree();
+
+        System.out.print("Enter weekly hours: ");
+        double hours = Double.parseDouble(scanner.nextLine());
+
+        System.out.print("Enter hourly rate: ");
+        double rate = Double.parseDouble(scanner.nextLine());
+
+        try {
+            Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, dob, pos, degree, hours, rate);
+            staffService.save(teacher);
+
+            System.out.println("Do you want to link teacher to faculty? (y/n)");
+            String answer = scanner.nextLine();
+
+            if (answer.equalsIgnoreCase("y")) {
+                System.out.print("Enter Faculty Code to link this teacher: ");
+                String facultyCode = scanner.nextLine();
+
+                staffService.registerToFaculty(teacher, facultyCode);
+                System.out.println("Faculty link successful");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static UniversityPosition selectPosition() {
+        System.out.println("\nSelect University Position:");
+        UniversityPosition[] positions = UniversityPosition.values();
+
+        for (int i = 0; i < positions.length; i++) {
+            System.out.println((i + 1) + ". " + positions[i].getDisplayName());
+        }
+
+        int choice = Integer.parseInt(scanner.nextLine()) - 1;
+        return (choice >= 0 && choice < positions.length) ? positions[choice] : UniversityPosition.LECTURER;
+    }
+
+    private static ScientificDegree selectDegree() {
+        System.out.println("\nSelect Scientific Degree:");
+        ScientificDegree[] degrees = ScientificDegree.values();
+
+        for (int i = 0; i < degrees.length; i++) {
+            System.out.println((i + 1) + ". " + degrees[i].getDisplayName());
+        }
+
+        int choice = Integer.parseInt(scanner.nextLine()) - 1;
+        return (choice >= 0 && choice < degrees.length) ? degrees[choice] : ScientificDegree.NONE;
     }
 
     private static void manageUniPropertiesMenu() {

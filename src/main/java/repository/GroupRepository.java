@@ -55,4 +55,11 @@ public class GroupRepository implements GroupRepositoryInt {
                         removeIf(g -> g.getName().equalsIgnoreCase(name)));
     }
 
+    @Override
+    public List<Group> findAll() {
+        return specialityService.getAllSpecialties().stream()
+                .flatMap(specialty -> specialty.getGroups().stream())
+                .toList();
+    }
+
 }

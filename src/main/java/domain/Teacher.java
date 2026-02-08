@@ -17,7 +17,7 @@ public class Teacher extends Staff {
     private double weeklyHours;
     private double hourlyRate;
 
-    protected Teacher(
+    public Teacher(
             String name,
             String surname,
             String fatherName,
