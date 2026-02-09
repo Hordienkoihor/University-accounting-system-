@@ -57,6 +57,11 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public void save(Student student) {
+        if (student == null) {
+            System.out.println("Student is null");
+            return;
+        }
+
         this.studentRepository.save(student);
     }
 

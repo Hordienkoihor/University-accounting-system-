@@ -5,6 +5,9 @@ import repository.UniversityRepository;
 import repository.interfaces.UniversityRepositoryInt;
 import service.interfaces.UniversityServiceInt;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class UniversityService implements UniversityServiceInt {
     private UniversityRepositoryInt universityRepository;
 
@@ -19,6 +22,13 @@ public class UniversityService implements UniversityServiceInt {
 
     @Override
     public void loadUniversity(String path) {
+        Path filePath = Path.of(path);
+
+        if (!Files.exists(filePath)) {
+            System.out.println("File does not exist");
+            return;
+        }
+
         universityRepository.load(path);
     }
 

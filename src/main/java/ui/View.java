@@ -56,14 +56,14 @@ public class View {
         System.out.println("3. Exit ");
         System.out.println("Input: ");
 
-        String choice = scanner.nextLine();
+        String choice = getValidString();
         System.out.println();
 
         if (choice.equals("3")) {
             System.exit(0);
         } else if (choice.equals("2")) {
             System.out.print("Please enter path to the config: ");
-            String path = scanner.nextLine();
+            String path = getValidString();
 
             universityService.loadUniversity(path);
 
@@ -84,16 +84,16 @@ public class View {
 
     private static void createUniversity() {
         System.out.println("Enter University name: ");
-        String full = scanner.nextLine();
+        String full = getValidString();
 
         System.out.println("Enter Short Name: ");
-        String shortName = scanner.nextLine();
+        String shortName = getValidString();
 
         System.out.println("Enter City: ");
-        String city = scanner.nextLine();
+        String city = getValidString();
 
         System.out.println("Enter Address: ");
-        String address = scanner.nextLine();
+        String address = getValidString();
 
         universityService.createUniversity(full, shortName, city, address);
         System.out.println("Університет створено!");
@@ -109,7 +109,7 @@ public class View {
         System.out.println("3. exit");
         System.out.print("Input: ");
 
-        switch (scanner.nextLine()) {
+        switch (getValidString()) {
             case "1":
                 displayUniMenu();
                 break;
@@ -136,7 +136,7 @@ public class View {
             System.out.println("5. Display Staff");
             System.out.println("6. Exit");
 
-            String choice = scanner.nextLine();
+            String choice = getValidString();
 
             switch (choice) {
                 case "1": {
@@ -184,7 +184,7 @@ public class View {
             System.out.println("4. Manage Staff");
             System.out.println("5. Exit");
 
-            String choice = scanner.nextLine();
+            String choice = getValidString();
 
             switch (choice) {
                 case "1":
@@ -212,7 +212,7 @@ public class View {
         boolean running = true;
 
         while (running) {
-            System.out.println("    -- Manage Students Menu --");
+            System.out.println(" \n   -- Manage Students Menu --");
             System.out.println("1. Add students");
             System.out.println("2. Edit student");
             System.out.println("3. Link student to the group");
@@ -221,7 +221,7 @@ public class View {
             System.out.println("6. exit");
 
 
-            String choice = scanner.nextLine();
+            String choice = getValidString();
 
             switch (choice) {
                 case "1": {
@@ -231,7 +231,7 @@ public class View {
                 }
                 case "2": {
                     System.out.print("Enter student ID to edit: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    int id = Integer.parseInt(getValidString());
 
                     Student student = studentService.findById(id);
                     if (student != null) {
@@ -243,10 +243,10 @@ public class View {
                 }
                 case "3": {
                     System.out.print("Enter student ID: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    int id = getValidInt(); //todo here
 
                     System.out.print("Enter group name: ");
-                    String groupName = scanner.nextLine();
+                    String groupName = getValidString();
 
                     try {
                         studentService.registerToGroup(studentService.findById(id), groupName);
@@ -258,10 +258,10 @@ public class View {
                 }
                 case "4": {
                     System.out.print("Enter student ID: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    int id = getValidInt(); //todo here
 
                     System.out.print("Enter group name: ");
-                    String groupName = scanner.nextLine();
+                    String groupName = getValidString();
 
                     try {
                         studentService.unregisterFromGroup(studentService.findById(id), groupName);
@@ -273,13 +273,13 @@ public class View {
                 }
                 case "5": {
                     System.out.print("Enter student ID: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    int id = getValidInt(); //todo here
 
                     System.out.print("Enter old group name: ");
-                    String oldGroupName = scanner.nextLine();
+                    String oldGroupName = getValidString();
 
                     System.out.print("Enter new group name: ");
-                    String newGroupName = scanner.nextLine();
+                    String newGroupName = getValidString();
 
                     try {
                         studentService.transfer(studentService.findById(id), oldGroupName, newGroupName);
@@ -303,12 +303,14 @@ public class View {
     private static Student createStudentObject() {
         System.out.println("\n    -- Creating New Student --");
 
+        Student student;
+
         String name = getValidString("First Name");
         String surname = getValidString("Surname");
         String fatherName = getValidString("Father Name");
 
         System.out.print("Enter age: ");
-        int age = Integer.parseInt(scanner.nextLine());
+        int age = Integer.parseInt(getValidString());
 
         String email = getValidString("Email");
         String phone = getValidString("Phone Number");
@@ -316,10 +318,10 @@ public class View {
         Date dob = new Date();
 
         System.out.println("Select Study Form: 1. TUITION_FREE, 2. TUITION");
-        StudyForm form = scanner.nextLine().equals("1") ? StudyForm.TUITION_FREE : StudyForm.TUITION;
+        StudyForm form = getValidString().equals("1") ? StudyForm.TUITION_FREE : StudyForm.TUITION;
 
         System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
-        String statusChoice = scanner.nextLine();
+        String statusChoice = getValidString();
         StudyStatus status = null;
 
         switch (statusChoice) {
@@ -346,10 +348,23 @@ public class View {
             }
         }
 
-        System.out.print("Enter course (1-5): ");
-        int course = Integer.parseInt(scanner.nextLine());
+        int course = 1;
 
-        return new Student(name, surname, fatherName, age, email, phone, dob, course, form, status);
+        System.out.print("Enter course (1-5): ");
+        try {
+            course = Integer.parseInt(getValidString());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid option, defaulting to 1");
+        }
+
+        try {
+            student = new Student(name, surname, fatherName, age, email, phone, dob, course, form, status);
+            return student;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return null;
     }
 
     private static void manageStudentProperties(Student student) {
@@ -366,15 +381,15 @@ public class View {
             System.out.println("8. Change fathername");
             System.out.println("9. Back");
 
-            switch (scanner.nextLine()) {
+            switch (getValidString()) {
                 case "1": {
                     System.out.print("Enter new course (1-5): ");
-                    student.setCourse(Integer.parseInt(scanner.nextLine()));
+                    student.setCourse(Integer.parseInt(getValidString()));
                     break;
                 }
                 case "2": {
                     System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
-                    String statusChoice = scanner.nextLine();
+                    String statusChoice = getValidString();
                     StudyStatus status = null;
 
                     switch (statusChoice) {
@@ -451,7 +466,7 @@ public class View {
             System.out.println("7. Exit");
             System.out.print("Input: ");
 
-            String choice = scanner.nextLine();
+            String choice = getValidString();
 
             switch (choice) {
                 case "1": {
@@ -464,11 +479,11 @@ public class View {
                 }
                 case "3": {
                     System.out.print("Enter Staff ID: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    int id = Integer.parseInt(getValidString());
                     System.out.print("From Faculty Code: ");
-                    String from = scanner.nextLine();
+                    String from = getValidString();
                     System.out.print("To Faculty Code: ");
-                    String to = scanner.nextLine();
+                    String to = getValidString();
 
                     try {
                         staffService.transfer(staffService.findById(id), from, to);
@@ -480,27 +495,27 @@ public class View {
                 }
                 case "4": {
                     System.out.print("Enter Staff ID to remove: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    int id = Integer.parseInt(getValidString());
                     staffService.delete(id);
                     System.out.println("Staff member removed from system.");
                     break;
                 }
                 case "5": {
                     System.out.print("Enter Staff ID to link: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    int id = Integer.parseInt(getValidString());
 
                     System.out.println("Enter faculty code: ");
-                    String facultyCode = scanner.nextLine();
+                    String facultyCode = getValidString();
 
                     staffService.registerToFaculty(staffService.findById(id), facultyCode);
                     break;
                 }
                 case "6": {
                     System.out.print("Enter Staff ID to unlink: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    int id = Integer.parseInt(getValidString());
 
                     System.out.println("Enter faculty code: ");
-                    String facultyCode = scanner.nextLine();
+                    String facultyCode = getValidString();
 
                     staffService.unregisterFromFaculty(staffService.findById(id), facultyCode);
                     break;
@@ -523,7 +538,7 @@ public class View {
         String fatherName = getValidString("Father Name");
 
         System.out.print("Enter age: ");
-        int age = Integer.parseInt(scanner.nextLine());
+        int age = Integer.parseInt(getValidString());
 
         String email = getValidString("Email");
         String phone = getValidString("Phone Number");
@@ -533,21 +548,21 @@ public class View {
         ScientificDegree degree = selectDegree();
 
         System.out.print("Enter weekly hours: ");
-        double hours = Double.parseDouble(scanner.nextLine());
+        double hours = Double.parseDouble(getValidString());
 
         System.out.print("Enter hourly rate: ");
-        double rate = Double.parseDouble(scanner.nextLine());
+        double rate = Double.parseDouble(getValidString());
 
         try {
             Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, dob, pos, degree, hours, rate);
             staffService.save(teacher);
 
             System.out.println("Do you want to link teacher to faculty? (y/n)");
-            String answer = scanner.nextLine();
+            String answer = getValidString();
 
             if (answer.equalsIgnoreCase("y")) {
                 System.out.print("Enter Faculty Code to link this teacher: ");
-                String facultyCode = scanner.nextLine();
+                String facultyCode = getValidString();
 
                 staffService.registerToFaculty(teacher, facultyCode);
                 System.out.println("Faculty link successful");
@@ -566,7 +581,7 @@ public class View {
             System.out.println((i + 1) + ". " + positions[i].getDisplayName());
         }
 
-        int choice = Integer.parseInt(scanner.nextLine()) - 1;
+        int choice = Integer.parseInt(getValidString()) - 1;
         return (choice >= 0 && choice < positions.length) ? positions[choice] : UniversityPosition.LECTURER;
     }
 
@@ -578,7 +593,7 @@ public class View {
             System.out.println((i + 1) + ". " + degrees[i].getDisplayName());
         }
 
-        int choice = Integer.parseInt(scanner.nextLine()) - 1;
+        int choice = Integer.parseInt(getValidString()) - 1;
         return (choice >= 0 && choice < degrees.length) ? degrees[choice] : ScientificDegree.NONE;
     }
 
@@ -594,24 +609,24 @@ public class View {
             System.out.println("4. Manage University Address");
             System.out.println("5. exit");
 
-            String choice = scanner.nextLine();
+            String choice = getValidString();
 
             switch (choice) {
                 case "1":
                     System.out.println("Please enter new University full name: ");
-                    universityService.getUniversity().setFullName(scanner.nextLine());
+                    universityService.getUniversity().setFullName(getValidString());
                     break;
                 case "2":
                     System.out.println("Please enter new University short name: ");
-                    universityService.getUniversity().setShortName(scanner.nextLine());
+                    universityService.getUniversity().setShortName(getValidString());
                     break;
                 case "3":
                     System.out.println("Please enter new University city: ");
-                    universityService.getUniversity().setCity(scanner.nextLine());
+                    universityService.getUniversity().setCity(getValidString());
                     break;
                 case "4":
                     System.out.println("Please enter new University address: ");
-                    universityService.getUniversity().setAddress(scanner.nextLine());
+                    universityService.getUniversity().setAddress(getValidString());
                     break;
                 default:
                     running = false;
@@ -632,7 +647,7 @@ public class View {
             System.out.println("2. Edit Faculty");
             System.out.println("3. exit");
 
-            String choice = scanner.nextLine();
+            String choice = getValidString();
 
             switch (choice) {
                 case "1":
@@ -648,7 +663,7 @@ public class View {
                     System.out.println();
 
                     try {
-                        manageFacultyMenu(facultyService.findByCode(scanner.nextLine()));
+                        manageFacultyMenu(facultyService.findByCode(getValidString()));
                     } catch (Exception e) {
                         System.out.println("please enter a valid tag");
                     }
@@ -678,7 +693,7 @@ public class View {
             System.out.println("4. Manage Groups");
             System.out.println("5. Exit");
 
-            switch (scanner.nextLine()) {
+            switch (getValidString()) {
                 case "1": {
                     manageFacultyPropertiesMenu(faculty);
                     break;
@@ -730,7 +745,7 @@ public class View {
             System.out.println("3. Display all groups in Faculty");
             System.out.println("4. Exit");
 
-            switch (scanner.nextLine()) {
+            switch (getValidString()) {
                 case "1": {
                     addGroupToSpecialty(faculty);
                     break;
@@ -738,7 +753,7 @@ public class View {
                 case "2": {
                     System.out.print("Enter Group Name to manage: ");
 
-                    String name = scanner.nextLine();
+                    String name = getValidString();
                     manageGroupPropertiesMenu(groupService.findByName(name));
 
                     break;
@@ -795,10 +810,10 @@ public class View {
             System.out.println("2. Remove Group");
             System.out.println("3. Back");
 
-            switch (scanner.nextLine()) {
+            switch (getValidString()) {
                 case "1": {
                     System.out.print("Enter new name: ");
-                    String newName = scanner.nextLine();
+                    String newName = getValidString();
 
                     try {
                         groupService.updateName(group.getName(), newName);
@@ -811,7 +826,7 @@ public class View {
                 case "2": {
                     System.out.print("Are you sure? (y/n): ");
 
-                    if (scanner.nextLine().equalsIgnoreCase("y")) {
+                    if (getValidString().equalsIgnoreCase("y")) {
                         groupService.deleteByName(group.getName());
                         System.out.println("Group deleted");
                         running = false;
@@ -833,10 +848,10 @@ public class View {
             System.out.println("1. Change Name");
             System.out.println("2. Back");
 
-            switch (scanner.nextLine()) {
+            switch (getValidString()) {
                 case "1":
                     System.out.print("Enter new name: ");
-                    String newName = scanner.nextLine();
+                    String newName = getValidString();
 
                     facultyService.update(faculty.getCode(), newName);
                     break;
@@ -875,16 +890,16 @@ public class View {
             System.out.println("3. Back");
             System.out.print("Input: ");
 
-            switch (scanner.nextLine()) {
+            switch (getValidString()) {
                 case "1":
                     System.out.print("Enter new name for specialty: ");
-                    String newName = scanner.nextLine();
+                    String newName = getValidString();
                     specialityService.update(newName, specialty.getTag());
                     break;
                 case "2":
                     System.out.print("Are you sure you want to delete this specialty? (y/n): ");
 
-                    if (scanner.nextLine().equalsIgnoreCase("y")) {
+                    if (getValidString().equalsIgnoreCase("y")) {
                         specialityService.removeByTag(specialty.getTag());
                         running = false;
                     }
@@ -923,6 +938,37 @@ public class View {
             }
         }
 
+    }
+
+    private static String getValidString() {
+        String res = scanner.nextLine();
+        while (true) {
+
+            if (Validator.isValidString(res)) {
+                return res;
+            } else {
+                System.out.println("Please enter valid string");
+                res = scanner.nextLine();
+            }
+        }
+
+    }
+    
+    
+    private static int getValidInt() {
+        boolean validInt = true;
+        int res = 0;
+        
+        while (validInt) {
+            try {
+                res = Integer.parseInt(getValidString());
+                validInt = false;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer");
+            }
+        }
+
+        return res;
     }
 
 
