@@ -310,7 +310,7 @@ public class View {
         String fatherName = getValidString("Father Name");
 
         System.out.print("Enter age: ");
-        int age = Integer.parseInt(getValidString());
+        int age = getValidInt();
 
         String email = getValidString("Email");
         String phone = getValidString("Phone Number");
@@ -352,7 +352,7 @@ public class View {
 
         System.out.print("Enter course (1-5): ");
         try {
-            course = Integer.parseInt(getValidString());
+            course = getValidInt();
         } catch (NumberFormatException e) {
             System.out.println("Invalid option, defaulting to 1");
         }
@@ -384,7 +384,7 @@ public class View {
             switch (getValidString()) {
                 case "1": {
                     System.out.print("Enter new course (1-5): ");
-                    student.setCourse(Integer.parseInt(getValidString()));
+                    student.setCourse(getValidInt());
                     break;
                 }
                 case "2": {
@@ -430,7 +430,7 @@ public class View {
                     student.setName(getValidString("Name"));
                 }
                 case "6": {
-                    student.setAge(Integer.parseInt(getValidString("Age")));
+                    student.setAge(getValidInt()); // todo make method with message
                 }
                 case "7": {
                     student.setSurname(getValidString("Surname"));
@@ -479,9 +479,11 @@ public class View {
                 }
                 case "3": {
                     System.out.print("Enter Staff ID: ");
-                    int id = Integer.parseInt(getValidString());
+                    int id = getValidInt();
+
                     System.out.print("From Faculty Code: ");
                     String from = getValidString();
+
                     System.out.print("To Faculty Code: ");
                     String to = getValidString();
 
@@ -495,14 +497,14 @@ public class View {
                 }
                 case "4": {
                     System.out.print("Enter Staff ID to remove: ");
-                    int id = Integer.parseInt(getValidString());
+                    int id = getValidInt();
                     staffService.delete(id);
                     System.out.println("Staff member removed from system.");
                     break;
                 }
                 case "5": {
                     System.out.print("Enter Staff ID to link: ");
-                    int id = Integer.parseInt(getValidString());
+                    int id = getValidInt();
 
                     System.out.println("Enter faculty code: ");
                     String facultyCode = getValidString();
@@ -512,7 +514,7 @@ public class View {
                 }
                 case "6": {
                     System.out.print("Enter Staff ID to unlink: ");
-                    int id = Integer.parseInt(getValidString());
+                    int id = getValidInt();
 
                     System.out.println("Enter faculty code: ");
                     String facultyCode = getValidString();
@@ -538,7 +540,7 @@ public class View {
         String fatherName = getValidString("Father Name");
 
         System.out.print("Enter age: ");
-        int age = Integer.parseInt(getValidString());
+        int age = getValidInt();
 
         String email = getValidString("Email");
         String phone = getValidString("Phone Number");
@@ -581,7 +583,7 @@ public class View {
             System.out.println((i + 1) + ". " + positions[i].getDisplayName());
         }
 
-        int choice = Integer.parseInt(getValidString()) - 1;
+        int choice = getValidInt() - 1;
         return (choice >= 0 && choice < positions.length) ? positions[choice] : UniversityPosition.LECTURER;
     }
 
@@ -593,7 +595,7 @@ public class View {
             System.out.println((i + 1) + ". " + degrees[i].getDisplayName());
         }
 
-        int choice = Integer.parseInt(getValidString()) - 1;
+        int choice = getValidInt() - 1;
         return (choice >= 0 && choice < degrees.length) ? degrees[choice] : ScientificDegree.NONE;
     }
 
