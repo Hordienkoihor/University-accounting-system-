@@ -86,7 +86,7 @@ public class UniversityRepository implements UniversityRepositoryInt {
                         : StudyForm.TUITION_FREE;
 
 
-                result.addStudent(new Student(
+                result.addPerson(new Student(
                         parts[1],
                         parts[2],
                         parts[3],
@@ -128,7 +128,7 @@ public class UniversityRepository implements UniversityRepositoryInt {
 
                 }
 
-                result.addStudent(new Student(
+                result.addPerson(new Student(
                         parts[1],
                         parts[2],
                         parts[3],

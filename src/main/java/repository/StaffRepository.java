@@ -16,7 +16,7 @@ public class StaffRepository implements StaffRepositoryInt {
 
     @Override
     public void save(Staff staff) {
-        universityService.getUniversity().addStaff(staff);
+        universityService.getUniversity().addPerson(staff);
     }
 
     @Override

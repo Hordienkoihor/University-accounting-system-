@@ -1,6 +1,7 @@
 package domain;
 
 import Utilitys.Validator;
+import domain.abstractClasses.Person;
 import domain.abstractClasses.Staff;
 import exceptions.*;
 
@@ -115,14 +116,6 @@ public class University {
         this.facultyMap.remove(faculty.getCode());
     }
 
-    public void addStaff(Staff staff) {
-        if (staffMap.containsKey(staff.getStaffId())) {
-            throw new StaffAddingError("Staff with id " + staff.getStaffId() + " or " + staff.getFullName() + " full name " + "already exists");
-        }
-
-        staffMap.put(staff.getStaffId(), staff);
-    }
-
     public Staff findStaffById(int staffId) {
         return this.staffMap.get(staffId);
     }
@@ -146,12 +139,13 @@ public class University {
         return this.staffMap.remove(staff.getStaffId());
     }
 
-    public void addStudent(Student student) {
-//        if (studentMap.containsKey(student.getStudentId())) {
-//            throw new StaffAddingError("Student with id " + student.getStudentId() + " or " + student.getFullName() + " full name " + "already exists");
-//        }
+    public void addPerson(Person person) {
 
-        studentMap.put(student.getStudentId(), student);
+        if (person instanceof Student student) {
+            studentMap.put(student.getStudentId(), student);
+        } else if (person instanceof Staff staff) {
+            staffMap.put(staff.getStaffId(), staff);
+        }
     }
 
     public Student findStudentById(int studentId) {

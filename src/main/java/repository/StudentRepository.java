@@ -15,7 +15,7 @@ public class StudentRepository implements StudentRepositoryInt {
 
     @Override
     public void save(Student student) {
-        universityService.getUniversity().addStudent(student);
+        universityService.getUniversity().addPerson(student);
     }
 
     @Override
