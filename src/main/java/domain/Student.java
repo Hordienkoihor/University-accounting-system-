@@ -3,15 +3,15 @@ package domain;
 import domain.abstractClasses.Person;
 import domain.enums.StudyForm;
 import domain.enums.StudyStatus;
+import domain.records.StudentId;
 import exceptions.IllegalCourseException;
 
 import java.util.Date;
+import java.util.Random;
 
 public class Student extends Person {
-
-    private static int studentIdCounter = 0;
-
-    private final int studentId;
+    private final Random random = new Random();
+    private final StudentId studentId;
     private int course;
     private StudyForm studyForm;
     private StudyStatus studyStatus;
@@ -30,7 +30,7 @@ public class Student extends Person {
     ) {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
 
-        this.studentId = studentIdCounter++;
+        this.studentId = new StudentId( "SF-ID-" + new Date().getTime() * random.nextInt(1, 500));
         setCourse(1);
         setStudyForm(studyForm);
         setStudyStatus(studyStatus);
@@ -50,13 +50,13 @@ public class Student extends Person {
     ) {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
 
-        this.studentId = studentIdCounter++;
+        this.studentId = new StudentId( "SID-" + new Date().getTime() * random.nextInt(1, 500));
         setCourse(course);
         setStudyForm(studyForm);
         setStudyStatus(studyStatus);
     }
 
-    public int getStudentId() {
+    public StudentId getStudentId() {
         return studentId;
     }
 

@@ -1,6 +1,7 @@
 package service.interfaces;
 
 import domain.Student;
+import domain.records.StudentId;
 
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,11 @@ public interface StudentServiceInt {
 
     void delete(Student student);
 
-    Student findById(int id);
+    Student findById(StudentId id);
 
-    boolean existsById(int id);
+    boolean existsById(StudentId id);
 
-    Map<Integer,Student> findAll();
+    Map<StudentId,Student> findAll();
 
     void transfer(Student student, String from, String to);
 

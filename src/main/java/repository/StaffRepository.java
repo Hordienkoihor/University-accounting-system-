@@ -2,6 +2,7 @@ package repository;
 
 import domain.Student;
 import domain.abstractClasses.Staff;
+import domain.records.StaffId;
 import repository.interfaces.StaffRepositoryInt;
 import service.interfaces.UniversityServiceInt;
 
@@ -42,7 +43,7 @@ public class StaffRepository implements StaffRepositoryInt {
     }
 
     @Override
-    public Map<Integer, Staff> getAll() {
+    public Map<StaffId, Staff> getAll() {
         return universityService.getUniversity().getStaffAsMap();
     }
 }

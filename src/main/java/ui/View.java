@@ -6,6 +6,7 @@ import domain.enums.ScientificDegree;
 import domain.enums.StudyForm;
 import domain.enums.StudyStatus;
 import domain.enums.UniversityPosition;
+import domain.records.StudentId;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
 import repository.*;
@@ -68,7 +69,7 @@ public class View {
             universityService.loadUniversity(path);
 
             if (!universityService.isUniversityLoaded()) {
-                System.out.println("Помилка: Університет не завантажено. Повернення до стартового меню...");
+                System.out.println("Помилка: Університет не завантажено. Повернення до стартового меню");
                 boot();
                 return;
             }
@@ -231,9 +232,9 @@ public class View {
                 }
                 case "2": {
                     System.out.print("Enter student ID to edit: ");
-                    int id = Integer.parseInt(getValidString());
+                    String id = getValidString();
 
-                    Student student = studentService.findById(id);
+                    Student student = studentService.findById(new StudentId(id));
                     if (student != null) {
                         manageStudentProperties(student);
                     } else {
@@ -243,13 +244,13 @@ public class View {
                 }
                 case "3": {
                     System.out.print("Enter student ID: ");
-                    int id = getValidInt(); //todo here
+                    String id = getValidString();
 
                     System.out.print("Enter group name: ");
                     String groupName = getValidString();
 
                     try {
-                        studentService.registerToGroup(studentService.findById(id), groupName);
+                        studentService.registerToGroup(studentService.findById(new StudentId(id)), groupName);
                         System.out.println("linked to group: " + groupName);
                     } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
@@ -258,13 +259,13 @@ public class View {
                 }
                 case "4": {
                     System.out.print("Enter student ID: ");
-                    int id = getValidInt(); //todo here
+                    String id = getValidString();
 
                     System.out.print("Enter group name: ");
                     String groupName = getValidString();
 
                     try {
-                        studentService.unregisterFromGroup(studentService.findById(id), groupName);
+                        studentService.unregisterFromGroup(studentService.findById(new StudentId(id)), groupName);
                         System.out.println("unlinked from group: " + groupName);
                     } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
@@ -273,7 +274,7 @@ public class View {
                 }
                 case "5": {
                     System.out.print("Enter student ID: ");
-                    int id = getValidInt(); //todo here
+                    String id = getValidString();
 
                     System.out.print("Enter old group name: ");
                     String oldGroupName = getValidString();
@@ -282,7 +283,7 @@ public class View {
                     String newGroupName = getValidString();
 
                     try {
-                        studentService.transfer(studentService.findById(id), oldGroupName, newGroupName);
+                        studentService.transfer(studentService.findById(new StudentId(id)), oldGroupName, newGroupName);
                         System.out.println("transfered from " + oldGroupName + " to group: " + newGroupName);
                     } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
@@ -320,33 +321,7 @@ public class View {
         System.out.println("Select Study Form: 1. TUITION_FREE, 2. TUITION");
         StudyForm form = getValidString().equals("1") ? StudyForm.TUITION_FREE : StudyForm.TUITION;
 
-        System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
-        String statusChoice = getValidString();
-        StudyStatus status = null;
-
-        switch (statusChoice) {
-            case "1": {
-                status = StudyStatus.STUDYING;
-                break;
-            }
-            case "2": {
-                status = StudyStatus.EXPELLED;
-                break;
-            }
-            case "3": {
-                status = StudyStatus.ACADEMIC_LEAVE;
-                break;
-            }
-            case "4": {
-                status = StudyStatus.PENDING;
-                break;
-            }
-            default: {
-                System.out.println("Invalid option");
-                status = StudyStatus.PENDING;
-                break;
-            }
-        }
+        StudyStatus status = selectStudyStatus();
 
         int course = 1;
 
@@ -365,6 +340,30 @@ public class View {
         }
 
         return null;
+    }
+//todo maybe transfer somewhere
+    private static StudyStatus selectStudyStatus() {
+        System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
+        String statusChoice = getValidString();
+
+        switch (statusChoice) {
+            case "1": {
+                return StudyStatus.STUDYING;
+            }
+            case "2": {
+                return StudyStatus.EXPELLED;
+            }
+            case "3": {
+                return StudyStatus.ACADEMIC_LEAVE;
+            }
+            case "4": {
+                return StudyStatus.PENDING;
+            }
+            default: {
+                System.out.println("Invalid option");
+                return StudyStatus.PENDING;
+            }
+        }
     }
 
     private static void manageStudentProperties(Student student) {
@@ -388,33 +387,7 @@ public class View {
                     break;
                 }
                 case "2": {
-                    System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
-                    String statusChoice = getValidString();
-                    StudyStatus status = null;
-
-                    switch (statusChoice) {
-                        case "1": {
-                            status = StudyStatus.STUDYING;
-                            break;
-                        }
-                        case "2": {
-                            status = StudyStatus.EXPELLED;
-                            break;
-                        }
-                        case "3": {
-                            status = StudyStatus.ACADEMIC_LEAVE;
-                            break;
-                        }
-                        case "4": {
-                            status = StudyStatus.PENDING;
-                            break;
-                        }
-                        default: {
-                            System.out.println("Invalid option");
-                            status = StudyStatus.PENDING;
-                            break;
-                        }
-                    }
+                    StudyStatus status = selectStudyStatus();
                     student.setStudyStatus(status);
                     break;
                 }
@@ -430,7 +403,7 @@ public class View {
                     student.setName(getValidString("Name"));
                 }
                 case "6": {
-                    student.setAge(getValidInt()); // todo make method with message
+                    student.setAge(getValidInt()); // todo make method with message for int input
                 }
                 case "7": {
                     student.setSurname(getValidString("Surname"));

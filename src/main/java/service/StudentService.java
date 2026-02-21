@@ -2,6 +2,7 @@ package service;
 
 import domain.Group;
 import domain.Student;
+import domain.records.StudentId;
 import exceptions.GroupDoesNotExistException;
 import exceptions.StudentAddingError;
 import repository.interfaces.StudentRepositoryInt;
@@ -26,8 +27,8 @@ public class StudentService implements StudentServiceInt {
     public void registerToGroup(Student student, String groupName) {
         save(student);
 
-        boolean alrInGroup = groupService.findAll().stream()
-                .anyMatch(group -> group.getStudents().contains(student));
+        boolean alrInGroup = groupService.findAll()
+                .stream().anyMatch(group -> group.getStudents().contains(student.getStudentId()));
 
         if (alrInGroup) {
             throw new StudentAddingError("Student already exists in group " + groupName);
@@ -67,21 +68,24 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public void delete(Student student) {
-        this.studentRepository.deleteById(student.getId());
+        groupService.findAll()
+                .forEach(group -> group.removeStudent(student));
+
+        this.studentRepository.deleteById(student.getStudentId());
     }
 
     @Override
-    public Student findById(int id) {
+    public Student findById(StudentId id) {
         return this.studentRepository.findById(id);
     }
 
     @Override
-    public boolean existsById(int id) {
+    public boolean existsById(StudentId id) {
         return this.studentRepository.existsById(id);
     }
 
     @Override
-    public Map<Integer, Student> findAll() {
+    public Map<StudentId, Student> findAll() {
         return this.studentRepository.getAll();
     }
 

@@ -2,6 +2,7 @@ package service.interfaces;
 
 import domain.Student;
 import domain.abstractClasses.Staff;
+import domain.records.StaffId;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public interface StaffServiceInt {
 
     boolean existsById(int id);
 
-    Map<Integer, Staff> findAll();
+    Map<StaffId, Staff> findAll();
 
     void transfer(Staff staff, String from, String to);
 

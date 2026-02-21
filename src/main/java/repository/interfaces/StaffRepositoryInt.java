@@ -2,6 +2,7 @@ package repository.interfaces;
 
 import domain.Student;
 import domain.abstractClasses.Staff;
+import domain.records.StaffId;
 
 import java.util.Map;
 
@@ -13,5 +14,5 @@ public interface StaffRepositoryInt {
 
     Staff deleteById(int id);
 
-    Map<Integer, Staff> getAll();
+    Map<StaffId, Staff> getAll();
 }

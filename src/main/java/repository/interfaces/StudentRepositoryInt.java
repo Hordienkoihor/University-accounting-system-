@@ -1,16 +1,17 @@
 package repository.interfaces;
 
 import domain.Student;
+import domain.records.StudentId;
 
 import java.util.Map;
 
 public interface StudentRepositoryInt {
     void save(Student student);
 
-    Student findById(int id);
-    boolean existsById(int id);
+    Student findById(StudentId id);
+    boolean existsById(StudentId id);
 
-    Student deleteById(int id);
+    Student deleteById(StudentId id);
 
-    Map<Integer, Student> getAll();
+    Map<StudentId, Student> getAll();
 }

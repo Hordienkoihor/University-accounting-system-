@@ -1,11 +1,13 @@
 package domain.abstractClasses;
 
+import domain.records.StaffId;
+
 import java.util.Date;
+import java.util.Random;
 
 public abstract class Staff extends Person {
-    private static int staffIdCounter = 0;
-
-    private final int staffId;
+    private final Random random = new Random();
+    private final StaffId staffId;
 
     protected Staff(
             String name,
@@ -17,10 +19,10 @@ public abstract class Staff extends Person {
             Date dateOfBirth
     ) {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
-        staffId = staffIdCounter++;
+        staffId = new StaffId( "ST-ID-" + new Date().getTime() * random.nextInt(1, 500));
     }
 
-    public int getStaffId() {
+    public StaffId getStaffId() {
         return staffId;
     }
 

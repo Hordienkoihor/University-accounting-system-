@@ -1,5 +1,6 @@
 package domain;
 
+import domain.records.StudentId;
 import exceptions.IllegalNameException;
 import exceptions.StaffAddingError;
 import exceptions.StudentAddingError;
@@ -11,7 +12,7 @@ public class Group {
     private Specialty specialty;
     private String name;
 
-    private final List<Integer> students = new ArrayList<>();
+    private final List<StudentId> students = new ArrayList<>();
 
     public Group(Specialty specialty, String name) {
         setSpecialty(specialty);
@@ -43,11 +44,11 @@ public class Group {
             throw new StudentAddingError("Student cannot be null");
         }
 
-        if (students.contains(student.getId())) {
+        if (students.contains(student.getStudentId())) {
             throw new StudentAddingError("Student already in this group");
         }
 
-        students.add(student.getId());
+        students.add(student.getStudentId());
     }
 
     public void removeStudent(Student student) {
@@ -55,10 +56,10 @@ public class Group {
             throw new StaffAddingError("Student cannot be null");
         }
 
-        students.remove(student.getId());
+        students.remove(student.getStudentId());
     }
 
-    public List<Integer> getStudents() {
+    public List<StudentId> getStudents() {
         return students;
     }
 

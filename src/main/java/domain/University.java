@@ -3,6 +3,8 @@ package domain;
 import Utilitys.Validator;
 import domain.abstractClasses.Person;
 import domain.abstractClasses.Staff;
+import domain.records.StaffId;
+import domain.records.StudentId;
 import exceptions.*;
 
 import java.util.ArrayList;
@@ -12,8 +14,8 @@ import java.util.Map;
 
 public class University {
     private Map<String, Faculty> facultyMap = new HashMap<>();
-    private Map<Integer, Staff> staffMap = new HashMap<>();
-    private Map<Integer, Student> studentMap = new HashMap<>();
+    private Map<StaffId, Staff> staffMap = new HashMap<>();
+    private Map<StudentId, Student> studentMap = new HashMap<>();
 
     private String fullName;
     private String shortName;
@@ -127,7 +129,7 @@ public class University {
                 .orElse(null);
     }
 
-    public boolean doesStaffExist(int staffId) {
+    public boolean doesStaffExist(StaffId staffId) {
         return this.staffMap.containsKey(staffId);
     }
 
@@ -140,7 +142,6 @@ public class University {
     }
 
     public void addPerson(Person person) {
-
         if (person instanceof Student student) {
             studentMap.put(student.getStudentId(), student);
         } else if (person instanceof Staff staff) {
@@ -148,7 +149,7 @@ public class University {
         }
     }
 
-    public Student findStudentById(int studentId) {
+    public Student findStudentById(StudentId studentId) {
         return this.studentMap.get(studentId);
     }
 
@@ -159,8 +160,8 @@ public class University {
                 .orElse(null);
     }
 
-    public boolean doesStudentExist(int studentId) {
-        return this.studentMap.containsKey(studentId);
+    public boolean doesStudentExist(StudentId studentId) {
+        return this.studentMap.keySet().stream().anyMatch(id -> id.equals(studentId));
     }
 
     public Student removeStudent(Student student) {
@@ -193,7 +194,7 @@ public class University {
         return new ArrayList<>(studentMap.values());
     }
 
-    public Map<Integer, Student> getStudentsAsMap() {
+    public Map<StudentId, Student> getStudentsAsMap() {
         return new HashMap<>(studentMap);
     }
 
@@ -201,7 +202,7 @@ public class University {
         return new ArrayList<>(staffMap.values());
     }
 
-    public Map<Integer, Staff> getStaffAsMap() {
+    public Map<StaffId, Staff> getStaffAsMap() {
         return new HashMap<>(staffMap);
     }
 

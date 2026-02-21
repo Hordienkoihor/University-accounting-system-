@@ -1,6 +1,7 @@
 package repository;
 
 import domain.Student;
+import domain.records.StudentId;
 import repository.interfaces.StudentRepositoryInt;
 import service.interfaces.UniversityServiceInt;
 
@@ -19,24 +20,25 @@ public class StudentRepository implements StudentRepositoryInt {
     }
 
     @Override
-    public Student findById(int id) {
+    public Student findById(StudentId id) {
         return universityService.getUniversity().findStudentById(id);
     }
 
     @Override
-    public boolean existsById(int id) {
+    public boolean existsById(StudentId id) {
         return findById(id) != null;
     }
 
     @Override
-    public Student deleteById(int id) {
+    public Student deleteById(StudentId id) {
         Student student = findById(id);
 
         if (student != null) {
-            universityService.getUniversity().getFacultyList().stream()
-                    .flatMap(f -> f.getSpecialtyList().stream())
-                    .flatMap(s -> s.getGroups().stream())
-                    .forEach(group -> group.removeStudent(student));
+            /// transferred to service using group service
+//            universityService.getUniversity().getFacultyList().stream()
+//                    .flatMap(f -> f.getSpecialtyList().stream())
+//                    .flatMap(s -> s.getGroups().stream())
+//                    .forEach(group -> group.removeStudent(student));
 
             return universityService.getUniversity().removeStudent(student);
         }
@@ -46,7 +48,7 @@ public class StudentRepository implements StudentRepositoryInt {
     }
 
     @Override
-    public Map<Integer, Student> getAll() {
+    public Map<StudentId, Student> getAll() {
         return universityService.getUniversity().getStudentsAsMap();
     }
 }

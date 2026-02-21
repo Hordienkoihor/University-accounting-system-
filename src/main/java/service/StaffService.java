@@ -2,6 +2,7 @@ package service;
 
 import domain.Faculty;
 import domain.abstractClasses.Staff;
+import domain.records.StaffId;
 import exceptions.FacultyDoesNotExistException;
 import repository.interfaces.StaffRepositoryInt;
 import service.interfaces.FacultyServiceInt;
@@ -74,7 +75,7 @@ public class StaffService implements StaffServiceInt {
     }
 
     @Override
-    public Map<Integer, Staff> findAll() {
+    public Map<StaffId, Staff> findAll() {
         return staffRepository.getAll();
     }
 

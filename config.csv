@@ -1,3 +1,5 @@
 UNIVERSITY,Test full name,test short name,Kyiv,center 1.1.1
 STUDENT,Karl,Malyuk,Tarasovich,18,karl@ukr.net,0680057368,TUITION,STUDYING
 STUDENT,Taras,Malyuk,Karlovich,29,taras@ukr.net,0680057368,TUITION_FREE,ACADEMIC_LEAVE
+STUDENT,Makar,Malyuk,Karlovich,20,taras1@ukr.net,0680057168,TUITION_FREE,ACADEMIC_LEAVE
+STUDENT,Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368,TUITION_FREE,ACADEMIC_LEAVE
