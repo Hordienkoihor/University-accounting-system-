@@ -1,8 +1,8 @@
 package repository;
 
 import domain.Faculty;
+import exceptions.FacultyDoesNotExistException;
 import repository.interfaces.FacultyRepositoryInt;
-import service.UniversityService;
 import service.interfaces.UniversityServiceInt;
 
 import java.util.List;
@@ -52,15 +52,20 @@ public class FacultyRepository implements FacultyRepositoryInt {
 
     @Override
     public void deleteByCode(String code) {
-        if (existsByCode(code)) {
+        try {
             universityService.getUniversity().removeFaculty(findByCode(code));
+        } catch (FacultyDoesNotExistException e) {
+            System.out.println("Faculty with code " + code + " doesn't exist");
         }
+
     }
 
     @Override
     public void deleteByName(String name) {
-        if (existsByName(name)) {
+        try {
             universityService.getUniversity().removeFaculty(findByName(name));
+        } catch (FacultyDoesNotExistException e) {
+            System.out.println("Faculty with name " + name + " doesn't exist");
         }
     }
 }

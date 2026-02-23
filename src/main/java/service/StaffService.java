@@ -27,7 +27,7 @@ public class StaffService implements StaffServiceInt {
             throw new FacultyDoesNotExistException("Faculty with code " + facultyCode + " does not exist");
         }
 
-        if (!staffRepository.existsById(staff.getId())) {
+        if (!staffRepository.existsById(staff.getStaffId())) {
             staffRepository.save(staff);
         }
 
@@ -42,7 +42,7 @@ public class StaffService implements StaffServiceInt {
             throw new FacultyDoesNotExistException("Faculty with code " + facultyCode + " does not exist");
         }
 
-        if (!staffRepository.existsById(staff.getId())) {
+        if (!staffRepository.existsById(staff.getStaffId())) {
             staffRepository.save(staff);
         }
 
@@ -56,21 +56,21 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public Staff delete(Staff staff) {
-        return staffRepository.deleteById(staff.getId());
+        return staffRepository.deleteById(staff.getStaffId());
     }
 
     @Override
-    public Staff delete(int id) {
+    public Staff delete(StaffId id) {
         return staffRepository.deleteById(id);
     }
 
     @Override
-    public Staff findById(int id) {
+    public Staff findById(StaffId id) {
         return staffRepository.findById(id);
     }
 
     @Override
-    public boolean existsById(int id) {
+    public boolean existsById(StaffId id) {
         return findById(id) != null;
     }
 

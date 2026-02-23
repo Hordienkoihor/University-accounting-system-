@@ -21,17 +21,17 @@ public class StaffRepository implements StaffRepositoryInt {
     }
 
     @Override
-    public Staff findById(int id) {
+    public Staff findById(StaffId id) {
         return universityService.getUniversity().findStaffById(id);
     }
 
     @Override
-    public boolean existsById(int id) {
+    public boolean existsById(StaffId id) {
         return findById(id) != null;
     }
 
     @Override
-    public Staff deleteById(int id) {
+    public Staff deleteById(StaffId id) {
         Staff staff = findById(id);
         if (staff != null) {
             universityService.getUniversity().getFacultyList().forEach(f ->

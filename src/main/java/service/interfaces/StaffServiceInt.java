@@ -15,11 +15,11 @@ public interface StaffServiceInt {
 
     Staff delete(Staff staff);
 
-    Staff delete(int id);
+    Staff delete(StaffId id);
 
-    Staff findById(int id);
+    Staff findById(StaffId id);
 
-    boolean existsById(int id);
+    boolean existsById(StaffId id);
 
     Map<StaffId, Staff> findAll();
 

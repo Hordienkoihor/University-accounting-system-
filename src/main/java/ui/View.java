@@ -6,6 +6,7 @@ import domain.enums.ScientificDegree;
 import domain.enums.StudyForm;
 import domain.enums.StudyStatus;
 import domain.enums.UniversityPosition;
+import domain.records.StaffId;
 import domain.records.StudentId;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
@@ -38,7 +39,7 @@ public class View {
         specialityService = new SpecialityService(specialityRepository);
 
         GroupRepositoryInt groupRepository = new GroupRepository(specialityService);
-        groupService = new GroupService(groupRepository, specialityRepository);
+        groupService = new GroupService(groupRepository, specialityService);
 
         StudentRepositoryInt studentRepository = new StudentRepository(universityService);
         studentService = new StudentService(studentRepository, groupService);
@@ -452,7 +453,7 @@ public class View {
                 }
                 case "3": {
                     System.out.print("Enter Staff ID: ");
-                    int id = getValidInt();
+                    String id = getValidString();
 
                     System.out.print("From Faculty Code: ");
                     String from = getValidString();
@@ -461,7 +462,7 @@ public class View {
                     String to = getValidString();
 
                     try {
-                        staffService.transfer(staffService.findById(id), from, to);
+                        staffService.transfer(staffService.findById(new StaffId(id)), from, to);
                         System.out.println("Transfer successful!");
                     } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
@@ -470,29 +471,29 @@ public class View {
                 }
                 case "4": {
                     System.out.print("Enter Staff ID to remove: ");
-                    int id = getValidInt();
-                    staffService.delete(id);
+                    String id = getValidString();
+                    staffService.delete(new StaffId(id));
                     System.out.println("Staff member removed from system.");
                     break;
                 }
                 case "5": {
                     System.out.print("Enter Staff ID to link: ");
-                    int id = getValidInt();
+                    String id = getValidString();
 
                     System.out.println("Enter faculty code: ");
                     String facultyCode = getValidString();
 
-                    staffService.registerToFaculty(staffService.findById(id), facultyCode);
+                    staffService.registerToFaculty(staffService.findById(new StaffId(id)), facultyCode);
                     break;
                 }
                 case "6": {
                     System.out.print("Enter Staff ID to unlink: ");
-                    int id = getValidInt();
+                    String id = getValidString();
 
                     System.out.println("Enter faculty code: ");
                     String facultyCode = getValidString();
 
-                    staffService.unregisterFromFaculty(staffService.findById(id), facultyCode);
+                    staffService.unregisterFromFaculty(staffService.findById(new StaffId(id)), facultyCode);
                     break;
                 }
                 case "7":

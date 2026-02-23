@@ -9,10 +9,10 @@ import java.util.Map;
 public interface StaffRepositoryInt {
     void save(Staff staff);
 
-    Staff findById(int id);
-    boolean existsById(int id);
+    Staff findById(StaffId id);
+    boolean existsById(StaffId id);
 
-    Staff deleteById(int id);
+    Staff deleteById(StaffId id);
 
     Map<StaffId, Staff> getAll();
 }

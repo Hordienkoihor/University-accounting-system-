@@ -5,6 +5,7 @@ import domain.Student;
 import domain.records.StudentId;
 import exceptions.GroupDoesNotExistException;
 import exceptions.StudentAddingError;
+import exceptions.StudentRegisterToGroupException;
 import repository.interfaces.StudentRepositoryInt;
 import service.interfaces.GroupServiceInt;
 import service.interfaces.StudentServiceInt;
@@ -25,7 +26,12 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public void registerToGroup(Student student, String groupName) {
-        save(student);
+        try {
+            save(student);
+        } catch (StudentAddingError e) {
+            throw new StudentRegisterToGroupException(e.getMessage());
+        }
+
 
         boolean alrInGroup = groupService.findAll()
                 .stream().anyMatch(group -> group.getStudents().contains(student.getStudentId()));
@@ -59,8 +65,7 @@ public class StudentService implements StudentServiceInt {
     @Override
     public void save(Student student) {
         if (student == null) {
-            System.out.println("Student is null");
-            return;
+            throw new StudentAddingError("Student cannot be null");
         }
 
         this.studentRepository.save(student);

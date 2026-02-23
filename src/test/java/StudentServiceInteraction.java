@@ -7,20 +7,38 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import repository.*;
+import repository.interfaces.*;
 import service.*;
-import service.interfaces.StudentServiceInt;
-import service.interfaces.UniversityServiceInt;
+import service.interfaces.*;
 
 import java.util.Date;
 
-public class UnivertityStudentInteraction {
+public class StudentServiceInteraction {
     private static UniversityServiceInt universityService;
-
+    private static StudentServiceInt studentService;
+    private static FacultyServiceInt facultyService;
+    private static SpecialityServiceInt specialityService;
+    private static GroupServiceInt groupService;
 
     @BeforeEach
     void setUp() {
         universityService = new UniversityService(new UniversityRepository());
         universityService.loadUniversity("config.csv");
+
+        universityService = new UniversityService(new UniversityRepository());
+        universityService.loadUniversity("config.csv");
+
+        FacultyRepositoryInt facultyRepository = new FacultyRepository(universityService);
+        facultyService = new FacultyService(facultyRepository);
+
+        SpecialityRepositoryInt specialityRepository = new SpecialityRepository(facultyService);
+        specialityService = new SpecialityService(specialityRepository);
+
+        GroupRepositoryInt groupRepository = new GroupRepository(specialityService);
+        groupService = new GroupService(groupRepository, specialityService);
+
+        StudentRepositoryInt studentRepository = new StudentRepository(universityService);
+        studentService = new StudentService(studentRepository, groupService);
     }
 
     @ParameterizedTest
@@ -32,11 +50,11 @@ public class UnivertityStudentInteraction {
     })
     public void doesStudentExistByValidId(String name, String surname, String fatherName, int age, String email, String phone) {
         Student student = new Student(name, surname, fatherName, age, email, phone, new Date(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
-        universityService.getUniversity().addPerson(student);
+        studentService.save(student);
         StudentId studentId = student.getStudentId();
 
         Assertions.assertTrue(
-                universityService.getUniversity().doesStudentExist(studentId)
+                studentService.existsById(studentId)
         );
     }
 
@@ -49,10 +67,10 @@ public class UnivertityStudentInteraction {
     })
     public void doesStudentExistByInValidId(String name, String surname, String fatherName, int age, String email, String phone) {
         Student student = new Student(name, surname, fatherName, age, email, phone, new Date(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
-        universityService.getUniversity().addPerson(student);
+        studentService.save(student);
         StudentId studentId = new StudentId("clearlyNotAnID");
 
-        Assertions.assertFalse(universityService.getUniversity().doesStudentExist(studentId));
+        Assertions.assertFalse(studentService.existsById(studentId));
     }
 
     @ParameterizedTest
@@ -64,11 +82,11 @@ public class UnivertityStudentInteraction {
     })
     public void findStudentByValidId(String name, String surname, String fatherName, int age, String email, String phone) {
         Student student = new Student(name, surname, fatherName, age, email, phone, new Date(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
-        universityService.getUniversity().addPerson(student);
+        studentService.save(student);
         StudentId studentId = student.getStudentId();
 
         Assertions.assertTrue(
-                student.equals(universityService.getUniversity().findStudentById(studentId))
+                student.equals(studentService.findById(studentId))
         );
     }
 
@@ -81,10 +99,10 @@ public class UnivertityStudentInteraction {
     })
     public void findStudentByInValidId(String name, String surname, String fatherName, int age, String email, String phone) {
         Student student = new Student(name, surname, fatherName, age, email, phone, new Date(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
-        universityService.getUniversity().addPerson(student);
+        studentService.save(student);
         StudentId studentId = new StudentId("clearlyNotAnID");
 
-        Assertions.assertNull(universityService.getUniversity().findStudentById(studentId));
+        Assertions.assertNull(studentService.findById(studentId));
     }
 
 

@@ -118,7 +118,7 @@ public class University {
         this.facultyMap.remove(faculty.getCode());
     }
 
-    public Staff findStaffById(int staffId) {
+    public Staff findStaffById(StaffId staffId) {
         return this.staffMap.get(staffId);
     }
 
