@@ -4,18 +4,18 @@ import domain.Group;
 import domain.records.StudentId;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GroupRepositoryInt extends DefaultRepository<Group, String> {
     void save(String specialtyTag, Group group);
 
-
     List<Group> findAllBySpecialty(String specialtyTag);
 
-    default Group findByName(String name) {
+    default Optional<Group> findByName(String name) {
         return findById(name);
     }
 
     default boolean existsByName(String name) {
-        return findByName(name) != null;
+        return findByName(name).isPresent();
     }
 }

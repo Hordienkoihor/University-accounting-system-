@@ -7,10 +7,7 @@ import domain.records.StaffId;
 import domain.records.StudentId;
 import exceptions.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class University {
     private Map<String, Faculty> facultyMap = new HashMap<>();
@@ -90,15 +87,15 @@ public class University {
         this.facultyMap.put(faculty.getCode(), faculty);
     }
 
-    public Faculty findFacultyByCode(String code) {
-        return this.facultyMap.get(code);
+    public Optional<Faculty> findFacultyByCode(String code) {
+        return Optional.ofNullable(this.facultyMap.get(code));
     }
 
-    public Faculty findFacultyByName(String name) {
-        return this.facultyMap.values().stream()
+    public Optional<Faculty> findFacultyByName(String name) {
+        return Optional.ofNullable(this.facultyMap.values().stream()
                 .filter(faculty -> faculty.getName().equalsIgnoreCase(name))
                 .findFirst()
-                .orElse(null);
+                .orElse(null));
     }
 
     public boolean doesFacultyExist(String code) {
@@ -118,27 +115,31 @@ public class University {
         this.facultyMap.remove(faculty.getCode());
     }
 
-    public Staff findStaffById(StaffId staffId) {
-        return this.staffMap.get(staffId);
+    public void deleteFacultyById(String code) {
+        this.facultyMap.remove(code);
     }
 
-    public Staff findStaffByName(String fullName) {
-        return this.staffMap.values().stream()
+    public Optional<Staff> findStaffById(StaffId staffId) {
+        return Optional.ofNullable(this.staffMap.get(staffId));
+    }
+
+    public Optional<Staff> findStaffByName(String fullName) {
+        return Optional.ofNullable(this.staffMap.values().stream()
                 .filter(staff -> staff.getFullName().equalsIgnoreCase(fullName))
                 .findFirst()
-                .orElse(null);
+                .orElse(null));
     }
 
     public boolean doesStaffExist(StaffId staffId) {
         return this.staffMap.containsKey(staffId);
     }
 
-    public Staff removeStaff(Staff staff) {
+    public void removeStaff(Staff staff) {
         if (!doesStaffExist(staff.getStaffId())) {
             throw new StaffDoesNotExistException(staff.getStaffId() + "");
         }
 
-        return this.staffMap.remove(staff.getStaffId());
+        this.staffMap.remove(staff.getStaffId());
     }
 
     public void addPerson(Person person) {
@@ -149,27 +150,27 @@ public class University {
         }
     }
 
-    public Student findStudentById(StudentId studentId) {
-        return this.studentMap.get(studentId);
+    public Optional<Student> findStudentById(StudentId studentId) {
+        return Optional.ofNullable(this.studentMap.get(studentId));
     }
 
-    public Student findStudentByName(String fullName) {
-        return this.studentMap.values().stream()
+    public Optional<Student> findStudentByName(String fullName) {
+        return Optional.ofNullable(this.studentMap.values().stream()
                 .filter(student -> student.getFullName().equalsIgnoreCase(fullName))
                 .findFirst()
-                .orElse(null);
+                .orElse(null));
     }
 
     public boolean doesStudentExist(StudentId studentId) {
         return this.studentMap.keySet().stream().anyMatch(id -> id.equals(studentId));
     }
 
-    public Student removeStudent(Student student) {
+    public void removeStudent(Student student) {
         if (!doesStudentExist(student.getStudentId())) {
             throw new StudentDoesNotExistException(student.getStudentId() + "");
         }
 
-        return this.studentMap.remove(student.getStudentId());
+        this.studentMap.remove(student.getStudentId());
 
     }
 
@@ -186,6 +187,7 @@ public class University {
                 .findFirst()
                 .map(group -> group.getStudents().stream()
                         .map(this::findStudentById)
+                        .flatMap(Optional::stream)
                         .toList())
                 .orElse(null);
     }
@@ -208,7 +210,7 @@ public class University {
 
     @Override
     public String toString() {
-        return "University {"+ '\n' +
+        return "University {" + '\n' +
                 "   address='" + address + ',' + '\n' +
                 "   city='" + city + ',' + '\n' +
                 "   shortName='" + shortName + ',' + '\n' +

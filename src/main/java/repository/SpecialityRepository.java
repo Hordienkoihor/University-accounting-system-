@@ -6,6 +6,7 @@ import repository.interfaces.SpecialityRepositoryInt;
 import service.interfaces.FacultyServiceInt;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SpecialityRepository implements SpecialityRepositoryInt {
     private final FacultyServiceInt facultyService;
@@ -34,12 +35,11 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 //    }
 
     @Override
-    public Specialty findByName(String name) {
+    public Optional<Specialty> findByName(String name) {
         return facultyService.getAllAsList().stream()
                 .flatMap(f -> f.getSpecialtyList().stream())
                 .filter(s -> s.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
 //    @Override
@@ -49,7 +49,7 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 
     @Override
     public boolean existsByName(String name) {
-        return findByName(name) != null;
+        return findByName(name).isPresent();
     }
 
 //    @Override
@@ -74,17 +74,16 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
     }
 
     @Override
-    public Specialty findById(String tag) {
+    public Optional<Specialty> findById(String tag) {
         return facultyService.getAllAsList().stream()
                 .flatMap(f -> f.getSpecialtyList().stream())
                 .filter(s -> s.getTag().equalsIgnoreCase(tag))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     @Override
     public boolean existsById(String tag) {
-        return findById(tag) != null;
+        return findById(tag).isPresent();
     }
 
     @Override

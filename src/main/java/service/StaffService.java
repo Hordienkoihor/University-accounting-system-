@@ -66,7 +66,7 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public Staff findById(StaffId id) {
-        return staffRepository.findById(id);
+        return staffRepository.findById(id).get();
     }
 
     @Override

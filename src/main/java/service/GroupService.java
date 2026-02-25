@@ -10,6 +10,7 @@ import service.interfaces.GroupServiceInt;
 import service.interfaces.SpecialityServiceInt;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GroupService implements GroupServiceInt {
     private final GroupRepositoryInt repository;
@@ -38,7 +39,7 @@ public class GroupService implements GroupServiceInt {
 
     @Override
     public Group findByName(String name) {
-        return repository.findById(name);
+        return repository.findById(name).get();
     }
 
     @Override
@@ -54,10 +55,8 @@ public class GroupService implements GroupServiceInt {
 
     @Override
     public void updateName(String oldName, String newName) {
-        Group group = repository.findById(oldName);
-        if (group != null) {
-            group.setName(newName);
-        }
+        Optional<Group> group = repository.findById(oldName);
+        group.ifPresent(value -> value.setName(newName));
     }
 
     @Override

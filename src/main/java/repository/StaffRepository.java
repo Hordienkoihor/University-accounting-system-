@@ -7,6 +7,7 @@ import service.interfaces.UniversityServiceInt;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class StaffRepository implements StaffRepositoryInt {
     private final UniversityServiceInt universityService;
@@ -21,13 +22,13 @@ public class StaffRepository implements StaffRepositoryInt {
     }
 
     @Override
-    public Staff findById(StaffId id) {
+    public Optional<Staff> findById(StaffId id) {
         return universityService.getUniversity().findStaffById(id);
     }
 
     @Override
     public boolean existsById(StaffId id) {
-        return findById(id) != null;
+        return findById(id).isPresent();
     }
 
     @Override
@@ -37,12 +38,12 @@ public class StaffRepository implements StaffRepositoryInt {
 
     @Override
     public void deleteById(StaffId id) {
-        Staff staff = findById(id);
-        if (staff != null) {
+        Optional<Staff> staff = findById(id);
+        if (staff.isPresent()) {
             universityService.getUniversity().getFacultyList().forEach(f ->
-                    f.getStaffMap().remove(id));
+                    f.removeStaff(staff.get()));
 
-            universityService.getUniversity().removeStaff(staff);
+            universityService.getUniversity().removeStaff(staff.get());
         }
     }
 

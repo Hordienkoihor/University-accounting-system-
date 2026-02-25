@@ -13,6 +13,7 @@ import service.interfaces.StudentServiceInt;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class StudentService implements StudentServiceInt {
@@ -81,7 +82,12 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public Student findById(StudentId id) {
-        return this.studentRepository.findById(id);
+        Optional<Student> student = studentRepository.findById(id);
+
+        if (student.isPresent()) {
+            return student.get();
+        }
+        return null;
     }
 
     @Override

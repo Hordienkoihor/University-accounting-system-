@@ -7,6 +7,7 @@ import service.interfaces.UniversityServiceInt;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FacultyRepository implements FacultyRepositoryInt<Faculty, String> {
     private final UniversityServiceInt universityService;
@@ -31,12 +32,12 @@ public class FacultyRepository implements FacultyRepositoryInt<Faculty, String> 
     }
 
     @Override
-    public Faculty findById(String code) {
+    public Optional<Faculty> findById(String code) {
         return universityService.getUniversity().findFacultyByCode(code);
     }
 
     @Override
-    public Faculty findByName(String name) {
+    public Optional<Faculty> findByName(String name) {
         return universityService.getUniversity().findFacultyByName(name);
     }
 
@@ -53,17 +54,16 @@ public class FacultyRepository implements FacultyRepositoryInt<Faculty, String> 
     @Override
     public void deleteById(String code) {
         try {
-            universityService.getUniversity().removeFaculty(findById(code));
+            universityService.getUniversity().deleteFacultyById(code);
         } catch (FacultyDoesNotExistException e) {
             System.out.println("Faculty with code " + code + " doesn't exist");
         }
-
     }
 
     @Override
     public void deleteByName(String name) {
         try {
-            universityService.getUniversity().removeFaculty(findByName(name));
+            universityService.getUniversity().removeFaculty(findByName(name).get());
         } catch (FacultyDoesNotExistException e) {
             System.out.println("Faculty with name " + name + " doesn't exist");
         }

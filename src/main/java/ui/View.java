@@ -153,6 +153,7 @@ public class View {
                     facultyService.getAllAsList().
                             forEach(f -> specialityService.findAllOnFaculty(f.getCode())
                                     .forEach(System.out::println));
+                    break;
                 }
                 case "4": {
                     universityService.getUniversity().getStudentsAsList().forEach(System.out::println);
@@ -232,6 +233,10 @@ public class View {
                     break;
                 }
                 case "2": {
+                    studentService.getAllCourseOrder()
+                            .stream()
+                            .map(student -> student.getStudentId() + " " + student.getFullName()).forEach(System.out::println);
+
                     System.out.print("Enter student ID to edit: ");
                     String id = getValidString();
 

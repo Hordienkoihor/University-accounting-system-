@@ -2,6 +2,7 @@ package domain;
 
 import Utilitys.Validator;
 import domain.abstractClasses.Staff;
+import domain.records.StaffId;
 import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
 import exceptions.StudentAddingError;
@@ -12,12 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Faculty {
-    private String name;
     private final String code;
-
-    Map<String, Staff> staffMap = new HashMap<>();
-
+    Map<StaffId, Staff> staffMap = new HashMap<>();
     Map<String, Specialty> specialtyList = new HashMap<>();
+    private String name;
 
     public Faculty(String name, String code) {
         setName(name);
@@ -28,16 +27,16 @@ public class Faculty {
         return name;
     }
 
-    public String getCode() {
-        return code;
-    }
-
     public void setName(String name) {
         if (!Validator.isValidString(name)) {
             throw new IllegalNameException("Name field cannot be empty");
         }
 
         this.name = name;
+    }
+
+    public String getCode() {
+        return code;
     }
 
     public List<Specialty> getSpecialtyList() {
@@ -79,27 +78,27 @@ public class Faculty {
             throw new StudentAddingError("Staff cannot be null");
         }
 
-        staffMap.put(staff.getName(), staff);
+        staffMap.put(staff.getStaffId(), staff);
     }
 
-    public Staff removeStaff(Staff staff) {
+    public void removeStaff(Staff staff) {
         if (staff == null) {
             throw new StudentAddingError("Staff cannot be null");
         }
 
-        return staffMap.remove(staff.getName());
+        staffMap.remove(staff.getStaffId());
     }
 
     public boolean containsStaff(Staff staff) {
-        return staffMap.containsKey(staff.getName());
+        return staffMap.containsKey(staff.getStaffId());
     }
 
-    public Map<String, Staff> getStaffMap() {
+    public Map<StaffId, Staff> getStaffMap() {
         return staffMap;
     }
 
-    public boolean removeSpecialty(String tag) {
-        return specialtyList.remove(tag) != null;
+    public void removeSpecialty(String tag) {
+        specialtyList.remove(tag);
     }
 
     public Specialty getSpecialty(String tag) {

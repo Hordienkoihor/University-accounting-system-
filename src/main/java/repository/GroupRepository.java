@@ -6,6 +6,7 @@ import repository.interfaces.GroupRepositoryInt;
 import service.interfaces.SpecialityServiceInt;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GroupRepository implements GroupRepositoryInt {
     private final SpecialityServiceInt specialityService;
@@ -29,18 +30,17 @@ public class GroupRepository implements GroupRepositoryInt {
     }
 
     @Override
-    public Group findById(String name) {
+    public Optional<Group> findById(String name) {
         return specialityService.getAllSpecialties()
                 .stream()
                 .flatMap(s -> s.getGroups().stream())
                 .filter(g -> g.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     @Override
     public boolean existsById(String s) {
-        return findById(s) != null;
+        return findById(s).isPresent();
     }
 
     @Override

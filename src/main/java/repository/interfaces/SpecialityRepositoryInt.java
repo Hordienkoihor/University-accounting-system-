@@ -4,12 +4,13 @@ import domain.Faculty;
 import domain.Specialty;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SpecialityRepositoryInt extends DefaultRepository<Specialty, String> {
     void save(String code, Specialty specialty);
 //
 //    Specialty findByTag(String tag);
-    Specialty findByName(String name);
+    Optional<Specialty> findByName(String name);
 
 //    boolean existsByTag(String tag);
     boolean existsByName(String name);

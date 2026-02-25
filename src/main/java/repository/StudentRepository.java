@@ -7,6 +7,7 @@ import service.interfaces.UniversityServiceInt;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class StudentRepository extends BaseUniversityRepo<Student, StudentId> implements StudentRepositoryInt {
 
@@ -20,13 +21,13 @@ public class StudentRepository extends BaseUniversityRepo<Student, StudentId> im
     }
 
     @Override
-    public Student findById(StudentId id) {
+    public Optional<Student> findById(StudentId id) {
         return getUniversity().findStudentById(id);
     }
 
     @Override
     public boolean existsById(StudentId id) {
-        return findById(id) != null;
+        return findById(id).isPresent();
     }
 
     @Override
@@ -36,19 +37,13 @@ public class StudentRepository extends BaseUniversityRepo<Student, StudentId> im
 
     @Override
     public void deleteById(StudentId id) {
-        Student student = findById(id);
-
-        if (student != null) {
-            /// transferred to service using group service
-//            universityService.getUniversity().getFacultyList().stream()
-//                    .flatMap(f -> f.getSpecialtyList().stream())
-//                    .flatMap(s -> s.getGroups().stream())
-//                    .forEach(group -> group.removeStudent(student));
-
-            getUniversity().removeStudent(student);
-        }
-
-        System.out.println("Student not found");
+        Optional<Student> student = findById(id);
+        student.ifPresent(value -> getUniversity().removeStudent(value));
+        /// transferred to service using group service
+        //            universityService.getUniversity().getFacultyList().stream()
+        //                    .flatMap(f -> f.getSpecialtyList().stream())
+        //                    .flatMap(s -> s.getGroups().stream())
+        //                    .forEach(group -> group.removeStudent(student));
     }
 
     public Map<StudentId, Student> getAll() {

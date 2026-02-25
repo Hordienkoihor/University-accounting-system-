@@ -35,12 +35,12 @@ public class SpecialityService implements SpecialityServiceInt {
 
     @Override
     public Specialty findByTag(String tag) {
-        return specialityRepository.findById(tag);
+        return specialityRepository.findById(tag).get();
     }
 
     @Override
     public Specialty findByName(String name) {
-        return specialityRepository.findByName(name);
+        return specialityRepository.findByName(name).get();
     }
 
     @Override

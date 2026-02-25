@@ -68,7 +68,7 @@ public class UnivertityStudentInteraction {
         StudentId studentId = student.getStudentId();
 
         Assertions.assertTrue(
-                student.equals(universityService.getUniversity().findStudentById(studentId))
+                student.equals(universityService.getUniversity().findStudentById(studentId).get())
         );
     }
 
@@ -84,7 +84,7 @@ public class UnivertityStudentInteraction {
         universityService.getUniversity().addPerson(student);
         StudentId studentId = new StudentId("clearlyNotAnID");
 
-        Assertions.assertNull(universityService.getUniversity().findStudentById(studentId));
+        Assertions.assertTrue(universityService.getUniversity().findStudentById(studentId).isEmpty());
     }
 
 

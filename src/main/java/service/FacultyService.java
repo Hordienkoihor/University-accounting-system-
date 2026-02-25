@@ -7,6 +7,7 @@ import service.interfaces.FacultyServiceInt;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FacultyService implements FacultyServiceInt {
     private final FacultyRepositoryInt<Faculty, String> facultyRepository;
@@ -28,12 +29,12 @@ public class FacultyService implements FacultyServiceInt {
 
     @Override
     public Faculty findByCode(String code) {
-        return facultyRepository.findById(code);
+        return facultyRepository.findById(code).get();
     }
 
     @Override
     public Faculty findByName(String name) {
-        return facultyRepository.findByName(name);
+        return facultyRepository.findByName(name).get();
     }
 
     @Override
@@ -46,11 +47,9 @@ public class FacultyService implements FacultyServiceInt {
 
     @Override
     public void update(String code, String name) {
-        Faculty oldFaculty = facultyRepository.findById(code);
+        Optional<Faculty> oldFaculty = facultyRepository.findById(code);
 
-        if (oldFaculty != null) {
-            oldFaculty.setName(name);
-        }
+        oldFaculty.ifPresent(faculty -> faculty.setName(name));
     }
 
     @Override

@@ -71,7 +71,7 @@ public class UnivertityStaffInteraction {
         StaffId staffId = teacher.getStaffId();
 
         Assertions.assertTrue(
-                teacher.equals(universityService.getUniversity().findStaffById(staffId))
+                teacher.equals(universityService.getUniversity().findStaffById(staffId).get())
         );
     }
 
@@ -87,7 +87,7 @@ public class UnivertityStaffInteraction {
         universityService.getUniversity().addPerson(teacher);
         StaffId staffId = new StaffId("clearlyNotAnID");
 
-        Assertions.assertNull(universityService.getUniversity().findStaffById(staffId));
+        Assertions.assertTrue(universityService.getUniversity().findStaffById(staffId).isEmpty());
     }
 
 
