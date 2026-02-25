@@ -6,13 +6,13 @@ import domain.records.StaffId;
 
 import java.util.Map;
 
-public interface StaffRepositoryInt {
-    void save(Staff staff);
+public interface StaffRepositoryInt extends DefaultRepository<Staff, StaffId> {
+//    void save(Staff staff);
 
-    Staff findById(StaffId id);
-    boolean existsById(StaffId id);
+//    Staff findById(StaffId id);
+//    boolean existsById(StaffId id);
 
-    Staff deleteById(StaffId id);
+//    Staff deleteById(StaffId id);
 
     Map<StaffId, Staff> getAll();
 }

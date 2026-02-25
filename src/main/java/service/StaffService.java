@@ -55,13 +55,13 @@ public class StaffService implements StaffServiceInt {
     }
 
     @Override
-    public Staff delete(Staff staff) {
-        return staffRepository.deleteById(staff.getStaffId());
+    public void delete(Staff staff) {
+        staffRepository.deleteById(staff.getStaffId());
     }
 
     @Override
-    public Staff delete(StaffId id) {
-        return staffRepository.deleteById(id);
+    public void delete(StaffId id) {
+        staffRepository.deleteById(id);
     }
 
     @Override

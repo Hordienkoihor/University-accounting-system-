@@ -1,11 +1,11 @@
 package repository;
 
-import domain.Student;
 import domain.abstractClasses.Staff;
 import domain.records.StaffId;
 import repository.interfaces.StaffRepositoryInt;
 import service.interfaces.UniversityServiceInt;
 
+import java.util.List;
 import java.util.Map;
 
 public class StaffRepository implements StaffRepositoryInt {
@@ -31,15 +31,19 @@ public class StaffRepository implements StaffRepositoryInt {
     }
 
     @Override
-    public Staff deleteById(StaffId id) {
+    public List<Staff> findAll() {
+        return universityService.getUniversity().getStaffAsList();
+    }
+
+    @Override
+    public void deleteById(StaffId id) {
         Staff staff = findById(id);
         if (staff != null) {
             universityService.getUniversity().getFacultyList().forEach(f ->
                     f.getStaffMap().remove(id));
 
-            return universityService.getUniversity().removeStaff(staff);
+            universityService.getUniversity().removeStaff(staff);
         }
-        return null;
     }
 
     @Override

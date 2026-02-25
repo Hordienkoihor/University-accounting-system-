@@ -102,7 +102,7 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public List<Student> getAllCourseOrder() {
-        return studentRepository.getAll().values().stream()
+        return studentRepository.findAll().stream()
                 .sorted(Comparator.comparing(Student::getCourse))
                 .collect(Collectors.toList());
     }

@@ -13,9 +13,9 @@ public interface StaffServiceInt {
 
     void save(Staff staff);
 
-    Staff delete(Staff staff);
+    void delete(Staff staff);
 
-    Staff delete(StaffId id);
+    void delete(StaffId id);
 
     Staff findById(StaffId id);
 

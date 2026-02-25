@@ -5,13 +5,6 @@ import domain.records.StudentId;
 
 import java.util.Map;
 
-public interface StudentRepositoryInt {
-    void save(Student student);
-
-    Student findById(StudentId id);
-    boolean existsById(StudentId id);
-
-    Student deleteById(StudentId id);
-
+public interface StudentRepositoryInt extends DefaultRepository<Student, StudentId> {
     Map<StudentId, Student> getAll();
 }

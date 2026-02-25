@@ -8,8 +8,8 @@ import service.interfaces.UniversityServiceInt;
 import java.util.List;
 import java.util.Map;
 
-public class FacultyRepository implements FacultyRepositoryInt {
-    private UniversityServiceInt universityService;
+public class FacultyRepository implements FacultyRepositoryInt<Faculty, String> {
+    private final UniversityServiceInt universityService;
 
     public FacultyRepository(UniversityServiceInt universityService) {
         this.universityService = universityService;
@@ -21,7 +21,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
     }
 
     @Override
-    public boolean existsByCode(String code) {
+    public boolean existsById(String code) {
         return universityService.getUniversity().doesFacultyExist(code);
     }
 
@@ -31,7 +31,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
     }
 
     @Override
-    public Faculty findByCode(String code) {
+    public Faculty findById(String code) {
         return universityService.getUniversity().findFacultyByCode(code);
     }
 
@@ -41,7 +41,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
     }
 
     @Override
-    public List<Faculty> getAllAsList() {
+    public List<Faculty> findAll() {
         return universityService.getUniversity().getFacultyList();
     }
 
@@ -51,9 +51,9 @@ public class FacultyRepository implements FacultyRepositoryInt {
     }
 
     @Override
-    public void deleteByCode(String code) {
+    public void deleteById(String code) {
         try {
-            universityService.getUniversity().removeFaculty(findByCode(code));
+            universityService.getUniversity().removeFaculty(findById(code));
         } catch (FacultyDoesNotExistException e) {
             System.out.println("Faculty with code " + code + " doesn't exist");
         }

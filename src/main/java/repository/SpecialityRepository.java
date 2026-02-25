@@ -2,7 +2,6 @@ package repository;
 
 import domain.Faculty;
 import domain.Specialty;
-import repository.interfaces.FacultyRepositoryInt;
 import repository.interfaces.SpecialityRepositoryInt;
 import service.interfaces.FacultyServiceInt;
 
@@ -25,14 +24,14 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
     }
 
 
-    @Override
-    public Specialty findByTag(String tag) {
-        return facultyService.getAllAsList().stream()
-                .flatMap(f -> f.getSpecialtyList().stream())
-                .filter(s -> s.getTag().equalsIgnoreCase(tag))
-                .findFirst()
-                .orElse(null);
-    }
+//    @Override
+//    public Specialty findByTag(String tag) {
+//        return facultyService.getAllAsList().stream()
+//                .flatMap(f -> f.getSpecialtyList().stream())
+//                .filter(s -> s.getTag().equalsIgnoreCase(tag))
+//                .findFirst()
+//                .orElse(null);
+//    }
 
     @Override
     public Specialty findByName(String name) {
@@ -43,20 +42,20 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
                 .orElse(null);
     }
 
-    @Override
-    public boolean existsByTag(String tag) {
-        return findByTag(tag) != null;
-    }
+//    @Override
+//    public boolean existsByTag(String tag) {
+//        return findByTag(tag) != null;
+//    }
 
     @Override
     public boolean existsByName(String name) {
         return findByName(name) != null;
     }
 
-    @Override
-    public void deleteByTag(String tag) {
-        facultyService.getAllAsList().forEach(f -> f.removeSpecialty(tag));
-    }
+//    @Override
+//    public void deleteByTag(String tag) {
+//        facultyService.getAllAsList().forEach(f -> f.removeSpecialty(tag));
+//    }
 
     @Override
     public List<Specialty> findAllOnFaculty(String code) {
@@ -70,10 +69,34 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
     }
 
     @Override
+    public void save(Specialty entity) {
+        throw new UnsupportedOperationException("Use save(facultyCode, speciality) instead");
+    }
+
+    @Override
+    public Specialty findById(String tag) {
+        return facultyService.getAllAsList().stream()
+                .flatMap(f -> f.getSpecialtyList().stream())
+                .filter(s -> s.getTag().equalsIgnoreCase(tag))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public boolean existsById(String tag) {
+        return findById(tag) != null;
+    }
+
+    @Override
     public List<Specialty> findAll() {
         return facultyService.getAllAsList().stream()
                 .flatMap(f -> f.getSpecialtyList().stream())
                 .toList();
+    }
+
+    @Override
+    public void deleteById(String tag) {
+        facultyService.getAllAsList().forEach(f -> f.removeSpecialty(tag));
     }
 
 

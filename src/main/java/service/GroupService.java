@@ -22,7 +22,7 @@ public class GroupService implements GroupServiceInt {
 
     @Override
     public void registerGroup(String specialtyTag, String groupName) {
-        if (repository.existsByName(groupName)) {
+        if (repository.existsById(groupName)) {
             throw new GroupAlreadyExistsException("Group with name " + groupName + " already exists");
         }
 
@@ -38,7 +38,7 @@ public class GroupService implements GroupServiceInt {
 
     @Override
     public Group findByName(String name) {
-        return repository.findByName(name);
+        return repository.findById(name);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class GroupService implements GroupServiceInt {
 
     @Override
     public void updateName(String oldName, String newName) {
-        Group group = repository.findByName(oldName);
+        Group group = repository.findById(oldName);
         if (group != null) {
             group.setName(newName);
         }
@@ -62,6 +62,6 @@ public class GroupService implements GroupServiceInt {
 
     @Override
     public void deleteByName(String name) {
-        repository.deleteByName(name);
+        repository.deleteById(name);
     }
 }

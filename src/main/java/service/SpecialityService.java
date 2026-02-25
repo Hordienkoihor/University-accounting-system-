@@ -35,7 +35,7 @@ public class SpecialityService implements SpecialityServiceInt {
 
     @Override
     public Specialty findByTag(String tag) {
-        return specialityRepository.findByTag(tag);
+        return specialityRepository.findById(tag);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SpecialityService implements SpecialityServiceInt {
 
     @Override
     public boolean existsByTag(String tag) {
-        return specialityRepository.existsByTag(tag);
+        return specialityRepository.existsById(tag);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class SpecialityService implements SpecialityServiceInt {
             System.out.println("Specialty with tag " + tag + " does not exist");
         }
 
-        specialityRepository.deleteByTag(tag);
+        specialityRepository.deleteById(tag);
     }
 
     @Override

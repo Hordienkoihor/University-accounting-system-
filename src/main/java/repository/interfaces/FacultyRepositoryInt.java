@@ -5,19 +5,14 @@ import domain.Faculty;
 import java.util.List;
 import java.util.Map;
 
-public interface FacultyRepositoryInt {
-    void save(Faculty faculty);
-
-    boolean existsByCode(String code);
+public interface FacultyRepositoryInt<T, ID> extends DefaultRepository<T, ID> {
     boolean existsByName(String name);
 
-    Faculty findByCode(String code);
-    Faculty findByName(String name);
+    T findByName(String name);
 
-    List<Faculty> getAllAsList();
-    Map<String, Faculty> getAllAsMap();
+    Map<ID, T> getAllAsMap();
 
-    void deleteByCode(String code);
+//    void deleteByCode(String code);
     void deleteByName(String name);
 
 }

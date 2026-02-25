@@ -24,7 +24,12 @@ public class GroupRepository implements GroupRepositoryInt {
     }
 
     @Override
-    public Group findByName(String name) {
+    public void save(Group entity) {
+        throw new UnsupportedOperationException("Use save(specialtyTag, group) instead");
+    }
+
+    @Override
+    public Group findById(String name) {
         return specialityService.getAllSpecialties()
                 .stream()
                 .flatMap(s -> s.getGroups().stream())
@@ -34,8 +39,22 @@ public class GroupRepository implements GroupRepositoryInt {
     }
 
     @Override
-    public boolean existsByName(String name) {
-        return findByName(name) != null;
+    public boolean existsById(String s) {
+        return findById(s) != null;
+    }
+
+    @Override
+    public List<Group> findAll() {
+        return specialityService.getAllSpecialties().stream()
+                .flatMap(specialty -> specialty.getGroups().stream())
+                .toList();
+    }
+
+    @Override
+    public void deleteById(String name) {
+        specialityService.getAllSpecialties().
+                forEach(s -> s.getGroups().
+                        removeIf(g -> g.getName().equalsIgnoreCase(name)));
     }
 
     @Override
@@ -48,18 +67,28 @@ public class GroupRepository implements GroupRepositoryInt {
         return List.of();
     }
 
-    @Override
-    public void deleteByName(String name) {
-        specialityService.getAllSpecialties().
-                forEach(s -> s.getGroups().
-                        removeIf(g -> g.getName().equalsIgnoreCase(name)));
-    }
+//    @Override
+//    public Group findByName(String name) {
+//        return specialityService.getAllSpecialties()
+//                .stream()
+//                .flatMap(s -> s.getGroups().stream())
+//                .filter(g -> g.getName().equalsIgnoreCase(name))
+//                .findFirst()
+//                .orElse(null);
+//    }
+//
+//    @Override
+//    public boolean existsByName(String name) {
+//        return findByName(name) != null;
+//    }
+//
 
-    @Override
-    public List<Group> findAll() {
-        return specialityService.getAllSpecialties().stream()
-                .flatMap(specialty -> specialty.getGroups().stream())
-                .toList();
-    }
+//
+//    @Override
+//    public void deleteByName(String name) {
+//        specialityService.getAllSpecialties().
+//                forEach(s -> s.getGroups().
+//                        removeIf(g -> g.getName().equalsIgnoreCase(name)));
+//    }
 
 }

@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.Map;
 
 public class FacultyService implements FacultyServiceInt {
-    private FacultyRepositoryInt facultyRepository;
+    private final FacultyRepositoryInt<Faculty, String> facultyRepository;
 
-    public FacultyService(FacultyRepositoryInt facultyRepository) {
+    public FacultyService(FacultyRepositoryInt<Faculty, String> facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
 
 
     @Override
     public boolean existsByCode(String code) {
-        return facultyRepository.existsByCode(code);
+        return facultyRepository.existsById(code);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class FacultyService implements FacultyServiceInt {
 
     @Override
     public Faculty findByCode(String code) {
-        return facultyRepository.findByCode(code);
+        return facultyRepository.findById(code);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class FacultyService implements FacultyServiceInt {
 
     @Override
     public void update(String code, String name) {
-        Faculty oldFaculty = facultyRepository.findByCode(code);
+        Faculty oldFaculty = facultyRepository.findById(code);
 
         if (oldFaculty != null) {
             oldFaculty.setName(name);
@@ -55,8 +55,8 @@ public class FacultyService implements FacultyServiceInt {
 
     @Override
     public void deleteByCode(String code) {
-        if (facultyRepository.existsByCode(code)) {
-            facultyRepository.deleteByCode(code);
+        if (facultyRepository.existsById(code)) {
+            facultyRepository.deleteById(code);
         }
     }
 
@@ -69,7 +69,7 @@ public class FacultyService implements FacultyServiceInt {
 
     @Override
     public List<Faculty> getAllAsList() {
-        return facultyRepository.getAllAsList();
+        return facultyRepository.findAll();
     }
 
     @Override
