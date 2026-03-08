@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.Optional;
 
 public class FacultyService implements FacultyServiceInt {
-    private final FacultyRepositoryInt<Faculty, String> facultyRepository;
+    private final FacultyRepositoryInt facultyRepository;
 
-    public FacultyService(FacultyRepositoryInt<Faculty, String> facultyRepository) {
+    public FacultyService(FacultyRepositoryInt facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
 

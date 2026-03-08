@@ -2,6 +2,7 @@ package ui;
 
 import Utilitys.Validator;
 import domain.*;
+import domain.abstractClasses.Staff;
 import domain.enums.ScientificDegree;
 import domain.enums.StudyForm;
 import domain.enums.StudyStatus;
@@ -407,15 +408,19 @@ public class View {
                 }
                 case "5": {
                     student.setName(getValidString("Name"));
+                    break;
                 }
                 case "6": {
                     student.setAge(getValidInt()); // todo make method with message for int input
+                    break;
                 }
                 case "7": {
                     student.setSurname(getValidString("Surname"));
+                    break;
                 }
                 case "8": {
                     student.setFatherName(getValidString("Fathername"));
+                    break;
                 }
                 case "9": {
                     running = false;
@@ -442,7 +447,8 @@ public class View {
             System.out.println("4. Remove Staff member");
             System.out.println("5. Link Staff to faculty");
             System.out.println("6. Un;ink Staff from faculty");
-            System.out.println("7. Exit");
+            System.out.println("7. Edit staff");
+            System.out.println("8. Exit");
             System.out.print("Input: ");
 
             String choice = getValidString();
@@ -501,7 +507,24 @@ public class View {
                     staffService.unregisterFromFaculty(staffService.findById(new StaffId(id)), facultyCode);
                     break;
                 }
-                case "7":
+                case "7": {
+                    staffService.findAll()
+                            .values()
+                            .stream()
+                            .map(staff -> staff.getStaffId() + " " + staff.getFullName()).forEach(System.out::println);
+
+                    String staffId = getValidString("Please enter staff ID: ");
+
+                    Staff staff = staffService.findById(new StaffId(staffId));
+                    if (staff != null) {
+                        manageStaffProperties(staff);
+                    } else {
+                        System.out.println("Student not found.");
+                    }
+
+
+                }
+                case "8":
                     running = false;
                     break;
                 default:
@@ -510,6 +533,130 @@ public class View {
             }
         }
     }
+
+    private static void manageStaffProperties(Staff staff) {
+        Teacher teacher = (Teacher) staff;
+        boolean running = true;
+        while (running) {
+            System.out.println("\n    -- Editing Staff: " + staff.getFullName() + " --");
+            System.out.println("1. Change hourly rate");
+            System.out.println("2. Change weekly hourst");
+            System.out.println("3. Change phone number");
+            System.out.println("4. Change email");
+            System.out.println("5. Change name");
+            System.out.println("6. Change age");
+            System.out.println("7. Change surname");
+            System.out.println("8. Change fathername");
+            System.out.println("9. Change university Position");
+            System.out.println("10. Change scientific Degree");
+            System.out.println("11. Back");
+
+            switch (getValidString()) {
+                case "1": {
+                    System.out.print("Enter new hourly rate: ");
+                    teacher.setHourlyRate(getValidInt());
+                    break;
+                }
+                case "2": {
+                    System.out.println("Enter new weekly hourst: ");
+                    teacher.setWeeklyHours(getValidInt());
+                    break;
+                }
+                case "3": {
+                    teacher.setPhoneNumber(getValidString("Phone Number"));
+                    break;
+                }
+                case "4": {
+                    teacher.setEmail(getValidString("Email"));
+                    break;
+                }
+                case "5": {
+                    teacher.setName(getValidString("Name"));
+                    break;
+                }
+                case "6": {
+                    teacher.setAge(getValidInt()); // todo make method with message for int input
+                    break;
+                }
+                case "7": {
+                    teacher.setSurname(getValidString("Surname"));
+                    break;
+                }
+                case "8": {
+                    teacher.setFatherName(getValidString("Fathername"));
+                    break;
+                }
+                case "9": {
+                    teacher.setUniversityPosition(selectPosition());
+                    break;
+                }
+                case "10": {
+                    teacher.setScientificDegree(selectDegree());
+                    break;
+                }
+                case "11": {
+                    running = false;
+                    break;
+                }
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+
+            staffService.save(teacher);
+        }
+    }
+
+//    private static UniversityPosition selectUniversityPosition() {
+//        boolean running = true;
+//
+//        System.out.println("Enter University Position: ");
+//        System.out.println("1.  ASSISTANT_PROFESSOR");
+//        System.out.println("2.  ASSOCIATE_PROFESSOR");
+//        System.out.println("3.  FULL_PROFESSOR");
+//        System.out.println("4. DISTINGUISHED_PROFESSOR");
+//        System.out.println("5. LECTURER");
+//        System.out.println("6. SENIOR_LECTURER");
+//        System.out.println("7. INSTRUCTOR");
+//        System.out.println("8. PROFESSOR_OF_PRACTICE");
+//        System.out.println("9. VISITING_PROFESSOR");
+//
+//        while (running) {
+//            switch (getValidInt()) {
+//                case 1: {
+//                   return UniversityPosition.ASSISTANT_PROFESSOR;
+//                }
+//                case 2: {
+//                    return UniversityPosition.ASSOCIATE_PROFESSOR;
+//                }
+//                case 3: {
+//                    return UniversityPosition.FULL_PROFESSOR;
+//                }
+//                case 4: {
+//                    return UniversityPosition.DISTINGUISHED_PROFESSOR;
+//                }
+//                case 5: {
+//                    return UniversityPosition.LECTURER;
+//                }
+//                case 6: {
+//                    return UniversityPosition.SENIOR_LECTURER;
+//                }
+//                case 7: {
+//                    return UniversityPosition.INSTRUCTOR;
+//                }
+//                case 8: {
+//                    return UniversityPosition.PROFESSOR_OF_PRACTICE;
+//                }
+//                case 9: {
+//                    return UniversityPosition.VISITING_PROFESSOR;
+//                }
+//                default: {
+//                    System.out.println("Invalid option");
+//                }
+//            }
+//        }
+//    }
+
 
     private static void registerStaff() {
         System.out.println("\n    -- Registering New Teacher --");
@@ -934,12 +1081,12 @@ public class View {
         }
 
     }
-    
-    
+
+
     private static int getValidInt() {
         boolean validInt = true;
         int res = 0;
-        
+
         while (validInt) {
             try {
                 res = Integer.parseInt(getValidString());

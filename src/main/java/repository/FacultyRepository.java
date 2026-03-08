@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class FacultyRepository implements FacultyRepositoryInt<Faculty, String> {
+public class FacultyRepository implements FacultyRepositoryInt {
     private final UniversityServiceInt universityService;
 
     public FacultyRepository(UniversityServiceInt universityService) {
