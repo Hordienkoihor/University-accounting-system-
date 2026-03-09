@@ -6,6 +6,7 @@ import domain.enums.UniversityPosition;
 import exceptions.IllegalHourlyRateNumber;
 import exceptions.IllegalHoursNumber;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Teacher extends Staff {
@@ -24,7 +25,7 @@ public class Teacher extends Staff {
             int age,
             String email,
             String phoneNumber,
-            Date dateOfBirth,
+            LocalDate dateOfBirth,
             UniversityPosition universityPosition,
             ScientificDegree scientificDegree,
             double hours,

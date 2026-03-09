@@ -2,6 +2,7 @@ package domain.abstractClasses;
 
 import domain.records.StaffId;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
 
@@ -16,7 +17,7 @@ public abstract class Staff extends Person {
             int age,
             String email,
             String phoneNumber,
-            Date dateOfBirth
+            LocalDate dateOfBirth
     ) {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
         staffId = new StaffId( "ST-ID-" + new Date().getTime() * random.nextInt(1, 500));

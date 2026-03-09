@@ -11,6 +11,7 @@ import repository.interfaces.*;
 import service.*;
 import service.interfaces.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class StudentServiceInteraction {
@@ -49,7 +50,7 @@ public class StudentServiceInteraction {
             "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
     })
     public void doesStudentExistByValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Student student = new Student(name, surname, fatherName, age, email, phone, new Date(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
+        Student student = new Student(name, surname, fatherName, age, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
         studentService.save(student);
         StudentId studentId = student.getStudentId();
 
@@ -66,7 +67,7 @@ public class StudentServiceInteraction {
             "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
     })
     public void doesStudentExistByInValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Student student = new Student(name, surname, fatherName, age, email, phone, new Date(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
+        Student student = new Student(name, surname, fatherName, age, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
         studentService.save(student);
         StudentId studentId = new StudentId("clearlyNotAnID");
 
@@ -81,7 +82,7 @@ public class StudentServiceInteraction {
             "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
     })
     public void findStudentByValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Student student = new Student(name, surname, fatherName, age, email, phone, new Date(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
+        Student student = new Student(name, surname, fatherName, age, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
         studentService.save(student);
         StudentId studentId = student.getStudentId();
 
@@ -98,7 +99,7 @@ public class StudentServiceInteraction {
             "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
     })
     public void findStudentByInValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Student student = new Student(name, surname, fatherName, age, email, phone, new Date(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
+        Student student = new Student(name, surname, fatherName, age, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
         studentService.save(student);
         StudentId studentId = new StudentId("clearlyNotAnID");
 

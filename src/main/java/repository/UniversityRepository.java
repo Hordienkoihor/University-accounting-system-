@@ -10,11 +10,88 @@ import repository.interfaces.UniversityRepositoryInt;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public class UniversityRepository implements UniversityRepositoryInt {
     private University university = null;
+
+    private static void loadStudent(boolean loadedUniversity, String[] parts, University result) {
+        if (loadedUniversity) {
+            if (parts.length < 6) {
+                return;
+            }
+
+            if (parts.length < 8) {
+                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
+                        ? StudyForm.TUITION
+                        : StudyForm.TUITION_FREE;
+
+                int[] date = Arrays.stream(parts[7].split("\\."))
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+
+                result.addPerson(new Student(
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        Integer.parseInt(parts[4]),
+                        parts[5],
+                        parts[6],
+                        LocalDate.of(date[0], date[1], date[2]),
+                        studyForm,
+                        StudyStatus.PENDING));
+
+            } else {
+                StudyStatus studyStatus = StudyStatus.PENDING;
+
+                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
+                        ? StudyForm.TUITION
+                        : StudyForm.TUITION_FREE;
+
+                switch (parts[8].toUpperCase()) {
+                    case "STUDYING": {
+                        studyStatus = StudyStatus.STUDYING;
+                        break;
+                    }
+                    case "EXPELLED": {
+                        studyStatus = StudyStatus.EXPELLED;
+                        break;
+                    }
+                    case "ACADEMIC_LEAVE": {
+                        studyStatus = StudyStatus.ACADEMIC_LEAVE;
+                        break;
+                    }
+                    case "PENDING": {
+                        studyStatus = StudyStatus.PENDING;
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+
+
+                }
+
+                int[] date = Arrays.stream(parts[7].split("\\."))
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+
+                result.addPerson(new Student(
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        Integer.parseInt(parts[4]),
+                        parts[5],
+                        parts[6],
+                        LocalDate.of(date[0], date[1], date[2]),
+                        studyForm,
+                        studyStatus
+                ));
+            }
+        }
+    }
 
     @Override
     public void save(University university) {
@@ -72,74 +149,5 @@ public class UniversityRepository implements UniversityRepositoryInt {
         }
 
         this.university = result;
-    }
-
-    private static void loadStudent(boolean loadedUniversity, String[] parts, University result) {
-        if (loadedUniversity) {
-            if (parts.length < 6) {
-                return;
-            }
-
-            if (parts.length < 8) {
-                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
-                        ? StudyForm.TUITION
-                        : StudyForm.TUITION_FREE;
-
-
-                result.addPerson(new Student(
-                        parts[1],
-                        parts[2],
-                        parts[3],
-                        Integer.parseInt(parts[4]),
-                        parts[5],
-                        parts[6],
-                        new Date(),
-                        studyForm,
-                        StudyStatus.PENDING));
-
-            } else {
-                StudyStatus studyStatus = StudyStatus.PENDING;
-
-                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
-                        ? StudyForm.TUITION
-                        : StudyForm.TUITION_FREE;
-
-                switch (parts[8].toUpperCase()) {
-                    case "STUDYING": {
-                        studyStatus = StudyStatus.STUDYING;
-                        break;
-                    }
-                    case "EXPELLED": {
-                        studyStatus = StudyStatus.EXPELLED;
-                        break;
-                    }
-                    case "ACADEMIC_LEAVE": {
-                        studyStatus = StudyStatus.ACADEMIC_LEAVE;
-                        break;
-                    }
-                    case "PENDING": {
-                        studyStatus = StudyStatus.PENDING;
-                        break;
-                    }
-                    default: {
-                        break;
-                    }
-
-
-                }
-
-                result.addPerson(new Student(
-                        parts[1],
-                        parts[2],
-                        parts[3],
-                        Integer.parseInt(parts[4]),
-                        parts[5],
-                        parts[6],
-                        new Date(),
-                        studyForm,
-                        studyStatus
-                ));
-            }
-        }
     }
 }

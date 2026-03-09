@@ -6,6 +6,7 @@ import domain.enums.StudyStatus;
 import domain.records.StudentId;
 import exceptions.IllegalCourseException;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
 
@@ -24,7 +25,7 @@ public class Student extends Person {
             int age,
             String email,
             String phoneNumber,
-            Date dateOfBirth,
+            LocalDate dateOfBirth,
             StudyForm studyForm,
             StudyStatus studyStatus
     ) {
@@ -43,7 +44,7 @@ public class Student extends Person {
             int age,
             String email,
             String phoneNumber,
-            Date dateOfBirth,
+            LocalDate dateOfBirth,
             int course,
             StudyForm studyForm,
             StudyStatus studyStatus

@@ -6,6 +6,7 @@ import exceptions.IllegalEmailException;
 import exceptions.IllegalNameException;
 import exceptions.IllegalPhoneNumberException;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class Person {
@@ -18,7 +19,7 @@ public abstract class Person {
     private String fatherName;
 
     private int age;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     private String email;
     private String phoneNumber;
@@ -30,7 +31,7 @@ public abstract class Person {
             int age,
             String email,
             String phoneNumber,
-            Date dateOfBirth
+            LocalDate dateOfBirth
     ) {
         this.id = idCounter++;
         setName(name);
@@ -50,7 +51,7 @@ public abstract class Person {
         return email;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -110,7 +111,7 @@ public abstract class Person {
         this.age = age;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

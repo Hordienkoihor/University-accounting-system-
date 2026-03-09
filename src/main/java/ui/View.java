@@ -16,7 +16,8 @@ import repository.interfaces.*;
 import service.*;
 import service.interfaces.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -323,7 +324,14 @@ public class View {
         String email = getValidString("Email");
         String phone = getValidString("Phone Number");
 
-        Date dob = new Date();
+        LocalDate dob;
+        try {
+            int[] arr = Arrays.stream(getValidString("Please enter date").split("\\.")).mapToInt(Integer::parseInt).toArray();
+            dob = LocalDate.of(arr[0], arr[1], arr[2]);
+        } catch (Exception e) {
+            dob = LocalDate.now();
+            System.out.println("Error: " + e.getMessage());
+        }
 
         System.out.println("Select Study Form: 1. TUITION_FREE, 2. TUITION");
         StudyForm form = getValidString().equals("1") ? StudyForm.TUITION_FREE : StudyForm.TUITION;
@@ -348,7 +356,8 @@ public class View {
 
         return null;
     }
-//todo maybe transfer somewhere
+
+    //todo maybe transfer somewhere
     private static StudyStatus selectStudyStatus() {
         System.out.println("Select Study Status: 1. STUDYING, 2. EXPELLED, 3. ACADEMIC_LEAVE, 4. PENDING");
         String statusChoice = getValidString();
@@ -670,7 +679,14 @@ public class View {
 
         String email = getValidString("Email");
         String phone = getValidString("Phone Number");
-        Date dob = new Date();
+        LocalDate dob;
+        try {
+            int[] arr = Arrays.stream(getValidString("Please enter date").split("\\.")).mapToInt(Integer::parseInt).toArray();
+            dob = LocalDate.of(arr[0], arr[1], arr[2]);
+        } catch (Exception e) {
+            dob = LocalDate.now();
+            System.out.println("Error: " + e.getMessage());
+        }
 
         UniversityPosition pos = selectPosition();
         ScientificDegree degree = selectDegree();
