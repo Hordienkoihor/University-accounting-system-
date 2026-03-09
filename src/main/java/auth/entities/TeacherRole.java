@@ -3,7 +3,7 @@ package auth.entities;
 import auth.enums.Role;
 
 public class TeacherRole extends User {
-    private final Role role = Role.student;
+    private final Role role = Role.teacher;
 
     TeacherRole(String name, String password) {
         super(name, password);
