@@ -2,10 +2,10 @@ package auth.entities;
 
 import auth.enums.Role;
 
-public class TeacherRole extends User {
-    private final Role role = Role.teacher;
+public class UserRole extends User {
+    private final Role role = Role.USER;
 
-    TeacherRole(String name, String password) {
+    UserRole(String name, String password) {
         super(name, password);
     }
 

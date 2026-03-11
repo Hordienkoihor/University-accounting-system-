@@ -4,7 +4,7 @@ import auth.enums.Role;
 
 public class HeadAdminRole extends User {
     private static HeadAdminRole instance = null;
-    private final Role role = Role.admin;
+    private final Role role = Role.ADMIN;
 
     private HeadAdminRole(String name, String password) {
         super(name, password);
