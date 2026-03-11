@@ -18,6 +18,7 @@ public class Faculty {
     Map<String, Specialty> specialtyList = new HashMap<>();
     private String name;
 
+
     public Faculty(String name, String code) {
         setName(name);
         this.code = code;
