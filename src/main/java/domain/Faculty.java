@@ -18,11 +18,25 @@ public class Faculty {
     Map<String, Specialty> specialtyList = new HashMap<>();
     Map<String, Department> departmentMap = new HashMap<>();
     private String name;
-
+    private Staff dean;
 
     public Faculty(String name, String code) {
         setName(name);
         this.code = code;
+    }
+
+    public Faculty(String name, String code, Staff dean) {
+        setName(name);
+        this.code = code;
+        this.dean = dean;
+    }
+
+    public Staff getDean() {
+        return dean;
+    }
+
+    public void setDean(Staff dean) {
+        this.dean = dean;
     }
 
     public String getName() {
@@ -112,6 +126,7 @@ public class Faculty {
         return "Faculty {" + '\n' +
                 "   name='" + name + ',' + '\n' +
                 "   code='" + code + ',' + '\n' +
+                "   dean=" + dean.getStaffId() + " " + dean.getFullName() + '\n' +
                 '}';
     }
 

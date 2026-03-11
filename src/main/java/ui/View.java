@@ -17,10 +17,7 @@ import service.*;
 import service.interfaces.*;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 public class View {
     private static final Scanner scanner = new Scanner(System.in);
@@ -1150,18 +1147,25 @@ public class View {
         while (running) {
             System.out.println("\n    -- Manage Faculty: " + faculty.getName() + " --");
             System.out.println("1. Change Name");
-            System.out.println("2. Back");
+            System.out.println("2. Set Dean");
+            System.out.println("3. Back");
 
             switch (getValidString()) {
-                case "1":
+                case "1": {
                     System.out.print("Enter new name: ");
                     String newName = getValidString();
 
                     facultyService.update(faculty.getCode(), newName);
                     break;
-                case "2":
+                }
+                case "2": {
+                    faculty.setDean(getDean());
+                    break;
+                }
+                case "3": {
                     running = false;
                     break;
+                }
                 default:
                     System.out.println("Invalid option");
                     break;
@@ -1221,12 +1225,51 @@ public class View {
     private static Faculty createFaculty() {
         try {
             Faculty res = new Faculty(getValidString("Faculty Name"), getValidString("Faculty Code"));
+
+            boolean gettingAnswer = true;
+            while (gettingAnswer) {
+                String setDean = getValidString("Do you want to set a dean? (y/n): ");
+
+                if (setDean.equalsIgnoreCase("y")) {
+                    res.setDean(getDean());
+                    gettingAnswer = false;
+                } else if (setDean.equalsIgnoreCase("n")) {
+                    gettingAnswer = false;
+                }
+            }
+
             return res;
         } catch (IllegalNameException | IllegalCodeException e) {
             System.out.println("Please provide valid information.");
             return createFaculty();
         }
 
+    }
+
+    private static Staff getDean() {
+        Collection<Staff> staffList = staffService.findAll().values();
+
+        if (staffList.isEmpty()) {
+            return null;
+        }
+
+        staffList.forEach(s -> System.out.println(s.getStaffId() + " - " + s.getName()));
+        Staff dean = null;
+
+        boolean gettingAnswer = true;
+        while (gettingAnswer) {
+            StaffId staffId = new StaffId(getValidString("Enter staffId: "));
+
+            Staff staff = staffService.findById(staffId);
+
+            if (staff != null) {
+                dean = staff;
+                break;
+            }
+
+            System.out.println("Error: Staff not found");
+        }
+        return dean;
     }
 
     private static String getValidString(String input) {
