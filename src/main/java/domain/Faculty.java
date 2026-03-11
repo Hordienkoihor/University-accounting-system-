@@ -16,6 +16,7 @@ public class Faculty {
     private final String code;
     Map<StaffId, Staff> staffMap = new HashMap<>();
     Map<String, Specialty> specialtyList = new HashMap<>();
+    Map<String, Department> departmentMap = new HashMap<>();
     private String name;
 
     public Faculty(String name, String code) {
@@ -111,5 +112,25 @@ public class Faculty {
                 "   name='" + name + ',' + '\n' +
                 "   code='" + code + ',' + '\n' +
                 '}';
+    }
+
+    public void add(Department department) {
+        if (department == null) {
+            throw new IllegalNameException("Department cannot be null");
+        }
+
+        if (departmentMap.containsKey(department.getCode())) {
+            throw new RuntimeException("Department with code " + department.getCode() + " already exists");
+        }
+
+        departmentMap.put(department.getCode(), department);
+    }
+
+    public void remove(Department department) {
+        if (department == null) {
+            throw new IllegalNameException("Department cannot be null");
+        }
+
+        departmentMap.remove(department.getCode());
     }
 }

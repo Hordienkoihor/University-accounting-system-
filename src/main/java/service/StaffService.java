@@ -9,6 +9,7 @@ import service.interfaces.FacultyServiceInt;
 import service.interfaces.StaffServiceInt;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class StaffService implements StaffServiceInt {
     private final StaffRepositoryInt staffRepository;
@@ -21,9 +22,9 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public void registerToFaculty(Staff staff, String facultyCode) {
-        Faculty faculty = facultyService.findByCode(facultyCode);
+        Optional <Faculty> faculty = facultyService.findByCode(facultyCode);
 
-        if (faculty == null) {
+        if (faculty.isEmpty()) {
             throw new FacultyDoesNotExistException("Faculty with code " + facultyCode + " does not exist");
         }
 
@@ -31,14 +32,14 @@ public class StaffService implements StaffServiceInt {
             staffRepository.save(staff);
         }
 
-        faculty.addStaff(staff);
+        faculty.get().addStaff(staff);
     }
 
     @Override
     public void unregisterFromFaculty(Staff staff, String facultyCode) {
-        Faculty faculty = facultyService.findByCode(facultyCode);
+        Optional <Faculty> faculty = facultyService.findByCode(facultyCode);
 
-        if (faculty == null) {
+        if (faculty.isEmpty()) {
             throw new FacultyDoesNotExistException("Faculty with code " + facultyCode + " does not exist");
         }
 
@@ -46,7 +47,7 @@ public class StaffService implements StaffServiceInt {
             staffRepository.save(staff);
         }
 
-        faculty.removeStaff(staff);
+        faculty.get().removeStaff(staff);
     }
 
     @Override
@@ -66,7 +67,12 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public Staff findById(StaffId id) {
-        return staffRepository.findById(id).get();
+        Optional<Staff> staff = staffRepository.findById(id);
+
+        if (staff.isEmpty()) {
+            return null;
+        }
+        return staff.get();
     }
 
     @Override

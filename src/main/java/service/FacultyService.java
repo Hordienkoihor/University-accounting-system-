@@ -10,7 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class FacultyService implements FacultyServiceInt {
     private final FacultyRepositoryInt facultyRepository;
@@ -31,8 +30,8 @@ public class FacultyService implements FacultyServiceInt {
     }
 
     @Override
-    public Faculty findByCode(String code) {
-        return facultyRepository.findById(code).get();
+    public Optional <Faculty> findByCode(String code) {
+        return facultyRepository.findById(code);
     }
 
     @Override

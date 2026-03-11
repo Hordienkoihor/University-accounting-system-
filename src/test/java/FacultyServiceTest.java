@@ -60,11 +60,13 @@ class FacultyServiceTest {
         Faculty expected = new Faculty("FI", "#FI");
         when(repository.findById("#FI")).thenReturn(Optional.of(expected));
 
-        Faculty result = service.findByCode("#FI");
+        Optional<Faculty> result = service.findByCode("#FI");
 
-        assertNotNull(result);
-        assertEquals("#FI", result.getCode());
-        assertEquals("FI", result.getName());
+        assertTrue(result.isPresent());
+
+        Faculty faculty = result.get();
+        assertEquals("#FI", faculty.getCode());
+        assertEquals("FI", faculty.getName());
     }
 
     @Test

@@ -17,10 +17,10 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 
     @Override
     public void save(String code, Specialty specialty) {
-        Faculty faculty = facultyService.findByCode(code);
+        Optional <Faculty> faculty = facultyService.findByCode(code);
 
-        if (faculty != null) {
-            faculty.addSpecialty(specialty);
+        if (faculty.isPresent()) {
+            faculty.get().addSpecialty(specialty);
         }
     }
 
@@ -59,10 +59,10 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 
     @Override
     public List<Specialty> findAllOnFaculty(String code) {
-        Faculty faculty = facultyService.findByCode(code);
+        Optional <Faculty> faculty = facultyService.findByCode(code);
 
-        if (faculty != null) {
-            return faculty.getSpecialtyList();
+        if (faculty.isPresent()) {
+            return faculty.get().getSpecialtyList();
         }
 
         return List.of();

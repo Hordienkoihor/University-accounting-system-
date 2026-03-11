@@ -19,6 +19,7 @@ import service.interfaces.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class View {
@@ -29,6 +30,7 @@ public class View {
     private static GroupServiceInt groupService;
     private static StudentServiceInt studentService;
     private static StaffServiceInt staffService;
+    private static DepartmentServiceInt departmentService;
 
     public static void main(String[] args) {
         UniversityRepositoryInt universityRepository = new UniversityRepository();
@@ -48,6 +50,9 @@ public class View {
 
         StaffRepositoryInt staffRepository = new StaffRepository(universityService);
         staffService = new StaffService(staffRepository, facultyService);
+
+        DepartmentRepositoryInt departmentRepository = new DepartmentRepository();
+        departmentService = new DepartmentService(departmentRepository, facultyService);
 
         boot();
     }
@@ -185,8 +190,9 @@ public class View {
             System.out.println("    -- Manage UniMenu --");
             System.out.println("1. Manage University Properties");
             System.out.println("2. Manage Faculties");
-            System.out.println("3. Manage Students");
-            System.out.println("4. Manage Staff");
+            System.out.println("3. Manage Departments");
+            System.out.println("4. Manage Students");
+            System.out.println("5. Manage Staff");
             System.out.println("5. Exit");
 
             String choice = getValidString();
@@ -199,9 +205,12 @@ public class View {
                     manageFacultiesMenu();
                     break;
                 case "3":
-                    manageStudentsMenu();
+                    manageDepartmentsMenu();
                     break;
                 case "4":
+                    manageStudentsMenu();
+                    break;
+                case "5":
                     manageStaffMenu();
                     break;
                 default:
@@ -210,6 +219,155 @@ public class View {
             }
         }
 
+    }
+
+    private static void manageDepartmentsMenu() {
+        System.out.println();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("    -- Manage Departments Menu --");
+            System.out.println("1. Add Department to Faculty");
+            System.out.println("2. Display All Departments");
+            System.out.println("3. Delete Department");
+            System.out.println("4. Edit Department");
+            System.out.println("5. Exit");
+
+            switch (getValidString()) {
+                case "1":
+                    registerDepartment();
+                    break;
+                case "2":
+                    departmentService.getAllDepartments().forEach(System.out::println);
+                    break;
+                case "3": {
+                    System.out.print("Enter Department Code to remove: ");
+                    String code = getValidString();
+                    try {
+                        departmentService.deleteDepartment(code);
+                        System.out.println("Department removed");
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+                }
+                case "4": {
+                    System.out.println("\n    -- Update Department --");
+
+                    departmentService.getAllDepartments().forEach(d ->
+                            System.out.println("[" + d.getCode() + "] " + d.getName()));
+
+                    editDepartment();
+                    break;
+
+                }
+                case "5":
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }
+    }
+
+    private static void registerDepartment() {
+        System.out.println("\n    -- Registering New Department --");
+
+        String name = getValidString("Department Name");
+        String code = getValidString("Department Code");
+        String location = getValidString("Location (Room)");
+
+        System.out.println("Available Faculties:");
+        facultyService.getAllAsList().forEach(f -> System.out.println(f.getCode() + " - " + f.getName()));
+
+        String facultyCode = getValidString("Faculty Code");
+        Optional<Faculty> faculty = facultyService.findByCode(facultyCode);
+
+        if (faculty.isEmpty()) {
+            System.out.println("Error: Faculty not found");
+            return;
+        }
+
+        staffService.findAll().values().forEach(staff -> System.out.println(staff.getStaffId() + " - " + staff.getFullName()));
+        StaffId id = new StaffId(getValidString("Staff Id"));
+
+        Staff staff = staffService.findById(id);
+
+        if (staff == null) {
+            System.out.println("Error: staff not found");
+            return;
+        }
+
+        Staff head = staff;
+
+        try {
+            Department dept = new Department(name, code, faculty.get(), head, location);
+            departmentService.createDepartment(dept);
+            System.out.println("Department created successfully");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void editDepartment() {
+        System.out.print("Enter Department Code: ");
+        String code = getValidString();
+
+        Department dept;
+        try {
+            dept = departmentService.getByCode(code);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return;
+        }
+
+        boolean editing = true;
+        while (editing) {
+            System.out.println("\n    -- Editing Department: " + dept.getName() + " --");
+            System.out.println("1. Change Name");
+            System.out.println("2. Change Location");
+            System.out.println("3. Assign Head of Department");
+            System.out.println("4. Back & Save");
+
+            switch (getValidString()) {
+                case "1":
+                    dept.setName(getValidString("New Name"));
+                    break;
+                case "2":
+                    dept.setLocation(getValidString("New Location"));
+                    break;
+                case "3":
+                    assignHeadToDepartment(dept);
+                    break;
+                case "4":
+                    departmentService.updateDepartment(dept);
+                    System.out.println("Changes saved!");
+                    editing = false;
+                    break;
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }
+    }
+
+    private static void assignHeadToDepartment(Department dept) {
+        System.out.println("Available Staff:");
+        staffService.findAll().values().forEach(s ->
+                System.out.println(s.getStaffId() + " - " + s.getFullName())
+        );
+
+        System.out.print("Enter Staff ID: ");
+        String staffId = getValidString();
+
+        Staff head = staffService.findById(new StaffId(staffId));
+        if (head != null) {
+            dept.setHeadOfDepartment(head);
+            System.out.println("Head of Department assigned: " + head.getFullName());
+        } else {
+            System.out.println("Staff member not found");
+        }
     }
 
     private static void manageStudentsMenu() {
@@ -806,12 +964,14 @@ public class View {
                     System.out.println("Please enter chosen faculty code");
                     System.out.println();
 
-                    try {
-                        manageFacultyMenu(facultyService.findByCode(getValidString()));
-                    } catch (Exception e) {
-                        System.out.println("please enter a valid tag");
+                    Optional<Faculty> faculty = facultyService.findByCode(getValidString());
+
+                    if (faculty.isEmpty()) {
+                        System.out.println("Faculty not found");
+                        break;
                     }
 
+                    manageFacultyMenu(faculty.get());
                     break;
                 case "3":
                     running = false;
