@@ -1,6 +1,8 @@
 package service.interfaces;
 
 import domain.Faculty;
+import domain.Student;
+import domain.abstractClasses.Staff;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +21,7 @@ public interface FacultyServiceInt {
 
     List<Faculty> getAllAsList();
     Map<String, Faculty> getAllAsMap();
+
+//    List<Student> getAllStudents(Faculty faculty);
+    List<Staff> getAllStaff(Faculty faculty);
 }

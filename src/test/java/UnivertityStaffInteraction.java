@@ -14,6 +14,7 @@ import repository.UniversityRepository;
 import service.UniversityService;
 import service.interfaces.UniversityServiceInt;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class UnivertityStaffInteraction {
@@ -33,7 +34,7 @@ public class UnivertityStaffInteraction {
             "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
     })
     public void doesStaffExistByValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, new Date(), UniversityPosition.LECTURER, ScientificDegree.NONE, 50, 15.22);
+        Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, LocalDate.now(), UniversityPosition.LECTURER, ScientificDegree.NONE, 50, 15.22);
         universityService.getUniversity().addPerson(teacher);
         StaffId staffId = teacher.getStaffId();
 
@@ -50,7 +51,7 @@ public class UnivertityStaffInteraction {
             "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
     })
     public void doesStaffExistByInValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, new Date(), UniversityPosition.LECTURER, ScientificDegree.NONE, 50, 15.22);
+        Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, LocalDate.now(), UniversityPosition.LECTURER, ScientificDegree.NONE, 50, 15.22);
         universityService.getUniversity().addPerson(teacher);
         StaffId staffId = new StaffId("ClearlyNotAnId");
 
@@ -66,7 +67,7 @@ public class UnivertityStaffInteraction {
             "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
     })
     public void findStaffByValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, new Date(), UniversityPosition.LECTURER, ScientificDegree.NONE, 50, 15.22);
+        Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, LocalDate.now(), UniversityPosition.LECTURER, ScientificDegree.NONE, 50, 15.22);
         universityService.getUniversity().addPerson(teacher);
         StaffId staffId = teacher.getStaffId();
 
@@ -83,7 +84,7 @@ public class UnivertityStaffInteraction {
             "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
     })
     public void findStaffByInValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, new Date(), UniversityPosition.LECTURER, ScientificDegree.NONE, 50, 15.22);
+        Teacher teacher = new Teacher(name, surname, fatherName, age, email, phone, LocalDate.now(), UniversityPosition.LECTURER, ScientificDegree.NONE, 50, 15.22);
         universityService.getUniversity().addPerson(teacher);
         StaffId staffId = new StaffId("clearlyNotAnID");
 

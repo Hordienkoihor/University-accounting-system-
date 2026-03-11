@@ -1,13 +1,16 @@
 package service;
 
 import domain.Faculty;
+import domain.abstractClasses.Staff;
 import exceptions.FacultyRegisterException;
 import repository.interfaces.FacultyRepositoryInt;
 import service.interfaces.FacultyServiceInt;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class FacultyService implements FacultyServiceInt {
     private final FacultyRepositoryInt facultyRepository;
@@ -74,5 +77,15 @@ public class FacultyService implements FacultyServiceInt {
     @Override
     public Map<String, Faculty> getAllAsMap() {
         return facultyRepository.getAllAsMap();
+    }
+
+    @Override
+    public List<Staff> getAllStaff(Faculty faculty) {
+        return faculty
+                .getStaffMap()
+                .values()
+                .stream()
+                .sorted(Comparator.comparing(Staff::getName))
+                .toList();
     }
 }
