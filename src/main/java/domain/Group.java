@@ -37,29 +37,29 @@ public class Group {
         this.name = name;
     }
 
-    public void addStudent(Student student) {
-        if (student == null) {
-            throw new StudentAddingError("Student cannot be null");
-        }
-
-        if (students.contains(student.getStudentId())) {
-            throw new StudentAddingError("Student already in this group");
-        }
-
-        students.add(student.getStudentId());
-    }
-
-    public void removeStudent(Student student) {
-        if (student == null) {
-            throw new StaffAddingError("Student cannot be null");
-        }
-
-        students.remove(student.getStudentId());
-    }
-
-    public List<StudentId> getStudents() {
-        return students;
-    }
+//    public void addStudent(Student student) {
+//        if (student == null) {
+//            throw new StudentAddingError("Student cannot be null");
+//        }
+//
+//        if (students.contains(student.getStudentId())) {
+//            throw new StudentAddingError("Student already in this group");
+//        }
+//
+//        students.add(student.getStudentId());
+//    }
+//
+//    public void removeStudent(Student student) {
+//        if (student == null) {
+//            throw new StaffAddingError("Student cannot be null");
+//        }
+//
+//        students.remove(student.getStudentId());
+//    }
+//
+//    public List<StudentId> getStudents() {
+//        return students;
+//    }
 
     @Override
     public String toString() {

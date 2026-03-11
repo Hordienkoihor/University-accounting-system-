@@ -1,5 +1,6 @@
 package service.interfaces;
 
+import domain.Faculty;
 import domain.Student;
 import domain.abstractClasses.Staff;
 import domain.records.StaffId;
@@ -26,6 +27,8 @@ public interface StaffServiceInt {
     void transfer(Staff staff, String from, String to);
 
 //    List<Staff> getAllCourseOrder();
+
+    List<Staff> findByFaculty(String facultyCode);
 
 
 }

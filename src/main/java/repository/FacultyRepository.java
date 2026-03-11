@@ -70,4 +70,6 @@ public class FacultyRepository implements FacultyRepositoryInt {
                 .values()
                 .removeIf(faculty -> faculty.getName().equals(name));
     }
+
+
 }

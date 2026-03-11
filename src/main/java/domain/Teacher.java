@@ -18,6 +18,8 @@ public class Teacher extends Staff {
     private double weeklyHours;
     private double hourlyRate;
 
+    private Department department;
+
     public Teacher(
             String name,
             String surname,
@@ -41,36 +43,40 @@ public class Teacher extends Staff {
         setHourlyRate(hourlyRate);
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public UniversityPosition getUniversityPosition() {
         return universityPosition;
-    }
-
-    public ScientificDegree getScientificDegree() {
-        return scientificDegree;
-    }
-
-    public Date getDateOfHiring() {
-        return dateOfHiring;
-    }
-
-    public double getWeeklyHours() {
-        return weeklyHours;
-    }
-
-    public double getHourlyRate() {
-        return hourlyRate;
     }
 
     public void setUniversityPosition(UniversityPosition universityPosition) {
         this.universityPosition = universityPosition;
     }
 
+    public ScientificDegree getScientificDegree() {
+        return scientificDegree;
+    }
+
     public void setScientificDegree(ScientificDegree scientificDegree) {
         this.scientificDegree = scientificDegree;
     }
 
+    public Date getDateOfHiring() {
+        return dateOfHiring;
+    }
+
     public void setDateOfHiring(Date dateOfHiring) {
         this.dateOfHiring = dateOfHiring;
+    }
+
+    public double getWeeklyHours() {
+        return weeklyHours;
     }
 
     public void setWeeklyHours(double weeklyHours) {
@@ -79,6 +85,10 @@ public class Teacher extends Staff {
         }
 
         this.weeklyHours = weeklyHours;
+    }
+
+    public double getHourlyRate() {
+        return hourlyRate;
     }
 
     public void setHourlyRate(double hourlyRate) {
@@ -95,7 +105,7 @@ public class Teacher extends Staff {
 
     @Override
     public String toString() {
-        return "Teacher {"  + '\n' +
+        return "Teacher {" + '\n' +
                 "   universityPosition=" + universityPosition + ',' + '\n' +
                 "   scientificDegree=" + scientificDegree + ',' + '\n' +
                 "   dateOfHiring=" + dateOfHiring + ',' + '\n' +

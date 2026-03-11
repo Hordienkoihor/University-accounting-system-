@@ -8,6 +8,8 @@ import repository.interfaces.StaffRepositoryInt;
 import service.interfaces.FacultyServiceInt;
 import service.interfaces.StaffServiceInt;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,7 +24,7 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public void registerToFaculty(Staff staff, String facultyCode) {
-        Optional <Faculty> faculty = facultyService.findByCode(facultyCode);
+        Optional<Faculty> faculty = facultyService.findByCode(facultyCode);
 
         if (faculty.isEmpty()) {
             throw new FacultyDoesNotExistException("Faculty with code " + facultyCode + " does not exist");
@@ -37,7 +39,7 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public void unregisterFromFaculty(Staff staff, String facultyCode) {
-        Optional <Faculty> faculty = facultyService.findByCode(facultyCode);
+        Optional<Faculty> faculty = facultyService.findByCode(facultyCode);
 
         if (faculty.isEmpty()) {
             throw new FacultyDoesNotExistException("Faculty with code " + facultyCode + " does not exist");
@@ -89,5 +91,15 @@ public class StaffService implements StaffServiceInt {
     public void transfer(Staff staff, String from, String to) {
         unregisterFromFaculty(staff, from);
         registerToFaculty(staff, to);
+    }
+
+    @Override
+    public List<Staff> findByFaculty(String facultyCode) {
+        return staffRepository.getAll()
+                .values()
+                .stream()
+                .filter(staff -> staff.getFaculty().getCode().equals(facultyCode))
+                .toList();
+
     }
 }

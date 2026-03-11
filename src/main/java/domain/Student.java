@@ -17,6 +17,9 @@ public class Student extends Person {
     private StudyForm studyForm;
     private StudyStatus studyStatus;
 
+    private Group group;
+    private Department department;
+
     /*constructor with direct indication of a specific course */
     public Student(
             String name,
@@ -31,7 +34,7 @@ public class Student extends Person {
     ) {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
 
-        this.studentId = new StudentId( "SF-ID-" + new Date().getTime() * random.nextInt(1, 500));
+        this.studentId = new StudentId("SF-ID-" + new Date().getTime() * random.nextInt(1, 500));
         setCourse(1);
         setStudyForm(studyForm);
         setStudyStatus(studyStatus);
@@ -51,10 +54,28 @@ public class Student extends Person {
     ) {
         super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
 
-        this.studentId = new StudentId( "SID-" + new Date().getTime() * random.nextInt(1, 500));
+        this.studentId = new StudentId("SID-" + new Date().getTime() * random.nextInt(1, 500));
         setCourse(course);
         setStudyForm(studyForm);
         setStudyStatus(studyStatus);
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @Override
+    public Group getGroup() {
+        return group;
+    }
+
+    @Override
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public StudentId getStudentId() {
@@ -96,6 +117,6 @@ public class Student extends Person {
                 "   course=" + course + ',' + '\n' +
                 "   studyForm=" + studyForm + ',' + '\n' +
                 "   studyStatus=" + studyStatus + ',' + '\n' +
-                "} "  + super.toString();
+                "} " + super.toString();
     }
 }
