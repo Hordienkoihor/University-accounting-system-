@@ -32,7 +32,7 @@ public class DepartmentService implements DepartmentServiceInt {
         Optional<Faculty> faculty = facultyService.findByCode(department.getFaculty().getCode());
 
         if (faculty.isEmpty()) {
-            throw new FacultyDoesNotExistException("Faculty with such code does not exist");
+            throw new FacultyDoesNotExistException("Faculty with code " + department.getFaculty().getCode() + " not found");
         }
 
         faculty.get().add(department);
