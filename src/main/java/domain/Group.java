@@ -12,8 +12,6 @@ public class Group {
     private Specialty specialty;
     private String name;
 
-    private final List<StudentId> students = new ArrayList<>();
-
     public Group(Specialty specialty, String name) {
         setSpecialty(specialty);
         setName(name);
@@ -68,7 +66,6 @@ public class Group {
         return "Group {" + '\n' +
                 "   specialty=" + specialty.getName() + '\n' +
                 "   name=" + name + '\'' + '\n' +
-                "   students=" + students.size()  + '\n' +
                 '}';
     }
 }

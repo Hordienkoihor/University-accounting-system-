@@ -10,9 +10,9 @@ import exceptions.*;
 import java.util.*;
 
 public class University {
-    private Map<String, Faculty> facultyMap = new HashMap<>();
-    private Map<StaffId, Staff> staffMap = new HashMap<>();
-    private Map<StudentId, Student> studentMap = new HashMap<>();
+//    private Map<String, Faculty> facultyMap = new HashMap<>();
+//    private Map<StaffId, Staff> staffMap = new HashMap<>();
+//    private Map<StudentId, Student> studentMap = new HashMap<>();
 
     private String fullName;
     private String shortName;
@@ -74,139 +74,139 @@ public class University {
         this.address = address;
     }
 
-    public void addFaculty(Faculty faculty) {
-        if (!Validator.isValidFaculty(faculty.getName(), faculty.getCode(), this.facultyMap)) {
-            throw new FacultyAddingException(
-                    "Faculty with name " +
-                            faculty.getName() +
-                            " or " + faculty.getCode() +
-                            " code " +
-                            " already exists");
-        }
+//    public void addFaculty(Faculty faculty) {
+//        if (!Validator.isValidFaculty(faculty.getName(), faculty.getCode(), this.facultyMap)) {
+//            throw new FacultyAddingException(
+//                    "Faculty with name " +
+//                            faculty.getName() +
+//                            " or " + faculty.getCode() +
+//                            " code " +
+//                            " already exists");
+//        }
+//
+//        this.facultyMap.put(faculty.getCode(), faculty);
+//    }
 
-        this.facultyMap.put(faculty.getCode(), faculty);
-    }
+//    public Optional<Faculty> findFacultyByCode(String code) {
+//        return Optional.ofNullable(this.facultyMap.get(code));
+//    }
+//
+//    public Optional<Faculty> findFacultyByName(String name) {
+//        return Optional.ofNullable(this.facultyMap.values().stream()
+//                .filter(faculty -> faculty.getName().equalsIgnoreCase(name))
+//                .findFirst()
+//                .orElse(null));
+//    }
+//
+//    public boolean doesFacultyExist(String code) {
+//        return this.facultyMap.containsKey(code);
+//    }
+//
+//    public boolean doesFacultyExistByName(String name) {
+//        return this.facultyMap.values().stream()
+//                .anyMatch(faculty -> faculty.getName().equalsIgnoreCase(name));
+//    }
 
-    public Optional<Faculty> findFacultyByCode(String code) {
-        return Optional.ofNullable(this.facultyMap.get(code));
-    }
-
-    public Optional<Faculty> findFacultyByName(String name) {
-        return Optional.ofNullable(this.facultyMap.values().stream()
-                .filter(faculty -> faculty.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null));
-    }
-
-    public boolean doesFacultyExist(String code) {
-        return this.facultyMap.containsKey(code);
-    }
-
-    public boolean doesFacultyExistByName(String name) {
-        return this.facultyMap.values().stream()
-                .anyMatch(faculty -> faculty.getName().equalsIgnoreCase(name));
-    }
-
-    public void removeFaculty(Faculty faculty) {
-        if (!doesFacultyExist(faculty.getCode())) {
-            throw new FacultyDoesNotExistException(faculty.getCode());
-        }
-
-        this.facultyMap.remove(faculty.getCode());
-    }
-
-    public void deleteFacultyById(String code) {
-        this.facultyMap.remove(code);
-    }
-
-    public Optional<Staff> findStaffById(StaffId staffId) {
-        return Optional.ofNullable(this.staffMap.get(staffId));
-    }
-
-    public Optional<Staff> findStaffByName(String fullName) {
-        return Optional.ofNullable(this.staffMap.values().stream()
-                .filter(staff -> staff.getFullName().equalsIgnoreCase(fullName))
-                .findFirst()
-                .orElse(null));
-    }
-
-    public boolean doesStaffExist(StaffId staffId) {
-        return this.staffMap.containsKey(staffId);
-    }
-
-    public void removeStaff(Staff staff) {
-        if (!doesStaffExist(staff.getStaffId())) {
-            throw new StaffDoesNotExistException(staff.getStaffId() + "");
-        }
-
-        this.staffMap.remove(staff.getStaffId());
-    }
-
-    public void addPerson(Person person) {
-        if (person instanceof Student student) {
-            studentMap.put(student.getStudentId(), student);
-        } else if (person instanceof Staff staff) {
-            staffMap.put(staff.getStaffId(), staff);
-        }
-    }
-
-    public Optional<Student> findStudentById(StudentId studentId) {
-        return Optional.ofNullable(this.studentMap.get(studentId));
-    }
-
-    public Optional<Student> findStudentByName(String fullName) {
-        return Optional.ofNullable(this.studentMap.values().stream()
-                .filter(student -> student.getFullName().equalsIgnoreCase(fullName))
-                .findFirst()
-                .orElse(null));
-    }
-
-    public boolean doesStudentExist(StudentId studentId) {
-        return this.studentMap.keySet().stream().anyMatch(id -> id.equals(studentId));
-    }
-
-    public void removeStudent(Student student) {
-        if (!doesStudentExist(student.getStudentId())) {
-            throw new StudentDoesNotExistException(student.getStudentId() + "");
-        }
-
-        this.studentMap.remove(student.getStudentId());
-
-    }
-
-    public List<Faculty> getFacultyList() {
-        return new ArrayList<>(facultyMap.values());
-    }
-
-
-    public List<Student> getGroup(String groupName) {
-        return getFacultyList().stream()
-                .flatMap(faculty -> faculty.getSpecialtyList().stream())
-                .flatMap(specialty -> specialty.getGroups().stream())
-                .filter(group -> group.getName().equals(groupName))
-                .findFirst()
-                .map(group -> group.getStudents().stream()
-                        .map(this::findStudentById)
-                        .flatMap(Optional::stream)
-                        .toList())
-                .orElse(null);
-    }
-
-    public List<Student> getStudentsAsList() {
-        return new ArrayList<>(studentMap.values());
-    }
-
-    public Map<StudentId, Student> getStudentsAsMap() {
-        return new HashMap<>(studentMap);
-    }
-
-    public List<Staff> getStaffAsList() {
-        return new ArrayList<>(staffMap.values());
-    }
-
-    public Map<StaffId, Staff> getStaffAsMap() {
-        return new HashMap<>(staffMap);
-    }
+//    public void removeFaculty(Faculty faculty) {
+//        if (!doesFacultyExist(faculty.getCode())) {
+//            throw new FacultyDoesNotExistException(faculty.getCode());
+//        }
+//
+//        this.facultyMap.remove(faculty.getCode());
+//    }
+//
+//    public void deleteFacultyById(String code) {
+//        this.facultyMap.remove(code);
+//    }
+//
+//    public Optional<Staff> findStaffById(StaffId staffId) {
+//        return Optional.ofNullable(this.staffMap.get(staffId));
+//    }
+//
+//    public Optional<Staff> findStaffByName(String fullName) {
+//        return Optional.ofNullable(this.staffMap.values().stream()
+//                .filter(staff -> staff.getFullName().equalsIgnoreCase(fullName))
+//                .findFirst()
+//                .orElse(null));
+//    }
+//
+//    public boolean doesStaffExist(StaffId staffId) {
+//        return this.staffMap.containsKey(staffId);
+//    }
+//
+//    public void removeStaff(Staff staff) {
+//        if (!doesStaffExist(staff.getStaffId())) {
+//            throw new StaffDoesNotExistException(staff.getStaffId() + "");
+//        }
+//
+//        this.staffMap.remove(staff.getStaffId());
+//    }
+//
+//    public void addPerson(Person person) {
+//        if (person instanceof Student student) {
+//            studentMap.put(student.getStudentId(), student);
+//        } else if (person instanceof Staff staff) {
+//            staffMap.put(staff.getStaffId(), staff);
+//        }
+//    }
+//
+//    public Optional<Student> findStudentById(StudentId studentId) {
+//        return Optional.ofNullable(this.studentMap.get(studentId));
+//    }
+//
+//    public Optional<Student> findStudentByName(String fullName) {
+//        return Optional.ofNullable(this.studentMap.values().stream()
+//                .filter(student -> student.getFullName().equalsIgnoreCase(fullName))
+//                .findFirst()
+//                .orElse(null));
+//    }
+//
+//    public boolean doesStudentExist(StudentId studentId) {
+//        return this.studentMap.keySet().stream().anyMatch(id -> id.equals(studentId));
+//    }
+//
+//    public void removeStudent(Student student) {
+//        if (!doesStudentExist(student.getStudentId())) {
+//            throw new StudentDoesNotExistException(student.getStudentId() + "");
+//        }
+//
+//        this.studentMap.remove(student.getStudentId());
+//
+//    }
+//
+//    public List<Faculty> getFacultyList() {
+//        return new ArrayList<>(facultyMap.values());
+//    }
+//
+//
+//    public List<Student> getGroup(String groupName) {
+//        return getFacultyList().stream()
+//                .flatMap(faculty -> faculty.getSpecialtyList().stream())
+//                .flatMap(specialty -> specialty.getGroups().stream())
+//                .filter(group -> group.getName().equals(groupName))
+//                .findFirst()
+//                .map(group -> group.getStudents().stream()
+//                        .map(this::findStudentById)
+//                        .flatMap(Optional::stream)
+//                        .toList())
+//                .orElse(null);
+//    }
+//
+//    public List<Student> getStudentsAsList() {
+//        return new ArrayList<>(studentMap.values());
+//    }
+//
+//    public Map<StudentId, Student> getStudentsAsMap() {
+//        return new HashMap<>(studentMap);
+//    }
+//
+//    public List<Staff> getStaffAsList() {
+//        return new ArrayList<>(staffMap.values());
+//    }
+//
+//    public Map<StaffId, Staff> getStaffAsMap() {
+//        return new HashMap<>(staffMap);
+//    }
 
     @Override
     public String toString() {

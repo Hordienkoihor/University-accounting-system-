@@ -1,71 +1,73 @@
 package repository;
 
 import domain.Faculty;
-import exceptions.FacultyDoesNotExistException;
 import repository.interfaces.FacultyRepositoryInt;
-import service.interfaces.UniversityServiceInt;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public class FacultyRepository implements FacultyRepositoryInt {
-    private final UniversityServiceInt universityService;
+    Map<String, Faculty> facultyMap = new HashMap<>();
 
-    public FacultyRepository(UniversityServiceInt universityService) {
-        this.universityService = universityService;
+    public FacultyRepository() {
     }
 
     @Override
     public void save(Faculty faculty) {
-        universityService.getUniversity().addFaculty(faculty);
+        facultyMap.put(faculty.getCode(), faculty);
     }
 
     @Override
     public boolean existsById(String code) {
-        return universityService.getUniversity().doesFacultyExist(code);
+        return facultyMap.get(code) != null;
     }
 
     @Override
     public boolean existsByName(String name) {
-        return universityService.getUniversity().doesFacultyExistByName(name);
+        return facultyMap
+                .values()
+                .stream()
+                .anyMatch(faculty -> faculty.getName().equals(name));
     }
 
     @Override
     public Optional<Faculty> findById(String code) {
-        return universityService.getUniversity().findFacultyByCode(code);
+        return Optional.ofNullable(facultyMap.get(code));
     }
 
     @Override
     public Optional<Faculty> findByName(String name) {
-        return universityService.getUniversity().findFacultyByName(name);
+        return facultyMap
+                .values()
+                .stream()
+                .filter(faculty -> faculty.getName().equals(name))
+                .findFirst();
     }
 
     @Override
     public List<Faculty> findAll() {
-        return universityService.getUniversity().getFacultyList();
+        return facultyMap
+                .values()
+                .stream()
+                .toList();
     }
 
     @Override
     public Map<String, Faculty> getAllAsMap() {
-        return Map.of();
+        return new HashMap<>(facultyMap);
     }
 
     @Override
     public void deleteById(String code) {
-        try {
-            universityService.getUniversity().deleteFacultyById(code);
-        } catch (FacultyDoesNotExistException e) {
-            System.out.println("Faculty with code " + code + " doesn't exist");
-        }
+        this.facultyMap.remove(code);
     }
 
     @Override
     public void deleteByName(String name) {
-        try {
-            universityService.getUniversity().removeFaculty(findByName(name).get());
-        } catch (FacultyDoesNotExistException e) {
-            System.out.println("Faculty with name " + name + " doesn't exist");
-        }
+        this.facultyMap
+                .values()
+                .removeIf(faculty -> faculty.getName().equals(name));
     }
 }

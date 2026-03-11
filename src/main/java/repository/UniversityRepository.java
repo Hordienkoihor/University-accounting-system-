@@ -17,81 +17,83 @@ import java.util.List;
 public class UniversityRepository implements UniversityRepositoryInt {
     private University university = null;
 
-    private static void loadStudent(boolean loadedUniversity, String[] parts, University result) {
-        if (loadedUniversity) {
-            if (parts.length < 6) {
-                return;
-            }
-
-            if (parts.length < 8) {
-                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
-                        ? StudyForm.TUITION
-                        : StudyForm.TUITION_FREE;
-
-                int[] date = Arrays.stream(parts[7].split("\\."))
-                        .mapToInt(Integer::parseInt)
-                        .toArray();
-
-                result.addPerson(new Student(
-                        parts[1],
-                        parts[2],
-                        parts[3],
-                        Integer.parseInt(parts[4]),
-                        parts[5],
-                        parts[6],
-                        LocalDate.of(date[0], date[1], date[2]),
-                        studyForm,
-                        StudyStatus.PENDING));
-
-            } else {
-                StudyStatus studyStatus = StudyStatus.PENDING;
-
-                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
-                        ? StudyForm.TUITION
-                        : StudyForm.TUITION_FREE;
-
-                switch (parts[8].toUpperCase()) {
-                    case "STUDYING": {
-                        studyStatus = StudyStatus.STUDYING;
-                        break;
-                    }
-                    case "EXPELLED": {
-                        studyStatus = StudyStatus.EXPELLED;
-                        break;
-                    }
-                    case "ACADEMIC_LEAVE": {
-                        studyStatus = StudyStatus.ACADEMIC_LEAVE;
-                        break;
-                    }
-                    case "PENDING": {
-                        studyStatus = StudyStatus.PENDING;
-                        break;
-                    }
-                    default: {
-                        break;
-                    }
 
 
-                }
-
-                int[] date = Arrays.stream(parts[7].split("\\."))
-                        .mapToInt(Integer::parseInt)
-                        .toArray();
-
-                result.addPerson(new Student(
-                        parts[1],
-                        parts[2],
-                        parts[3],
-                        Integer.parseInt(parts[4]),
-                        parts[5],
-                        parts[6],
-                        LocalDate.of(date[0], date[1], date[2]),
-                        studyForm,
-                        studyStatus
-                ));
-            }
-        }
-    }
+//    private static void loadStudent(boolean loadedUniversity, String[] parts, University result) {
+//        if (loadedUniversity) {
+//            if (parts.length < 6) {
+//                return;
+//            }
+//
+//            if (parts.length < 8) {
+//                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
+//                        ? StudyForm.TUITION
+//                        : StudyForm.TUITION_FREE;
+//
+//                int[] date = Arrays.stream(parts[7].split("\\."))
+//                        .mapToInt(Integer::parseInt)
+//                        .toArray();
+//
+//                result.addPerson(new Student(
+//                        parts[1],
+//                        parts[2],
+//                        parts[3],
+//                        Integer.parseInt(parts[4]),
+//                        parts[5],
+//                        parts[6],
+//                        LocalDate.of(date[0], date[1], date[2]),
+//                        studyForm,
+//                        StudyStatus.PENDING));
+//
+//            } else {
+//                StudyStatus studyStatus = StudyStatus.PENDING;
+//
+//                StudyForm studyForm = parts[7].equalsIgnoreCase(StudyForm.TUITION.getDisplayName())
+//                        ? StudyForm.TUITION
+//                        : StudyForm.TUITION_FREE;
+//
+//                switch (parts[8].toUpperCase()) {
+//                    case "STUDYING": {
+//                        studyStatus = StudyStatus.STUDYING;
+//                        break;
+//                    }
+//                    case "EXPELLED": {
+//                        studyStatus = StudyStatus.EXPELLED;
+//                        break;
+//                    }
+//                    case "ACADEMIC_LEAVE": {
+//                        studyStatus = StudyStatus.ACADEMIC_LEAVE;
+//                        break;
+//                    }
+//                    case "PENDING": {
+//                        studyStatus = StudyStatus.PENDING;
+//                        break;
+//                    }
+//                    default: {
+//                        break;
+//                    }
+//
+//
+//                }
+//
+//                int[] date = Arrays.stream(parts[7].split("\\."))
+//                        .mapToInt(Integer::parseInt)
+//                        .toArray();
+//
+//                result.addPerson(new Student(
+//                        parts[1],
+//                        parts[2],
+//                        parts[3],
+//                        Integer.parseInt(parts[4]),
+//                        parts[5],
+//                        parts[6],
+//                        LocalDate.of(date[0], date[1], date[2]),
+//                        studyForm,
+//                        studyStatus
+//                ));
+//            }
+//        }
+//    }
 
     @Override
     public void save(University university) {
@@ -110,44 +112,44 @@ public class UniversityRepository implements UniversityRepositoryInt {
 
     @Override
     public void load(String path) {
-        University result = null;
-
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(path));
-            boolean loadedUniversity = false;
-            for (String line : lines) {
-                String[] parts = line.split(",");
-
-
-                switch (parts[0]) {
-                    case "UNIVERSITY": {
-                        if (!loadedUniversity) {
-                            result = new University(parts[1], parts[2], parts[3], parts[4]);
-                            loadedUniversity = true;
-                        }
-
-                        break;
-                    }
-                    case "FACULTY": {
-                        if (loadedUniversity) {
-                            if (parts.length >= 3) {
-                                result.addFaculty(new Faculty(parts[1], parts[2]));
-                            }
-                        }
-                        break;
-                    }
-                    case "STUDENT": {
-                        loadStudent(loadedUniversity, parts, result);
-                        break;
-                    }
-                    default:
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        this.university = result;
+//        University result = null;
+//
+//        try {
+//            List<String> lines = Files.readAllLines(Paths.get(path));
+//            boolean loadedUniversity = false;
+//            for (String line : lines) {
+//                String[] parts = line.split(",");
+//
+//
+//                switch (parts[0]) {
+//                    case "UNIVERSITY": {
+//                        if (!loadedUniversity) {
+//                            result = new University(parts[1], parts[2], parts[3], parts[4]);
+//                            loadedUniversity = true;
+//                        }
+//
+//                        break;
+//                    }
+//                    case "FACULTY": {
+//                        if (loadedUniversity) {
+//                            if (parts.length >= 3) {
+//                                result.addFaculty(new Faculty(parts[1], parts[2]));
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case "STUDENT": {
+//                        loadStudent(loadedUniversity, parts, result);
+//                        break;
+//                    }
+//                    default:
+//                        break;
+//                }
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        this.university = result;
     }
 }

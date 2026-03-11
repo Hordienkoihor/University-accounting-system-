@@ -1,28 +1,28 @@
 package repository;
 
+import domain.Faculty;
 import domain.Student;
 import domain.records.StudentId;
 import repository.interfaces.StudentRepositoryInt;
 import service.interfaces.UniversityServiceInt;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
-public class StudentRepository extends BaseUniversityRepo<Student, StudentId> implements StudentRepositoryInt {
+public class StudentRepository implements StudentRepositoryInt {
+    Map<StudentId, Student> studentMap = new HashMap<>();
 
-    public StudentRepository(UniversityServiceInt universityServiceInt) {
-        super(universityServiceInt);
+
+    public StudentRepository() {
     }
 
     @Override
     public void save(Student student) {
-        getUniversity().addPerson(student);
+        studentMap.put(student.getStudentId(), student);
     }
 
     @Override
     public Optional<Student> findById(StudentId id) {
-        return getUniversity().findStudentById(id);
+        return Optional.ofNullable(studentMap.get(id));
     }
 
     @Override
@@ -32,13 +32,13 @@ public class StudentRepository extends BaseUniversityRepo<Student, StudentId> im
 
     @Override
     public List<Student> findAll() {
-        return getUniversity().getStudentsAsList();
+        return new ArrayList<>(studentMap.values());
     }
 
     @Override
     public void deleteById(StudentId id) {
         Optional<Student> student = findById(id);
-        student.ifPresent(value -> getUniversity().removeStudent(value));
+        student.ifPresent(value -> studentMap.remove(value.getStudentId()));
         /// transferred to service using group service
         //            universityService.getUniversity().getFacultyList().stream()
         //                    .flatMap(f -> f.getSpecialtyList().stream())
@@ -47,6 +47,6 @@ public class StudentRepository extends BaseUniversityRepo<Student, StudentId> im
     }
 
     public Map<StudentId, Student> getAll() {
-        return getUniversity().getStudentsAsMap();
+        return new HashMap<>(studentMap);
     }
 }

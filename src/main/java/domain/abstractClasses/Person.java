@@ -1,6 +1,8 @@
 package domain.abstractClasses;
 
 import Utilitys.Validator;
+import domain.Faculty;
+import domain.Group;
 import exceptions.IllegalAgeException;
 import exceptions.IllegalEmailException;
 import exceptions.IllegalNameException;
@@ -23,6 +25,26 @@ public abstract class Person {
 
     private String email;
     private String phoneNumber;
+
+    private Faculty faculty;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
+    private Group group;
 
     protected Person(
             String name,

@@ -14,9 +14,9 @@ import java.util.Map;
 
 public class Faculty {
     private final String code;
-    Map<StaffId, Staff> staffMap = new HashMap<>();
-    Map<String, Specialty> specialtyList = new HashMap<>();
-    Map<String, Department> departmentMap = new HashMap<>();
+//    Map<StaffId, Staff> staffMap = new HashMap<>();
+//    Map<String, Specialty> specialtyList = new HashMap<>();
+//    Map<String, Department> departmentMap = new HashMap<>();
     private String name;
     private Staff dean;
 
@@ -55,9 +55,9 @@ public class Faculty {
         return code;
     }
 
-    public List<Specialty> getSpecialtyList() {
-        return new ArrayList<>(specialtyList.values());
-    }
+//    public List<Specialty> getSpecialtyList() {
+//        return new ArrayList<>(specialtyList.values());
+//    }
 
     public void addSpecialty(Specialty specialty) {
         if (specialty == null) {
