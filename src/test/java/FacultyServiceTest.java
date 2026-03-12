@@ -25,7 +25,7 @@ class FacultyServiceTest {
 
     @Test
     @DisplayName("Should successfully register a new faculty")
-    void register_Success() {
+    void registerSuccess() {
         Faculty faculty = new Faculty("FI", "#FI");
         when(repository.existsById("#FI")).thenReturn(false);
 
@@ -56,7 +56,7 @@ class FacultyServiceTest {
 
     @Test
     @DisplayName("Should return faculty when searching by valid code")
-    void findByCode_Found() {
+    void findByCodeFound() {
         Faculty expected = new Faculty("FI", "#FI");
         when(repository.findById("#FI")).thenReturn(Optional.of(expected));
 
@@ -70,7 +70,7 @@ class FacultyServiceTest {
     }
 
     @Test
-    @DisplayName("Should update faculty name correctly")
+    @DisplayName("Should update faculty name")
     void update_ShouldChangeName_WhenFacultyExists() {
         Faculty existingFaculty = new Faculty("OLD", "#FI");
         when(repository.findById("#FI")).thenReturn(Optional.of(existingFaculty));
@@ -84,14 +84,15 @@ class FacultyServiceTest {
     @DisplayName("Should return all faculties as list")
     void getAllAsList_ShouldReturnList() {
         List<Faculty> faculties = List.of(
-                new Faculty("FICT", "Informatics"),
-                new Faculty("FEE", "Electronics")
+                new Faculty("NEFI", "#NEFI"),
+                new Faculty("FI", "#FI"),
+                new Faculty("FEN", "#FEN")
         );
         when(repository.findAll()).thenReturn(faculties);
 
         List<Faculty> result = service.getAllAsList();
 
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
         verify(repository, times(1)).findAll();
     }
 }

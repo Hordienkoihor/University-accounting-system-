@@ -59,67 +59,67 @@ public class Faculty {
 //        return new ArrayList<>(specialtyList.values());
 //    }
 
-    public void addSpecialty(Specialty specialty) {
-        if (specialty == null) {
-            throw new IllegalNameException("Specialty cannot be null");
-        }
+//    public void addSpecialty(Specialty specialty) {
+//        if (specialty == null) {
+//            throw new IllegalNameException("Specialty cannot be null");
+//        }
+//
+//        if (specialty.getTag() == null || specialty.getTag().isBlank()) {
+//            throw new IllegalCodeException("Specialty tag cannot be empty");
+//        }
+//
+//        if (specialtyList.containsKey(specialty.getTag())) {
+//            throw new IllegalCodeException("Specialty with tag " + specialty.getTag() + " already exists in this faculty");
+//        }
+//
+//        specialtyList.put(specialty.getTag(), specialty);
+//    }
 
-        if (specialty.getTag() == null || specialty.getTag().isBlank()) {
-            throw new IllegalCodeException("Specialty tag cannot be empty");
-        }
+//    public void updateSpecialty(Specialty specialty) {
+//        if (specialty == null) {
+//            throw new IllegalNameException("Specialty cannot be null");
+//        }
+//
+//        if (specialty.getTag() == null || specialty.getTag().isBlank()) {
+//            throw new IllegalCodeException("Specialty tag cannot be empty");
+//        }
+//
+//        if (specialtyList.containsKey(specialty.getTag())) {
+//            specialtyList.put(specialty.getTag(), specialty);
+//        }
+//    }
 
-        if (specialtyList.containsKey(specialty.getTag())) {
-            throw new IllegalCodeException("Specialty with tag " + specialty.getTag() + " already exists in this faculty");
-        }
+//    public void addStaff(Staff staff) {
+//        if (staff == null) {
+//            throw new StudentAddingError("Staff cannot be null");
+//        }
+//
+//        staffMap.put(staff.getStaffId(), staff);
+//    }
 
-        specialtyList.put(specialty.getTag(), specialty);
-    }
+//    public void removeStaff(Staff staff) {
+//        if (staff == null) {
+//            throw new StudentAddingError("Staff cannot be null");
+//        }
+//
+//        staffMap.remove(staff.getStaffId());
+//    }
 
-    public void updateSpecialty(Specialty specialty) {
-        if (specialty == null) {
-            throw new IllegalNameException("Specialty cannot be null");
-        }
-
-        if (specialty.getTag() == null || specialty.getTag().isBlank()) {
-            throw new IllegalCodeException("Specialty tag cannot be empty");
-        }
-
-        if (specialtyList.containsKey(specialty.getTag())) {
-            specialtyList.put(specialty.getTag(), specialty);
-        }
-    }
-
-    public void addStaff(Staff staff) {
-        if (staff == null) {
-            throw new StudentAddingError("Staff cannot be null");
-        }
-
-        staffMap.put(staff.getStaffId(), staff);
-    }
-
-    public void removeStaff(Staff staff) {
-        if (staff == null) {
-            throw new StudentAddingError("Staff cannot be null");
-        }
-
-        staffMap.remove(staff.getStaffId());
-    }
-
-    public boolean containsStaff(Staff staff) {
-        return staffMap.containsKey(staff.getStaffId());
-    }
-
-    public Map<StaffId, Staff> getStaffMap() {
-        return staffMap;
-    }
-
-    public void removeSpecialty(String tag) {
-        specialtyList.remove(tag);
-    }
-
-    public Specialty getSpecialty(String tag) {
-        return specialtyList.get(tag);
-    }
+//    public boolean containsStaff(Staff staff) {
+//        return staffMap.containsKey(staff.getStaffId());
+//    }
+//
+//    public Map<StaffId, Staff> getStaffMap() {
+//        return staffMap;
+//    }
+//
+//    public void removeSpecialty(String tag) {
+//        specialtyList.remove(tag);
+//    }
+//
+//    public Specialty getSpecialty(String tag) {
+//        return specialtyList.get(tag);
+//    }
 
     @Override
     public String toString() {
@@ -135,11 +135,11 @@ public class Faculty {
             throw new IllegalNameException("Department cannot be null");
         }
 
-        if (departmentMap.containsKey(department.getCode())) {
-            throw new RuntimeException("Department with code " + department.getCode() + " already exists");
-        }
-
-        departmentMap.put(department.getCode(), department);
+//        if (departmentMap.containsKey(department.getCode())) {
+//            throw new RuntimeException("Department with code " + department.getCode() + " already exists");
+//        }
+//
+//        departmentMap.put(department.getCode(), department);
     }
 
     public void remove(Department department) {
@@ -147,6 +147,6 @@ public class Faculty {
             throw new IllegalNameException("Department cannot be null");
         }
 
-        departmentMap.remove(department.getCode());
+//        departmentMap.remove(department.getCode());
     }
 }

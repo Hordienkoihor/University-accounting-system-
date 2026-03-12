@@ -9,7 +9,7 @@ import service.interfaces.UniversityServiceInt;
 import java.util.*;
 
 public class StudentRepository implements StudentRepositoryInt {
-    Map<StudentId, Student> studentMap = new HashMap<>();
+    private final Map<StudentId, Student> studentMap = new HashMap<>();
 
 
     public StudentRepository() {

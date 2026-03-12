@@ -42,7 +42,7 @@ class SpecialityServiceTest {
 
     @Test
     @DisplayName("throw SpecialityAlreadyExistsException when already exists")
-    void registerDuplicateTagThrowsException() {
+    void registerDuplicateTag_ThrowsException() {
         Specialty specialty = new Specialty("КН", "КН-1", mockFaculty);
         when(repository.existsById("КН-1")).thenReturn(true);
 
@@ -67,7 +67,7 @@ class SpecialityServiceTest {
 
     @Test
     @DisplayName("update specialty name only if it exists")
-    void updateShouldChangeNameWhenSpecialtyExists() {
+    void updateShouldChangeName_WhenSpecialtyExists() {
         Specialty existing = new Specialty("Old Name", "TAG-1", mockFaculty);
         when(repository.findById("TAG-1")).thenReturn(Optional.of(existing));
 
@@ -78,7 +78,7 @@ class SpecialityServiceTest {
 
     @Test
     @DisplayName("return list of specialties for faculty")
-    void findAllOnFacultyShouldReturnList() {
+    void findAllOnFaculty_ShouldReturnList() {
         List<Specialty> list = List.of(
                 new Specialty("Spec 1", "S1", mockFaculty),
                 new Specialty("Spec 2", "S2", mockFaculty)

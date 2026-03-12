@@ -18,7 +18,7 @@ public class Student extends Person {
     private StudyStatus studyStatus;
 
     private Group group;
-    private Department department;
+    private Department department; //todo to group
 
     /*constructor with direct indication of a specific course */
     public Student(

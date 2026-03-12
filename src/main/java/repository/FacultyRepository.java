@@ -1,6 +1,7 @@
 package repository;
 
 import domain.Faculty;
+import exceptions.FacultyRegisterException;
 import repository.interfaces.FacultyRepositoryInt;
 
 import java.util.HashMap;
@@ -12,6 +13,12 @@ public class FacultyRepository implements FacultyRepositoryInt {
     Map<String, Faculty> facultyMap = new HashMap<>();
 
     public FacultyRepository() {
+    }
+
+    public void add(Faculty faculty) {
+        if (facultyMap.containsKey(faculty.getCode())) {
+            throw new FacultyRegisterException("Faculty with code " + faculty.getCode() + " already exists");
+        }
     }
 
     @Override

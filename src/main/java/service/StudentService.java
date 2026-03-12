@@ -2,7 +2,6 @@ package service;
 
 import domain.Group;
 import domain.Student;
-import domain.abstractClasses.Staff;
 import domain.records.StudentId;
 import exceptions.GroupDoesNotExistException;
 import exceptions.StudentAddingError;
@@ -15,7 +14,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class StudentService implements StudentServiceInt {
     private final StudentRepositoryInt studentRepository;
@@ -112,7 +110,7 @@ public class StudentService implements StudentServiceInt {
     public List<Student> getAllCourseOrder() {
         return studentRepository.findAll().stream()
                 .sorted(Comparator.comparing(Student::getCourse))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

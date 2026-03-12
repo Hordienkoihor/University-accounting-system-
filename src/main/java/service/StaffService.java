@@ -8,7 +8,6 @@ import repository.interfaces.StaffRepositoryInt;
 import service.interfaces.FacultyServiceInt;
 import service.interfaces.StaffServiceInt;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,7 +33,7 @@ public class StaffService implements StaffServiceInt {
             staffRepository.save(staff);
         }
 
-        faculty.get().addStaff(staff);
+        staff.setFaculty(faculty.get());
     }
 
     @Override
@@ -49,7 +48,7 @@ public class StaffService implements StaffServiceInt {
             staffRepository.save(staff);
         }
 
-        faculty.get().removeStaff(staff);
+        staff.setFaculty(null);
     }
 
     @Override
@@ -71,10 +70,7 @@ public class StaffService implements StaffServiceInt {
     public Staff findById(StaffId id) {
         Optional<Staff> staff = staffRepository.findById(id);
 
-        if (staff.isEmpty()) {
-            return null;
-        }
-        return staff.get();
+        return staff.orElse(null);
     }
 
     @Override
