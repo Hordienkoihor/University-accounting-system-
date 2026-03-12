@@ -92,10 +92,14 @@ public class Student extends Person {
     @Override
     public String toString() {
         return "Student {" + '\n' +
-                "   studentId=" + studentId + ',' + '\n' +
-                "   course=" + course + ',' + '\n' +
-                "   studyForm=" + studyForm + ',' + '\n' +
-                "   studyStatus=" + studyStatus + ',' + '\n' +
-                "} "  + super.toString();
+                "   studentId= " + studentId + ',' + '\n' +
+                "   full name= " + getFullName() + ',' + '\n' +
+                "   course= " + course + ',' + '\n' +
+                "   dob= " + getDateOfBirth() + ',' + '\n' +
+                "   course= " + course + ',' + '\n' +
+                "   studyForm= " + studyForm + ',' + '\n' +
+                "   studyStatus= " + studyStatus + ',' + '\n' +
+                "   studyStatus= " + studyStatus + ',' + '\n' +
+                "} ";
     }
 }

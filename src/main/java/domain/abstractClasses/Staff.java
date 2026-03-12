@@ -40,6 +40,6 @@ public abstract class Staff extends Person {
     public String toString() {
         return "Staff {"  + '\n' +
                 "   staffId=" + staffId + ',' + '\n' +
-                "} " + super.toString();
+                "} " ;
     }
 }

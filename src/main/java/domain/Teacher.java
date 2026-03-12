@@ -96,11 +96,15 @@ public class Teacher extends Staff {
     @Override
     public String toString() {
         return "Teacher {"  + '\n' +
+                "   staff id= " + getStaffId() + ',' + '\n' +
+                "   full name= " + getFullName() + ',' + '\n' +
+                "   dob= " + getDateOfBirth() + ',' + '\n' +
+                "   full name= " + getFullName() + ',' + '\n' +
                 "   universityPosition=" + universityPosition + ',' + '\n' +
                 "   scientificDegree=" + scientificDegree + ',' + '\n' +
                 "   dateOfHiring=" + dateOfHiring + ',' + '\n' +
                 "   weeklyHours=" + weeklyHours + ',' + '\n' +
                 "   hourlyRate=" + hourlyRate + ',' + '\n' +
-                "} " + super.toString();
+                "} ";
     }
 }

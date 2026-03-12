@@ -7,7 +7,6 @@ import exceptions.IllegalNameException;
 import exceptions.IllegalPhoneNumberException;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public abstract class Person {
     private static int idCounter = 0;
@@ -47,72 +46,16 @@ public abstract class Person {
         return phoneNumber;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        if (!Validator.isValidPhoneNumber(phoneNumber, "UA")) {
+            throw new IllegalPhoneNumberException("Phone number is invalid");
+        }
+
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getEmail() {
         return email;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getFatherName() {
-        return fatherName;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getFullName() {
-        return getName() + " " + getSurname() + " " + getFatherName();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setName(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalNameException("Name cannot be null or empty");
-        }
-
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        if (surname == null || surname.isEmpty()) {
-            throw new IllegalNameException("Surname cannot be null or empty");
-        }
-
-        this.surname = surname;
-    }
-
-    public void setFatherName(String fatherName) {
-        if (fatherName == null || fatherName.isEmpty()) {
-            throw new IllegalNameException("Father name cannot be null or empty");
-        }
-
-        this.fatherName = fatherName;
-    }
-
-    public void setAge(int age) {
-        if (age <= 0 || age >= 500) {
-            throw new IllegalAgeException("Please enter a valid age");
-        }
-
-        this.age = age;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
     }
 
     public void setEmail(String email) {
@@ -123,12 +66,68 @@ public abstract class Person {
         this.email = email;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        if (!Validator.isValidPhoneNumber(phoneNumber, "UA")) {
-            throw new IllegalPhoneNumberException("Phone number is invalid");
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if (age <= 0 || age >= 500) {
+            throw new IllegalAgeException("Please enter a valid age");
         }
 
-        this.phoneNumber = phoneNumber;
+        this.age = age;
+    }
+
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        if (fatherName == null || fatherName.isEmpty()) {
+            throw new IllegalNameException("Father name cannot be null or empty");
+        }
+
+        this.fatherName = fatherName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        if (surname == null || surname.isEmpty()) {
+            throw new IllegalNameException("Surname cannot be null or empty");
+        }
+
+        this.surname = surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalNameException("Name cannot be null or empty");
+        }
+
+        this.name = name;
+    }
+
+    public String getFullName() {
+        return getName() + " " + getSurname() + " " + getFatherName();
+    }
+
+    public int getId() {
+        return id;
     }
 
 //    @Override
@@ -145,18 +144,15 @@ public abstract class Person {
 //                '}';
 //    }
 
-
     @Override
     public String toString() {
-        return "Person {" + '\n' +
-                "   id=" + id + ',' + '\n' +
-                "   name=" + name + ',' + '\n' +
-                "   surname=" + surname + ',' + '\n' +
-                "   fatherName=" + fatherName + ',' + '\n' +
-                "   age=" + age + ',' + '\n' +
-                "   dateOfBirth=" + dateOfBirth + ',' + '\n' +
-                "   email=" + email + ',' + '\n' +
-                "   phoneNumber=" + phoneNumber + ',' + '\n' +
+        return "{" + '\n' +
+                "   id= " + id + ',' + '\n' +
+                "   full name= " + getFullName() + ',' + '\n' +
+                "   age= " + age + ',' + '\n' +
+                "   dateOfBirth= " + dateOfBirth + ',' + '\n' +
+                "   email= " + email + ',' + '\n' +
+                "   phoneNumber= " + phoneNumber + ',' + '\n' +
                 '}';
     }
 }
