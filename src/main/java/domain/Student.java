@@ -18,7 +18,6 @@ public class Student extends Person {
     private StudyStatus studyStatus;
 
     private Group group;
-    private Department department; //todo switch to group group
 
     /*constructor with direct indication of a specific course */
     public Student(
@@ -58,14 +57,6 @@ public class Student extends Person {
         setCourse(course);
         setStudyForm(studyForm);
         setStudyStatus(studyStatus);
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
     }
 
     @Override
@@ -116,8 +107,9 @@ public class Student extends Person {
                 "   studentId=" + studentId + ',' + '\n' +
                 "   full name= " + getFullName() + ',' + '\n' +
                 "   dob= " + getDateOfBirth() + ',' + '\n' +
-                "   faculty= " + getDepartment().getFaculty().getName() + ',' + '\n' +
-                "   department= " + getDepartment().getName() + ',' + '\n' +
+                "   faculty= " + getGroup().getDepartment().getFaculty().getName() + ',' + '\n' +
+                "   department= " + getGroup().getDepartment().getName() + ',' + '\n' +
+                "   group= " + getGroup().getName() + ',' + '\n' +
                 "   course=" + course + ',' + '\n' +
                 "   studyForm=" + studyForm + ',' + '\n' +
                 "   studyStatus=" + studyStatus + ',' + '\n' +

@@ -1,32 +1,36 @@
 package domain;
 
-import domain.records.StudentId;
 import exceptions.IllegalNameException;
-import exceptions.StaffAddingError;
-import exceptions.StudentAddingError;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Group {
     private Specialty specialty;
     private String name;
+
+    private Department department;
 
     public Group(Specialty specialty, String name) {
         setSpecialty(specialty);
         setName(name);
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public Specialty getSpecialty() {
         return specialty;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
