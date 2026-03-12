@@ -18,7 +18,7 @@ public class Student extends Person {
     private StudyStatus studyStatus;
 
     private Group group;
-    private Department department; //todo to group
+    private Department department; //todo switch to group group
 
     /*constructor with direct indication of a specific course */
     public Student(
@@ -114,9 +114,13 @@ public class Student extends Person {
     public String toString() {
         return "Student {" + '\n' +
                 "   studentId=" + studentId + ',' + '\n' +
+                "   full name= " + getFullName() + ',' + '\n' +
+                "   dob= " + getDateOfBirth() + ',' + '\n' +
+                "   faculty= " + getDepartment().getFaculty().getName() + ',' + '\n' +
+                "   department= " + getDepartment().getName() + ',' + '\n' +
                 "   course=" + course + ',' + '\n' +
                 "   studyForm=" + studyForm + ',' + '\n' +
                 "   studyStatus=" + studyStatus + ',' + '\n' +
-                "} " + super.toString();
+                "} ";
     }
 }
