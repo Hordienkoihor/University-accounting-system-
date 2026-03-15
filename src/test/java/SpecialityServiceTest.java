@@ -37,7 +37,7 @@ class SpecialityServiceTest {
 
         service.register(facultyCode, specialty);
 
-        verify(repository, times(1)).save(facultyCode, specialty);
+        verify(repository, times(1)).save(specialty);
     }
 
     @Test
@@ -49,7 +49,7 @@ class SpecialityServiceTest {
         assertThrows(SpecialityAlreadyExistsException.class,
                 () -> service.register("#FI", specialty));
 
-        verify(repository, never()).save(anyString(), any());
+        verify(repository, never()).save(any());
     }
 
     @Test

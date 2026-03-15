@@ -50,7 +50,6 @@ public abstract class Person {
             String name,
             String surname,
             String fatherName,
-            int age,
             String email,
             String phoneNumber,
             LocalDate dateOfBirth
@@ -59,7 +58,6 @@ public abstract class Person {
         setName(name);
         setSurname(surname);
         setFatherName(fatherName);
-        setAge(age);
         setEmail(email);
         setPhoneNumber(phoneNumber);
         setDateOfBirth(dateOfBirth);
@@ -78,7 +76,7 @@ public abstract class Person {
     }
 
     public int getAge() {
-        return age;
+        return LocalDate.now().getYear() - getDateOfBirth().getYear();
     }
 
     public String getFatherName() {
@@ -123,14 +121,6 @@ public abstract class Person {
         }
 
         this.fatherName = fatherName;
-    }
-
-    public void setAge(int age) {
-        if (age <= 0 || age >= 500) {
-            throw new IllegalAgeException("Please enter a valid age");
-        }
-
-        this.age = age;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {

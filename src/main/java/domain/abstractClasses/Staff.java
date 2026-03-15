@@ -14,13 +14,12 @@ public abstract class Staff extends Person {
             String name,
             String surname,
             String fatherName,
-            int age,
             String email,
             String phoneNumber,
             LocalDate dateOfBirth
     ) {
-        super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
-        staffId = new StaffId( "ST-ID-" + new Date().getTime() * random.nextInt(1, 500));
+        super(name, surname, fatherName, email, phoneNumber, dateOfBirth);
+        staffId = new StaffId("ST-ID-" + new Date().getTime() * random.nextInt(1, 500));
     }
 
     public StaffId getStaffId() {
@@ -38,7 +37,7 @@ public abstract class Staff extends Person {
 
     @Override
     public String toString() {
-        return "Staff {"  + '\n' +
+        return "Staff {" + '\n' +
                 "   staffId=" + staffId + ',' + '\n' +
                 "} " + super.toString();
     }

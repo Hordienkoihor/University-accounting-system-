@@ -24,7 +24,6 @@ public class Teacher extends Staff {
             String name,
             String surname,
             String fatherName,
-            int age,
             String email,
             String phoneNumber,
             LocalDate dateOfBirth,
@@ -33,13 +32,13 @@ public class Teacher extends Staff {
             double hours,
             double hourlyRate
     ) {
-        super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
+        super(name, surname, fatherName, email, phoneNumber, dateOfBirth);
         setUniversityPosition(universityPosition);
         setScientificDegree(scientificDegree);
 
         setDateOfHiring(dateOfHiring);
 
-        setWeeklyHours(weeklyHours);
+        setWeeklyHours(hours);
         setHourlyRate(hourlyRate);
     }
 

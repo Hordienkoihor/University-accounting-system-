@@ -24,14 +24,13 @@ public class Student extends Person {
             String name,
             String surname,
             String fatherName,
-            int age,
             String email,
             String phoneNumber,
             LocalDate dateOfBirth,
             StudyForm studyForm,
             StudyStatus studyStatus
     ) {
-        super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
+        super(name, surname, fatherName, email, phoneNumber, dateOfBirth);
 
         this.studentId = new StudentId("SF-ID-" + new Date().getTime() * random.nextInt(1, 500));
         setCourse(1);
@@ -43,7 +42,6 @@ public class Student extends Person {
             String name,
             String surname,
             String fatherName,
-            int age,
             String email,
             String phoneNumber,
             LocalDate dateOfBirth,
@@ -51,7 +49,7 @@ public class Student extends Person {
             StudyForm studyForm,
             StudyStatus studyStatus
     ) {
-        super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
+        super(name, surname, fatherName, email, phoneNumber, dateOfBirth);
 
         this.studentId = new StudentId("SID-" + new Date().getTime() * random.nextInt(1, 500));
         setCourse(course);
@@ -78,7 +76,7 @@ public class Student extends Person {
     }
 
     public void setCourse(int course) {
-        if (course < 1 || course > 5) {
+        if (course < 1 || course > 6) {
             throw new IllegalCourseException("Invalid course number");
         }
 
