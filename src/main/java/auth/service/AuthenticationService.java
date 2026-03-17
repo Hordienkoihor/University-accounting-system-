@@ -61,6 +61,11 @@ public class AuthenticationService<T extends User> implements AuthenticationServ
         return activeTokens.contains(token);
     }
 
+    @Override
+    public boolean isLoggedIn(int token) {
+        return activeTokens.contains(token);
+    }
+
     private int generateToken(T user) {
         return (user.getName() + user.getPassword()).hashCode();
     }
