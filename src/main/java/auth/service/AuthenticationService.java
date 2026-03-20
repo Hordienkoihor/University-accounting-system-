@@ -1,5 +1,6 @@
 package auth.service;
 
+import auth.entities.HeadAdminRole;
 import auth.entities.LoginResponse;
 import auth.entities.User;
 import auth.repository.interfaces.UserRepositoryInt;
@@ -22,7 +23,7 @@ public class AuthenticationService<T extends User> implements AuthenticationServ
         Optional<T> user = userRepository.findByNameAndPassword(name, password);
 
         if (user.isEmpty()) {
-            throw new RuntimeException("User not found");
+            throw new RuntimeException("Invalid username or password");
         }
 
         int token = generateToken(user.get());
@@ -38,6 +39,10 @@ public class AuthenticationService<T extends User> implements AuthenticationServ
 
     @Override
     public T register(T user) {
+        if (user instanceof HeadAdminRole) {
+            throw new RuntimeException("Cannot register head admin role");
+        }
+
         if (userRepository.existsById(user.getName())) {
             throw new RuntimeException("User already exists");
         }

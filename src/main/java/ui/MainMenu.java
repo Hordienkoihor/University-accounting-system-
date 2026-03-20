@@ -1,20 +1,30 @@
 package ui;
 
+import auth.entities.LoginResponse;
+import auth.entities.User;
 import auth.repository.UserRepository;
 import auth.repository.interfaces.UserRepositoryInt;
 import auth.service.AuthenticationService;
 import auth.service.AuthorizationService;
 
+import java.util.Optional;
+
 public class MainMenu {
+    private static User currentUser;
+
     public static void main(String[] args) {
-        UserRepositoryInt repo = new UserRepository();
-        AuthenticationService authenticationService = new AuthenticationService(repo);
+        UserRepositoryInt<User> repo = new UserRepository();
+        AuthenticationService<User> authenticationService = new AuthenticationService(repo);
         AuthorizationService authorizationService = new AuthorizationService(authenticationService);
 
-        LoginMenuService loginMenuService = new LoginMenuService(authenticationService, authorizationService);
+        LoginMenu loginMenu = new LoginMenu(authenticationService, authorizationService);
 
-        LoginMenu loginMenu = new LoginMenu(loginMenuService);
+        Optional<LoginResponse> res = loginMenu.login();
 
-        loginMenu.login();
+        res.ifPresent(loginResponse -> currentUser = loginResponse.user());
+
+        if (currentUser != null) {
+            System.out.println("Main menu for: " + currentUser.getName());
+        }
     }
 }

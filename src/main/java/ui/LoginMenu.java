@@ -1,25 +1,28 @@
 package ui;
 
+import auth.entities.LoginResponse;
 import auth.enums.Rights;
+import auth.service.AuthenticationService;
+import auth.service.AuthorizationService;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
 
 public class LoginMenu {
-    private final LoginMenuService loginMenuService;
-    private final Scanner scanner;
-
     private static final String SEPARATOR = "---------------------------------";
     private static final String DOUBLE_SEPARATOR = "---------------------------------";
+    private final AuthenticationService authenticationService;
+    private final AuthorizationService authorizationService;
+    private final Scanner scanner;
 
-    public LoginMenu(LoginMenuService loginMenuService) {
-        this.loginMenuService = loginMenuService;
+    public LoginMenu(AuthenticationService authenticationService, AuthorizationService authorizationService) {
+        this.authenticationService = authenticationService;
+        this.authorizationService = authorizationService;
         this.scanner = new Scanner(System.in);
     }
 
-    public void login() {
+    public Optional<LoginResponse> login() {
         printHeader();
 
         while (true) {
@@ -30,12 +33,18 @@ public class LoginMenu {
             String password = scanner.nextLine();
 
             System.out.println("\nAuthenticating...");
-            Optional<Set<Rights>> rights = loginMenuService.login(username, password);
 
-            if (rights.isPresent()) {
-                printSuccess(username, rights.get());
-                break;
-            } else {
+            LoginResponse response;
+
+            try {
+                response = authenticationService.login(username, password);
+
+                Set<Rights> rights = authorizationService.provideAuthority(response.user());
+                printSuccess(username, rights);
+                return Optional.of(response);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+
                 printError();
                 System.out.print("Try again? (y/n): ");
                 if (!scanner.nextLine().equalsIgnoreCase("y")) {
@@ -44,7 +53,10 @@ public class LoginMenu {
                 }
                 System.out.println();
             }
+
         }
+
+        return Optional.empty();
     }
 
     private void printHeader() {
