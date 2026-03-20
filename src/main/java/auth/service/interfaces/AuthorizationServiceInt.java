@@ -5,7 +5,8 @@ import auth.enums.Rights;
 import auth.enums.Role;
 
 import java.util.List;
+import java.util.Set;
 
 public interface AuthorizationServiceInt {
-    List<Rights> provideAuthority(User user);
+    Set<Rights> provideAuthority(User user);
 }

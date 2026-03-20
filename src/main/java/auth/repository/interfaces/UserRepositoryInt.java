@@ -1,5 +1,6 @@
 package auth.repository.interfaces;
 
+import auth.entities.HeadAdminRole;
 import auth.entities.User;
 import repository.interfaces.DefaultRepository;
 

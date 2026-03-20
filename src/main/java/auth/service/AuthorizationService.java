@@ -12,6 +12,7 @@ import exceptions.AuthorizationException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class AuthorizationService implements AuthorizationServiceInt {
     private AuthenticationServiceInt authenticationService;
@@ -21,23 +22,7 @@ public class AuthorizationService implements AuthorizationServiceInt {
     }
 
     @Override
-    public List<Rights> provideAuthority(User user) {
-        if (!authenticationService.isLoggedIn((user.getName() + user.getPassword()).hashCode())) {
-            throw new AuthorizationException("Can't give rights to unauthenticated user");
-        }
-
-        if (user instanceof HeadAdminRole) {
-            return List.of(Rights.LOOK, Rights.REPORTS, Rights.CRUD, Rights.CRUD_ADMIN);
-        }
-
-        if (user instanceof ManagerRole) {
-            return List.of(Rights.LOOK, Rights.REPORTS, Rights.CRUD);
-        }
-
-        if (user instanceof UserRole) {
-            return List.of(Rights.LOOK, Rights.REPORTS);
-        }
-
-        return List.of();
+    public Set<Rights> provideAuthority(User user) {
+        return user.getRights();
     }
 }
