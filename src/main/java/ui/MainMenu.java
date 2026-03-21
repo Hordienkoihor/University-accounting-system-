@@ -24,7 +24,12 @@ public class MainMenu {
         res.ifPresent(loginResponse -> currentUser = loginResponse.user());
 
         if (currentUser != null) {
-            System.out.println("Main menu for: " + currentUser.getName());
+            System.out.println("Main menu for: " + currentUser.getName() + "\n");
+
+            RoleBasedMenu mainMenu = new RoleBasedMenu();
+
+            mainMenu.printMenu(authorizationService.provideAuthority(currentUser));
         }
+
     }
 }
