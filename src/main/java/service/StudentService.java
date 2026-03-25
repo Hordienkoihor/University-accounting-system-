@@ -1,5 +1,7 @@
 package service;
 
+import domain.Department;
+import domain.Faculty;
 import domain.Group;
 import domain.Student;
 import domain.records.StudentId;
@@ -122,5 +124,24 @@ public class StudentService implements StudentServiceInt {
                 .toList();
 
     }
+
+    @Override
+    public List<Student> getAllOnFacultyAlphabetical(Faculty faculty) {
+        return studentRepository.getAll()
+                .values()
+                .stream()
+                .filter(student -> student.getFaculty().equals(faculty))
+                .sorted(Comparator.comparing(Student::getName))
+                .toList();
+    }
+
+    @Override
+    public List<Student> getAllOnDepartmentAlphabetical(Department department) {
+        return findAll().values().stream()
+                .filter(student -> student.getGroup().getDepartment().equals(department))
+                .sorted(Comparator.comparing(Student::getFullName))
+                .toList();
+    }
+
 
 }

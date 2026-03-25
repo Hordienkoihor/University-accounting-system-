@@ -1,6 +1,9 @@
 package service.interfaces;
 
+import domain.Department;
+import domain.Faculty;
 import domain.Student;
+import domain.Teacher;
 import domain.abstractClasses.Staff;
 import domain.records.StudentId;
 
@@ -28,6 +31,11 @@ public interface StudentServiceInt {
     List<Student> getAllCourseOrder();
 
     List<Student> findByFaculty(String facultyCode);
+
+    List<Student> getAllOnFacultyAlphabetical(Faculty faculty);
+
+    List<Student> getAllOnDepartmentAlphabetical(Department department);
+
 
 
 

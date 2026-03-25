@@ -3,6 +3,7 @@ package service.interfaces;
 import domain.Department;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DepartmentServiceInt {
     void createDepartment(Department department);

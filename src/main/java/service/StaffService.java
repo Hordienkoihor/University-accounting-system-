@@ -1,6 +1,8 @@
 package service;
 
+import domain.Department;
 import domain.Faculty;
+import domain.Teacher;
 import domain.abstractClasses.Staff;
 import domain.records.StaffId;
 import exceptions.FacultyDoesNotExistException;
@@ -8,6 +10,7 @@ import repository.interfaces.StaffRepositoryInt;
 import service.interfaces.FacultyServiceInt;
 import service.interfaces.StaffServiceInt;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -97,5 +100,23 @@ public class StaffService implements StaffServiceInt {
                 .filter(staff -> staff.getFaculty().getCode().equals(facultyCode))
                 .toList();
 
+    }
+
+    @Override
+    public List<Staff> getAllOnFacultyAlphabetical(Faculty faculty) {
+        return findByFaculty(faculty.getCode())
+                .stream()
+                .sorted(Comparator.comparing(Staff::getName))
+                .toList();
+    }
+
+    @Override
+    public List<Teacher> getAllOnTeacherOnDepartmentAlphabetical(Department department) {
+        return findAll().values().stream()
+                .filter(staff -> staff instanceof Teacher)
+                .map(staff -> (Teacher) staff)
+                .filter(teacher -> teacher.getDepartment().equals(department))
+                .sorted(Comparator.comparing(Staff::getName))
+                .toList();
     }
 }

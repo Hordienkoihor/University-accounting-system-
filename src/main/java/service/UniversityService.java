@@ -15,6 +15,11 @@ public class UniversityService implements UniversityServiceInt {
     }
 
     @Override
+    public void save(University university) {
+        universityRepository.save(university);
+    }
+
+    @Override
     public boolean isUniversityLoaded() {
         return universityRepository.isInitialised();
     }
