@@ -1,5 +1,6 @@
 package ui;
 
+import Utilitys.InputHandler;
 import auth.enums.Rights;
 import auth.service.interfaces.AuthenticationServiceInt;
 import domain.Department;
@@ -36,6 +37,8 @@ public class RoleBasedMenu {
     private final Map<Integer, Runnable> reportActions = new HashMap<>();
     private final Map<Integer, Runnable> crudActions = new HashMap<>();
     private final StaffCRUDMenu staffCRUDMenu;
+    
+    private final InputHandler inputHandler;
 
     public RoleBasedMenu(
             UniversityServiceInt universityService,
@@ -70,6 +73,8 @@ public class RoleBasedMenu {
 
         initReportActions();
         initCrudActions();
+        
+        this.inputHandler = new InputHandler(new Scanner(System.in));
     }
 
 
@@ -92,7 +97,7 @@ public class RoleBasedMenu {
             });
             System.out.println("0. Exit");
 
-            int selected = getValidInt();
+            int selected = this.inputHandler.getValidInt("option");
 
             if (selected == 0) {
                 break;
@@ -149,7 +154,7 @@ public class RoleBasedMenu {
                 System.out.println(option);
             }
 
-            int choice = getValidInt("option", options.length);
+            int choice = this.inputHandler.getValidInt("option", options.length);
 
             if (choice == 0) {
                 break;
@@ -170,7 +175,7 @@ public class RoleBasedMenu {
 
     private void handleStudentsByFacultyAlphabetical() {
         listFaculties();
-        String facultyCode = getValidString("faculty code");
+        String facultyCode = this.inputHandler.getValidString("faculty code");
 
         facultyService.findByCode(facultyCode).ifPresentOrElse(
                 studentService::getAllOnFacultyAlphabetical,
@@ -180,7 +185,7 @@ public class RoleBasedMenu {
 
     private void handleStaffByFacultyAlphabetical() {
         listFaculties();
-        String facultyCode = getValidString("faculty code");
+        String facultyCode = this.inputHandler.getValidString("faculty code");
 
         facultyService.findByCode(facultyCode).ifPresentOrElse(
                 staffService::getAllOnFacultyAlphabetical,
@@ -214,13 +219,12 @@ public class RoleBasedMenu {
             if (students.isEmpty()) {
                 System.out.println("No students found on department");
             } else {
-                int courseId = getValidInt("course ID", 6);
+                int courseId = this.inputHandler.getValidInt("course ID", 6);
 
                 students = students.stream()
                         .filter(student -> student.getCourse() == courseId).toList();
                 listStudents(students);
             }
-            ;
         });
     }
 
@@ -264,7 +268,7 @@ public class RoleBasedMenu {
                 System.out.println(option);
             }
 
-            int choice = getValidInt("option", options.length - 1);
+            int choice = this.inputHandler.getValidInt("option", options.length - 1);
 
             if (choice == 0) break;
 
@@ -290,7 +294,7 @@ public class RoleBasedMenu {
             System.out.println("\n--- Student Management ---");
             for (String opt : options) System.out.println(opt);
 
-            int choice = getValidInt("action", 4);
+            int choice = this.inputHandler.getValidInt("action", 4);
             if (choice == 0) break;
 
             switch (choice) {
@@ -305,13 +309,13 @@ public class RoleBasedMenu {
     private void createStudent() {
         System.out.println("--- New Student Registration ---");
         try {
-            String name = getValidString("name");
-            String surname = getValidString("surname");
-            String fatherName = getValidString("father name");
-            String email = getValidString("email");
-            String phone = getValidString("phone number");
+            String name = this.inputHandler.getValidString("name");
+            String surname = this.inputHandler.getValidString("surname");
+            String fatherName = this.inputHandler.getValidString("father name");
+            String email = this.inputHandler.getValidEmail();
+            String phone = this.inputHandler.getValidPhoneNumber();
 
-            LocalDate dob = getValidDate();
+            LocalDate dob = this.inputHandler.getValidDate();
 
             Student newStudent = new Student(name, surname, fatherName, email, phone, dob,
                     StudyForm.TUITION_FREE,
@@ -328,7 +332,7 @@ public class RoleBasedMenu {
     private void deleteStudent() {
         listStudents();
         System.out.println("Enter exact Student ID code to delete:");
-        String idInput = getValidString("Student ID");
+        String idInput = this.inputHandler.getValidString("Student ID");
 
         Optional<Student> student = studentService.findAll().values().stream()
                 .filter(s -> s.getStudentId().toString().contains(idInput))
@@ -346,7 +350,7 @@ public class RoleBasedMenu {
     private void updateStudent() {
         listStudents();
         System.out.println("Enter Student ID code to update:");
-        String idInput = getValidString("Student ID snippet");
+        String idInput = this.inputHandler.getValidString("Student ID snippet");
 
         Optional<Student> studentOpt = studentService.findAll().values().stream()
                 .filter(s -> s.getStudentId().toString().contains(idInput))
@@ -369,25 +373,25 @@ public class RoleBasedMenu {
             System.out.println("\n--- Update Student: " + student.getFullName() + " ---");
             for (String opt : updateOptions) System.out.println(opt);
 
-            int choice = getValidInt("option", 3);
+            int choice = this.inputHandler.getValidInt("option", 3);
             if (choice == 0) break;
 
             try {
                 switch (choice) {
                     case 1 -> {
-                        int newCourse = getValidInt("new course (1-6)", 6);
+                        int newCourse = this.inputHandler.getValidInt("new course (1-6)", 6);
                         student.setCourse(newCourse);
                         System.out.println("Course updated");
                     }
                     case 2 -> {
                         System.out.println("1. Tuition-free, 2. Paid");
-                        int formChoice = getValidInt("form", 2);
+                        int formChoice = this.inputHandler.getValidInt("form", 2);
                         student.setStudyForm(formChoice == 1 ? StudyForm.TUITION_FREE : StudyForm.TUITION);
                         System.out.println("Study form updated");
                     }
                     case 3 -> {
                         System.out.println("1. Studying, 2. Pending, 3. Academic leave, 4. Expelled");
-                        int statusChoice = getValidInt("status", 3);
+                        int statusChoice = this.inputHandler.getValidInt("status", 3);
                         StudyStatus newStatus = switch (statusChoice) {
                             case 1 -> StudyStatus.STUDYING;
                             case 2 -> StudyStatus.PENDING;
@@ -407,14 +411,14 @@ public class RoleBasedMenu {
 
     private void registerStudentToGroupAction() {
         listStudents();
-        String studentIdStr = getValidString("Student ID snippet");
+        String studentIdStr = this.inputHandler.getValidString("Student ID snippet");
 
         Optional<Student> studentOpt = studentService.findAll().values().stream()
                 .filter(s -> s.getStudentId().toString().contains(studentIdStr))
                 .findFirst();
 
         if (studentOpt.isPresent()) {
-            String groupName = getValidString("Group Name");
+            String groupName = this.inputHandler.getValidString("Group Name");
             try {
                 studentService.registerToGroup(studentOpt.get(), groupName);
             } catch (Exception e) {
@@ -495,7 +499,7 @@ public class RoleBasedMenu {
 
     private Optional<Department> requestDepartment() {
         listDepartments();
-        String deptCode = getValidString("department code");
+        String deptCode = this.inputHandler.getValidString("department code");
         try {
             return Optional.of(departmentService.getByCode(deptCode));
         } catch (Exception e) {

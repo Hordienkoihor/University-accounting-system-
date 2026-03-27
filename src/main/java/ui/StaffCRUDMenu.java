@@ -1,5 +1,6 @@
 package ui;
 
+import Utilitys.InputHandler;
 import domain.Department;
 import domain.Teacher;
 import domain.enums.ScientificDegree;
@@ -9,16 +10,20 @@ import service.interfaces.StaffServiceInt;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import static Utilitys.InputHandler.*;
 
 public class StaffCRUDMenu {
     private final StaffServiceInt staffService;
-    private final DepartmentServiceInt departmentService; // Потрібен для призначення викладача на кафедру
+    private final DepartmentServiceInt departmentService;
+
+    private final InputHandler inputHandler;
 
     public StaffCRUDMenu(StaffServiceInt staffService, DepartmentServiceInt departmentService) {
         this.staffService = staffService;
         this.departmentService = departmentService;
+        this.inputHandler = new InputHandler(new Scanner(System.in));
     }
 
     public void handleStaffCRUD() {
@@ -34,7 +39,7 @@ public class StaffCRUDMenu {
             System.out.println("\n--- Teacher Management ---");
             for (String opt : options) System.out.println(opt);
 
-            int choice = getValidInt("action", 4);
+            int choice = this.inputHandler.getValidInt("action", 4);
             if (choice == 0) break;
 
             switch (choice) {
@@ -49,15 +54,15 @@ public class StaffCRUDMenu {
     private void createTeacher() {
         System.out.println("--- New Teacher Registration ---");
         try {
-            String name = getValidString("name");
-            String surname = getValidString("surname");
-            String fatherName = getValidString("father name");
-            String email = getValidString("email");
-            String phone = getValidString("phone number");
-            LocalDate dob = getValidDate();
+            String name = this.inputHandler.getValidString("name");
+            String surname = this.inputHandler.getValidString("surname");
+            String fatherName = this.inputHandler.getValidString("father name");
+            String email = this.inputHandler.getValidEmail();
+            String phone = this.inputHandler.getValidPhoneNumber();
+            LocalDate dob = this.inputHandler.getValidDate();
 
-            double hours = getValidDouble("weekly hours");
-            double rate = getValidDouble("hourly rate");
+            double hours = this.inputHandler.getValidDouble("weekly hours");
+            double rate = this.inputHandler.getValidDouble("hourly rate");
 
             Teacher teacher = new Teacher(
                     name, surname, fatherName, email, phone, dob,
@@ -83,7 +88,7 @@ public class StaffCRUDMenu {
             count[0]++;
         });
 
-        int choice = getValidInt("position", UniversityPosition.values().length);
+        int choice = this.inputHandler.getValidInt("position", UniversityPosition.values().length);
 
         return choice > 0 ? UniversityPosition.values()[choice - 1] : UniversityPosition.ASSISTANT_PROFESSOR;
     }
@@ -96,14 +101,14 @@ public class StaffCRUDMenu {
             count[0]++;
         });
 
-        int choice = getValidInt("degree", ScientificDegree.values().length);
+        int choice = this.inputHandler.getValidInt("degree", ScientificDegree.values().length);
 
         return choice > 0 ? ScientificDegree.values()[choice - 1] : ScientificDegree.NONE;
     }
 
     private void updateTeacher() {
         listStaff();
-        String idInput = getValidString("Staff ID snippet to update");
+        String idInput = this.inputHandler.getValidString("Staff ID snippet to update");
 
         staffService.findAll().values().stream()
                 .filter(s -> s.getStaffId().toString().contains(idInput))
@@ -130,24 +135,24 @@ public class StaffCRUDMenu {
             System.out.println("\nUpdating: " + teacher.getFullName());
             for (String opt : updateOptions) System.out.println(opt);
 
-            int choice = getValidInt("option", 4);
+            int choice = this.inputHandler.getValidInt("option", 4);
             if (choice == 0) break;
 
             switch (choice) {
-                case 1 -> teacher.setWeeklyHours(getValidDouble("new hours"));
-                case 2 -> teacher.setHourlyRate(getValidDouble("new rate"));
+                case 1 -> teacher.setWeeklyHours(this.inputHandler.getValidDouble("new hours"));
+                case 2 -> teacher.setHourlyRate(this.inputHandler.getValidDouble("new rate"));
                 case 3 -> teacher.setUniversityPosition(getUniversityPosition());
                 case 4 -> assignDepartment(teacher);
             }
 
             staffService.save(teacher);
-            System.out.println("Field updated successfully.");
+            System.out.println("Field updated successfully");
         }
     }
 
     private void deleteTeacher() {
         listStaff();
-        String idInput = getValidString("Staff ID to delete");
+        String idInput = this.inputHandler.getValidString("Staff ID to delete");
 
         staffService.findAll().values().stream()
                 .filter(s -> s.getStaffId().toString().contains(idInput))
@@ -162,7 +167,7 @@ public class StaffCRUDMenu {
         departmentService.getAllDepartments().forEach(d ->
                 System.out.println(d.getCode() + ": " + d.getName()));
 
-        String code = getValidString("department code");
+        String code = this.inputHandler.getValidString("department code");
         try {
             Department dept = departmentService.getByCode(code);
             teacher.setDepartment(dept);

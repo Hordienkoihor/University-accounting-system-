@@ -4,120 +4,102 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class InputHandler {
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
-    public static String getValidString(String input) {
-        System.out.println("Please enter " + input + ": ");
-        String res = scanner.nextLine();
+    public InputHandler(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    public String getValidString(String prompt) {
+        System.out.print("Please enter " + prompt + ": ");
         while (true) {
-
+            String res = this.scanner.nextLine();
             if (Validator.isValidString(res)) {
                 return res;
             } else {
-                System.out.println("Please enter valid " + input + ": ");
-                res = scanner.nextLine();
+                System.out.print("Invalid input. Please enter " + prompt + " again: ");
             }
         }
-
     }
 
-    public static String getValidString() {
-        String res = scanner.nextLine();
+    public String getValidString() {
         while (true) {
-
+            String res = this.scanner.nextLine();
             if (Validator.isValidString(res)) {
                 return res;
-            } else {
-                System.out.println("Please enter valid string");
-                res = scanner.nextLine();
             }
+            System.out.println("Please enter a valid string: ");
         }
-
     }
 
-    public static int getValidInt() {
-        boolean validInt = true;
-        int res = 0;
-
-        while (validInt) {
+    public int getValidInt(String input) {
+        while (true) {
             try {
-                res = Integer.parseInt(getValidString());
-                validInt = false;
+                String res = getValidString(input);
+                return Integer.parseInt(res);
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer");
+                System.out.println("Error: '" + input + "' must be a whole number.");
             }
         }
-
-        return res;
     }
 
-    public static int getValidInt(String input) {
-        boolean validInt = true;
-        int res = 0;
+    public int getValidInt(String input, int top) {
+        while (true) {
+            int res = getValidInt(input);
+            if (checkOption(res, top)) {
+                return res;
+            }
+            System.out.println("Please choose an option between 0 and " + top);
+        }
+    }
 
-        while (validInt) {
+    public double getValidDouble(String input) {
+        while (true) {
             try {
-                res = Integer.parseInt(getValidString());
-                validInt = false;
+                String res = getValidString(input);
+                return Double.parseDouble(res);
             } catch (NumberFormatException e) {
-                System.out.println("Please enter valid " + input + ": ");
+                System.out.println("Error: '" + input + "' must be a numeric value.");
             }
         }
-
-        return res;
-
     }
 
-    public static int getValidInt(String input, int top) {
-        boolean validInt = true;
-        int res = 0;
-
-        while (validInt) {
+    public LocalDate getValidDate() {
+        while (true) {
+            String dateStr = getValidString("date (YYYY-MM-DD)");
             try {
-                res = Integer.parseInt(getValidString());
-
-                if (checkOption(res, top)) {
-                    validInt = false;
-                }
-
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter valid " + input + ": ");
+                return LocalDate.parse(dateStr);
+            } catch (Exception e) {
+                System.out.println("Invalid format. Use YYYY-MM-DD (e.g., 2026-03-27)");
             }
         }
-
-        return res;
-
     }
 
-    public static boolean checkOption(int option, int top) {
+    public boolean checkOption(int option, int top) {
         return option >= 0 && option <= top;
     }
 
-    public static LocalDate getValidDate() {
-        while (true) {
-            String date = getValidString();
 
-            try {
-                return LocalDate.parse(date);
-            } catch (Exception e) {
-                System.out.println("Please enter a valid date format such as 2007-12-03");
+    public String getValidPhoneNumber() {
+        while (true) {
+            String phone = getValidString("phone number");
+            if (Validator.isValidPhoneNumber(phone, "UA")) {
+                return phone;
             }
+
+            System.out.println("\nInvalid format\n");
         }
     }
 
-    public static double getValidDouble(String input) {
-        boolean validDouble = true;
-        double res = 0;
-
-        while (validDouble) {
-            try {
-                res = Double.parseDouble(getValidString());
-                validDouble = false;
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid double");
+    public String getValidEmail() {
+        while (true) {
+            String email = getValidString("email");
+            if (Validator.isValidEmailAddress(email)) {
+                return email;
             }
-        }
 
-        return res;
+            System.out.println("\nInvalid format\n");
+
+        }
     }
 }
