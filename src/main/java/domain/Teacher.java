@@ -104,12 +104,16 @@ public class Teacher extends Staff {
 
     @Override
     public String toString() {
+        String deptName = (department != null) ? department.getName() : "N/A";
+        String facultyName = (department != null && department.getFaculty() != null)
+                ? department.getFaculty().getName() : "N/A";
+
         return "Teacher {"  + '\n' +
                 "   staff id= " + getStaffId() + ',' + '\n' +
                 "   full name= " + getFullName() + ',' + '\n' +
                 "   dob= " + getDateOfBirth() + ',' + '\n' +
-                "   faculty= " + getDepartment().getFaculty().getName() + ',' + '\n' +
-                "   department= " + getDepartment().getName() + ',' + '\n' +
+                "   faculty= " + facultyName + ',' + '\n' +
+                "   department= " + deptName + ',' + '\n' +
                 "   universityPosition=" + universityPosition + ',' + '\n' +
                 "   scientificDegree=" + scientificDegree + ',' + '\n' +
                 "   dateOfHiring=" + dateOfHiring + ',' + '\n' +

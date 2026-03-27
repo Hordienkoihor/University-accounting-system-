@@ -1,6 +1,5 @@
 package ui;
 
-import Utilitys.Validator;
 import auth.enums.Rights;
 import auth.service.interfaces.AuthenticationServiceInt;
 import domain.Department;
@@ -14,6 +13,8 @@ import service.interfaces.*;
 
 import java.time.LocalDate;
 import java.util.*;
+
+import static Utilitys.InputHandler.*;
 
 public class RoleBasedMenu {
     private static final String SEPARATOR = "---------------------------------";
@@ -34,6 +35,7 @@ public class RoleBasedMenu {
     private final Map<Rights, String> roleCall = new LinkedHashMap<>();
     private final Map<Integer, Runnable> reportActions = new HashMap<>();
     private final Map<Integer, Runnable> crudActions = new HashMap<>();
+    private final StaffCRUDMenu staffCRUDMenu;
 
     public RoleBasedMenu(
             UniversityServiceInt universityService,
@@ -64,108 +66,12 @@ public class RoleBasedMenu {
         this.staffService = staffService;
         this.authenticationService = authenticationService;
 
+        this.staffCRUDMenu = new StaffCRUDMenu(staffService, departmentService);
+
         initReportActions();
         initCrudActions();
     }
 
-    private static String getValidString(String input) {
-        System.out.println("Please enter " + input + ": ");
-        String res = scanner.nextLine();
-        while (true) {
-
-            if (Validator.isValidString(res)) {
-                return res;
-            } else {
-                System.out.println("Please enter valid " + input + ": ");
-                res = scanner.nextLine();
-            }
-        }
-
-    }
-
-    private static String getValidString() {
-        String res = scanner.nextLine();
-        while (true) {
-
-            if (Validator.isValidString(res)) {
-                return res;
-            } else {
-                System.out.println("Please enter valid string");
-                res = scanner.nextLine();
-            }
-        }
-
-    }
-
-    private static int getValidInt() {
-        boolean validInt = true;
-        int res = 0;
-
-        while (validInt) {
-            try {
-                res = Integer.parseInt(getValidString());
-                validInt = false;
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer");
-            }
-        }
-
-        return res;
-    }
-
-    private static int getValidInt(String input) {
-        boolean validInt = true;
-        int res = 0;
-
-        while (validInt) {
-            try {
-                res = Integer.parseInt(getValidString());
-                validInt = false;
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter valid " + input + ": ");
-            }
-        }
-
-        return res;
-
-    }
-
-    private static int getValidInt(String input, int top) {
-        boolean validInt = true;
-        int res = 0;
-
-        while (validInt) {
-            try {
-                res = Integer.parseInt(getValidString());
-
-                if (checkOption(res, top)) {
-                    validInt = false;
-                }
-
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter valid " + input + ": ");
-            }
-        }
-
-        return res;
-
-    }
-
-    private static boolean checkOption(int option, int top) {
-        return option >= 0 && option <= top;
-    }
-
-    private LocalDate getValidDate() {
-        while (true) {
-            String date = getValidString();
-
-            try {
-                return LocalDate.parse(date);
-            } catch (Exception e) {
-                System.out.println("Please enter a valid date format such as 2007-12-03");
-            }
-        }
-    }
 
     public void printMenu(Set<Rights> rights) {
         while (true) {
@@ -204,7 +110,7 @@ public class RoleBasedMenu {
 
     private void initCrudActions() {
         crudActions.put(1, this::handleStudentCRUD);
-//        crudActions.put(2, this::handleStaffCRUD); todo wip
+        crudActions.put(2, staffCRUDMenu::handleStaffCRUD);
 //        crudActions.put(3, this::handleFacultyCRUD);
 //        crudActions.put(4, this::handleDepartmentCRUD);
 //        crudActions.put(5, this::handleSpecialityCRUD);
@@ -374,8 +280,9 @@ public class RoleBasedMenu {
     private void handleStudentCRUD() {
         String[] options = {
                 "1. Create Student",
-                "2. Update Student",
-                "3. Delete Student",
+                "2. View All Students",
+                "3. Update Student",
+                "4. Delete Student",
                 "0. Back"
         };
 
@@ -388,6 +295,7 @@ public class RoleBasedMenu {
 
             switch (choice) {
                 case 1 -> createStudent();
+                case 2 -> listStudents();
                 case 3 -> updateStudent();
                 case 4 -> deleteStudent();
             }
@@ -422,7 +330,6 @@ public class RoleBasedMenu {
         System.out.println("Enter exact Student ID code to delete:");
         String idInput = getValidString("Student ID");
 
-        // Пошук студента в findAll()
         Optional<Student> student = studentService.findAll().values().stream()
                 .filter(s -> s.getStudentId().toString().contains(idInput))
                 .findFirst();
@@ -507,7 +414,6 @@ public class RoleBasedMenu {
                 .findFirst();
 
         if (studentOpt.isPresent()) {
-            // Тут можна викликати listGroups(), якщо такий метод є
             String groupName = getValidString("Group Name");
             try {
                 studentService.registerToGroup(studentOpt.get(), groupName);
@@ -571,13 +477,13 @@ public class RoleBasedMenu {
     }
 
     private void listStudents(List<Student> students) {
-        System.out.println("\n " +SEPARATOR);
+        System.out.println("\n " + SEPARATOR);
         students.forEach(student -> System.out.println(student.getFullName() + " " + student.getStudentId()));
         System.out.println(SEPARATOR + "\n");
     }
 
     private void listTeachers(List<Teacher> teachers) {
-        System.out.println("\n " +SEPARATOR);
+        System.out.println("\n " + SEPARATOR);
         teachers.forEach(teacher -> System.out.println(teacher.getFullName() + " " + teacher.getStaffId()));
         System.out.println(SEPARATOR + "\n");
     }

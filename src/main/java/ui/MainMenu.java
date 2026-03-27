@@ -49,8 +49,6 @@ public class MainMenu {
             ConfigLoader loader = new ConfigLoader(universityService, studentService, facultyService);
             loader.load("config.csv");
 
-
-
             System.out.println("Main menu for: " + currentUser.getName() + "\n");
 
             RoleBasedMenu mainMenu = new RoleBasedMenu(
