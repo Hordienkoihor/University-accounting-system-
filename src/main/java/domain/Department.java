@@ -58,4 +58,19 @@ public class Department {
         this.headOfDepartment = headOfDepartment;
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        String facultyName = faculty == null ? "N/A" : faculty.getName();
+        String headOfDepartInfo = headOfDepartment == null ? "N/A" : headOfDepartment.getName() + " id: " + headOfDepartment.getStaffId();
+
+
+        return "Department{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", faculty=" + facultyName +
+                ", headOfDepartment=" + headOfDepartInfo +
+                ", location='" + location + '\'' +
+                '}';
+    }
 }

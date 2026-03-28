@@ -36,7 +36,10 @@ public class RoleBasedMenu {
     private final Map<Rights, String> roleCall = new LinkedHashMap<>();
     private final Map<Integer, Runnable> reportActions = new HashMap<>();
     private final Map<Integer, Runnable> crudActions = new HashMap<>();
+
     private final StaffCRUDMenu staffCRUDMenu;
+    private final FacultyCRUDMenu facultyCRUDMenu;
+    private final DepartmentCRUDMenu departmentCRUDMenu;
     
     private final InputHandler inputHandler;
 
@@ -70,6 +73,8 @@ public class RoleBasedMenu {
         this.authenticationService = authenticationService;
 
         this.staffCRUDMenu = new StaffCRUDMenu(staffService, departmentService);
+        this.facultyCRUDMenu = new FacultyCRUDMenu(facultyService, staffService);
+        this.departmentCRUDMenu = new DepartmentCRUDMenu(departmentService, facultyService, staffService);
 
         initReportActions();
         initCrudActions();
@@ -116,8 +121,8 @@ public class RoleBasedMenu {
     private void initCrudActions() {
         crudActions.put(1, this::handleStudentCRUD);
         crudActions.put(2, staffCRUDMenu::handleStaffCRUD);
-//        crudActions.put(3, this::handleFacultyCRUD);
-//        crudActions.put(4, this::handleDepartmentCRUD);
+        crudActions.put(3, facultyCRUDMenu::handleFacultyCRUD);
+        crudActions.put(4, departmentCRUDMenu::handleDepartmentCRUD);
 //        crudActions.put(5, this::handleSpecialityCRUD);
 //        crudActions.put(6, this::handleGroupCRUD);
     }

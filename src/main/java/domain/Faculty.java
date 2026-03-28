@@ -2,19 +2,11 @@ package domain;
 
 import Utilitys.Validator;
 import domain.abstractClasses.Staff;
-import domain.records.StaffId;
-import exceptions.IllegalCodeException;
 import exceptions.IllegalNameException;
-import exceptions.StudentAddingError;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Faculty {
     private final String code;
-//    Map<StaffId, Staff> staffMap = new HashMap<>();
+    //    Map<StaffId, Staff> staffMap = new HashMap<>();
 //    Map<String, Specialty> specialtyList = new HashMap<>();
 //    Map<String, Department> departmentMap = new HashMap<>();
     private String name;
@@ -123,11 +115,22 @@ public class Faculty {
 
     @Override
     public String toString() {
+        Staff dean = getDean();
+
+        if (dean == null) {
+            return "Faculty {" + '\n' +
+                    "   name='" + name + ',' + '\n' +
+                    "   code='" + code + ',' + '\n' +
+                    "   dean=" + " N/A " + '\n' +
+                    '}';
+        }
+
         return "Faculty {" + '\n' +
                 "   name='" + name + ',' + '\n' +
                 "   code='" + code + ',' + '\n' +
                 "   dean=" + dean.getStaffId() + " " + dean.getFullName() + '\n' +
                 '}';
+
     }
 
     public void add(Department department) {
