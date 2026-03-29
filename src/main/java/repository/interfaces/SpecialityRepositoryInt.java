@@ -17,7 +17,7 @@ public interface SpecialityRepositoryInt extends DefaultRepository<Specialty, St
 
 //    void deleteByTag(String tag);
 
-    List<Specialty> findAllOnFaculty(String code);
+    List<Specialty> findAllOnDepartment(String code);
 
 //    List<Specialty> findAll();
 

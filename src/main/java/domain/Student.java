@@ -102,9 +102,12 @@ public class Student extends Person {
     @Override
     public String toString() {
         String groupName = (group != null) ? group.getName() : "N?/A";
-        String deptName = (group != null && group.getDepartment() != null) ? group.getDepartment().getName() : "N/A";
-        String facultyName = (group != null && group.getDepartment() != null && group.getDepartment().getFaculty() != null)
-                ? group.getDepartment().getFaculty().getName() : "N/A";
+        String specialityName = (group != null && group.getSpecialty() != null) ? group.getSpecialty().getName() : "N/A";
+        String deptName = (group != null && group.getSpecialty() != null && group.getSpecialty().getDepartment() != null)
+                ? group.getSpecialty().getDepartment().getName()
+                : "N/A";
+        String facultyName = (group != null && group.getSpecialty() != null && group.getSpecialty().getDepartment() != null && group.getSpecialty().getDepartment().getFaculty() != null)
+                ? group.getSpecialty().getDepartment().getFaculty().getName() : "N/A";
 
         return "Student {" + '\n' +
                 "   studentId=" + studentId + ',' + '\n' +

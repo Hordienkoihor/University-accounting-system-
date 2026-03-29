@@ -49,14 +49,14 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 //    }
 
     @Override
-    public List<Specialty> findAllOnFaculty(String code) {
+    public List<Specialty> findAllOnDepartment(String code) {
         return new ArrayList<>(
                 specialtyMap
                         .values()
                         .stream()
                         .filter(
                                 specialty -> specialty
-                                        .getFaculty()
+                                        .getDepartment()
                                         .getCode()
                                         .equals(code)
                         ).toList()

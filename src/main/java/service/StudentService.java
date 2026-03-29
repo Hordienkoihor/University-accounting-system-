@@ -138,7 +138,7 @@ public class StudentService implements StudentServiceInt {
     @Override
     public List<Student> getAllOnDepartmentAlphabetical(Department department) {
         return findAll().values().stream()
-                .filter(student -> student.getGroup().getDepartment().equals(department))
+                .filter(student -> student.getGroup().getSpecialty().getDepartment().equals(department))
                 .sorted(Comparator.comparing(Student::getFullName))
                 .toList();
     }

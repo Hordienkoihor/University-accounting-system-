@@ -17,7 +17,7 @@ public class SpecialityService implements SpecialityServiceInt {
     }
 
     @Override
-    public void register(String facultyCode, Specialty specialty) {
+    public void register(Specialty specialty) {
         if (existsByTag(specialty.getTag())) {
             throw new SpecialityAlreadyExistsException("Specialty with tag " + specialty.getTag() + " already exists");
         }
@@ -48,8 +48,8 @@ public class SpecialityService implements SpecialityServiceInt {
     }
 
     @Override
-    public List<Specialty> findAllOnFaculty(String facultyCode) {
-        return specialityRepository.findAllOnFaculty(facultyCode);
+    public List<Specialty> findAllOnDepartment(String departmentCode) {
+        return specialityRepository.findAllOnDepartment(departmentCode);
     }
 
     @Override

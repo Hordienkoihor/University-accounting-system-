@@ -6,20 +6,17 @@ public class Group {
     private Specialty specialty;
     private String name;
 
-    private Department department;
+//    private Department department;
 
     public Group(Specialty specialty, String name) {
         setSpecialty(specialty);
         setName(name);
     }
 
-    public Department getDepartment() {
-        return department;
-    }
+//    public Department getDepartment() {
+//        return department;
+//    }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
 
     public Specialty getSpecialty() {
         return specialty;
