@@ -17,6 +17,8 @@ public class PersistenceService<T> {
         this.storagePath = Paths.get("storage", fileName);
         this.mapper = new ObjectMapper();
         this.mapper.registerModule(new JavaTimeModule());
+
+        this.mapper.findAndRegisterModules();
     }
 
     public void saveAll(List<T> data) {
@@ -24,7 +26,9 @@ public class PersistenceService<T> {
             if (Files.notExists(storagePath.getParent())) {
                 Files.createDirectories(storagePath.getParent());
             }
-            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(data);
+            String json = mapper.writerWithDefaultPrettyPrinter()
+                    .forType(mapper.getTypeFactory().constructCollectionType(List.class, clazz))
+                    .writeValueAsString(data);
 
             Files.writeString(storagePath, json);
         } catch (Exception e) {

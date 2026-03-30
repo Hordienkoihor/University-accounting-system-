@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import domain.abstractClasses.Staff;
 import domain.enums.ScientificDegree;
 import domain.enums.UniversityPosition;
@@ -18,6 +20,7 @@ public class Teacher extends Staff {
     private double weeklyHours;
     private double hourlyRate;
 
+//    @JsonBackReference
     private Department department;
 
     public Teacher() {
@@ -102,6 +105,7 @@ public class Teacher extends Staff {
         this.hourlyRate = hourlyRate;
     }
 
+    @JsonIgnore
     public double getExpectedWeeklyPay() {
         return hourlyRate * weeklyHours;
     }

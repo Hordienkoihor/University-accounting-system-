@@ -137,13 +137,13 @@ public class FacultyCRUDMenu {
         });
 
         Staff teacher = staffService.findById(new StaffId(this.inputHandler.getValidString("staffId")));
-
         if (teacher == null) {
             System.out.println("Staff not found");
             return;
         }
 
         faculty.setDean(teacher);
+//        teacher.setFaculty(faculty);
         System.out.println("Faculty dean updated successfully");
     }
 

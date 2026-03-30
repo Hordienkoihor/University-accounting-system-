@@ -1,14 +1,28 @@
 package domain.abstractClasses;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import domain.Faculty;
+import domain.Teacher;
 import domain.records.StaffId;
 
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
 
+//@JsonTypeInfo(
+//        use = JsonTypeInfo.Id.NAME,
+//        include = JsonTypeInfo.As.PROPERTY,
+//        property = "type"
+//)
+//@JsonSubTypes({
+//        @JsonSubTypes.Type(value = Teacher.class, name = "teacher")
+//})
 public abstract class Staff extends Person {
     private final Random random = new Random();
-    private  StaffId staffId;
+    private StaffId staffId;
+
 
     public Staff() {
         super();
@@ -26,12 +40,12 @@ public abstract class Staff extends Person {
         staffId = new StaffId("ST-ID-" + new Date().getTime() * random.nextInt(1, 500));
     }
 
-    public void setStaffId(StaffId staffId) {
-        this.staffId = staffId;
-    }
-
     public StaffId getStaffId() {
         return staffId;
+    }
+
+    public void setStaffId(StaffId staffId) {
+        this.staffId = staffId;
     }
 
     //    @Override
@@ -42,11 +56,10 @@ public abstract class Staff extends Person {
 //                super.toString();
 //    }
 
-
     @Override
     public String toString() {
         return "Staff {" + '\n' +
                 "   staffId=" + staffId + ',' + '\n' +
-                "} " ;
+                "} ";
     }
 }

@@ -120,7 +120,13 @@ public class StudentService implements StudentServiceInt {
         return studentRepository.getAll()
                 .values()
                 .stream()
-                .filter(student -> student.getFaculty().getCode().equals(facultyCode))
+                .filter(student -> {
+                    if (student.getGroup() == null) {
+                        return false;
+                    }
+
+                    return student.getGroup().getSpecialty().getDepartment().getFaculty().getCode().equals(facultyCode);
+                })
                 .toList();
 
     }
@@ -130,7 +136,7 @@ public class StudentService implements StudentServiceInt {
         return studentRepository.getAll()
                 .values()
                 .stream()
-                .filter(student -> student.getFaculty().equals(faculty))
+                .filter(student -> student.getGroup().getSpecialty().getDepartment().getFaculty().getCode().equals(faculty.getCode()))
                 .sorted(Comparator.comparing(Student::getName))
                 .toList();
     }

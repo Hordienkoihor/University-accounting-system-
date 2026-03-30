@@ -61,12 +61,12 @@ public class Student extends Person {
         setStudyStatus(studyStatus);
     }
 
-    @Override
+
     public Group getGroup() {
         return group;
     }
 
-    @Override
+
     public void setGroup(Group group) {
         this.group = group;
     }

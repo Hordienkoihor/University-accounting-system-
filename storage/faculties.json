@@ -1,5 +1,25 @@
 [ {
   "code" : "#FI",
   "name" : "FI",
-  "dean" : null
+  "dean" : {
+    "type" : "teacher",
+    "id" : {
+      "personId" : "P-ID-ee wq eqwe631854734533784"
+    },
+    "name" : "ee",
+    "surname" : "wq",
+    "fatherName" : "eqwe",
+    "dateOfBirth" : [ 2000, 2, 22 ],
+    "email" : "fdf@ukr.net",
+    "phoneNumber" : "0680057368",
+    "staffId" : {
+      "staffId" : "ST-ID-440168466754120"
+    },
+    "universityPosition" : "ASSOCIATE_PROFESSOR",
+    "scientificDegree" : "BACHELOR",
+    "dateOfHiring" : null,
+    "weeklyHours" : 34.0,
+    "hourlyRate" : 55.0,
+    "department" : null
+  }
 } ]

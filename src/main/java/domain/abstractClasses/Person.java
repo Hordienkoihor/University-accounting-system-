@@ -1,9 +1,16 @@
 package domain.abstractClasses;
 
 import Utilitys.Validator;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import domain.Faculty;
 import domain.Group;
+import domain.Student;
+import domain.Teacher;
+import domain.records.PersonId;
+import domain.records.StaffId;
 import exceptions.IllegalAgeException;
 import exceptions.IllegalEmailException;
 import exceptions.IllegalNameException;
@@ -11,41 +18,51 @@ import exceptions.IllegalPhoneNumberException;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Random;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = domain.Student.class, name = "student"),
+        @JsonSubTypes.Type(value = domain.Teacher.class, name = "teacher")
+})
 public abstract class Person {
-    private static int idCounter = 0;
+    private final Random random = new Random();
 
-    private int id;
+    private PersonId id;
 
     private String name;
     private String surname;
     private String fatherName;
 
-    private int age;
     private LocalDate dateOfBirth;
 
     private String email;
     private String phoneNumber;
 
-    private Faculty faculty;
+//    @JsonBackReference("faculty-member")
+//    private Faculty faculty;
 
-    public Group getGroup() {
-        return group;
-    }
+//    public Group getGroup() {
+//        return group;
+//    }
+//
+//    public void setGroup(Group group) {
+//        this.group = group;
+//    }
 
-    public void setGroup(Group group) {
-        this.group = group;
-    }
+//    public Faculty getFaculty() {
+//        return faculty;
+//    }
+//
+//    public void setFaculty(Faculty faculty) {
+//        this.faculty = faculty;
+//    }
 
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
-
-    private Group group;
+//    private Group group;
 
     public Person() {
 
@@ -59,16 +76,16 @@ public abstract class Person {
             String phoneNumber,
             LocalDate dateOfBirth
     ) {
-        this.id = idCounter++;
         setName(name);
         setSurname(surname);
         setFatherName(fatherName);
         setEmail(email);
         setPhoneNumber(phoneNumber);
         setDateOfBirth(dateOfBirth);
+        this.id = new PersonId("P-ID-" + getFullName() +new Date().getTime() * random.nextInt(1, 500));
     }
 
-    public void setId(int id) {
+    public void setId(PersonId id) {
         this.id = id;
     }
 
@@ -84,6 +101,7 @@ public abstract class Person {
         return dateOfBirth;
     }
 
+    @JsonIgnore
     public int getAge() {
         return LocalDate.now().getYear() - getDateOfBirth().getYear();
     }
@@ -105,7 +123,7 @@ public abstract class Person {
         return getName() + " " + getSurname() + " " + getFatherName();
     }
 
-    public int getId() {
+    public PersonId getId() {
         return id;
     }
 
@@ -175,7 +193,7 @@ public abstract class Person {
                 "   name=" + name + ',' + '\n' +
                 "   surname=" + surname + ',' + '\n' +
                 "   fatherName=" + fatherName + ',' + '\n' +
-                "   age=" + age + ',' + '\n' +
+                "   age=" + getAge() + ',' + '\n' +
                 "   dateOfBirth=" + dateOfBirth + ',' + '\n' +
                 "   email=" + email + ',' + '\n' +
                 "   phoneNumber=" + phoneNumber + ',' + '\n' +

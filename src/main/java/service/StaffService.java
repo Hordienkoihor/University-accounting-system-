@@ -24,6 +24,7 @@ public class StaffService implements StaffServiceInt {
         this.facultyService = facultyService;
     }
 
+    /*rudiment*/
     @Override
     public void registerToFaculty(Staff staff, String facultyCode) {
         Optional<Faculty> faculty = facultyService.findByCode(facultyCode);
@@ -36,9 +37,10 @@ public class StaffService implements StaffServiceInt {
             staffRepository.save(staff);
         }
 
-        staff.setFaculty(faculty.get());
+//        staff.setFaculty(faculty.get());
     }
 
+    /*rudiment*/
     @Override
     public void unregisterFromFaculty(Staff staff, String facultyCode) {
         Optional<Faculty> faculty = facultyService.findByCode(facultyCode);
@@ -51,7 +53,7 @@ public class StaffService implements StaffServiceInt {
             staffRepository.save(staff);
         }
 
-        staff.setFaculty(null);
+//        staff.setFaculty(null);
     }
 
     @Override
@@ -86,6 +88,7 @@ public class StaffService implements StaffServiceInt {
         return staffRepository.getAll();
     }
 
+    /*rudiment*/
     @Override
     public void transfer(Staff staff, String from, String to) {
         unregisterFromFaculty(staff, from);
@@ -97,7 +100,17 @@ public class StaffService implements StaffServiceInt {
         return staffRepository.getAll()
                 .values()
                 .stream()
-                .filter(staff -> staff.getFaculty().getCode().equals(facultyCode))
+                .filter(staff -> staff instanceof Teacher)
+                .filter(staff -> {
+                    Teacher teacher = (Teacher) staff;
+
+                    if (teacher.getDepartment() == null) {
+                        return false;
+                    }
+
+                    return teacher.getDepartment().getFaculty().getCode().equals(facultyCode);
+
+                })
                 .toList();
 
     }

@@ -6,10 +6,7 @@ import auth.enums.Rights;
 import auth.repository.UserRepository;
 import auth.repository.interfaces.UserRepositoryInt;
 import auth.service.interfaces.AuthenticationServiceInt;
-import domain.Department;
-import domain.Faculty;
-import domain.Student;
-import domain.Teacher;
+import domain.*;
 import domain.abstractClasses.Staff;
 import domain.enums.StudyForm;
 import domain.enums.StudyStatus;
@@ -17,8 +14,6 @@ import service.interfaces.*;
 
 import java.time.LocalDate;
 import java.util.*;
-
-import static Utilitys.InputHandler.*;
 
 public class RoleBasedMenu {
     private static final String SEPARATOR = "---------------------------------";
@@ -46,7 +41,7 @@ public class RoleBasedMenu {
     private final DepartmentCRUDMenu departmentCRUDMenu;
     private final SpecialtyCRUDMenu specialtyCRUDMenu;
     private final GroupCRUDMenu groupCRUDMenu;
-    
+
     private final InputHandler inputHandler;
 
     public RoleBasedMenu(
@@ -88,7 +83,7 @@ public class RoleBasedMenu {
 
         initReportActions();
         initCrudActions();
-        
+
         this.inputHandler = new InputHandler(new Scanner(System.in));
     }
 
@@ -192,9 +187,20 @@ public class RoleBasedMenu {
         listFaculties();
         String facultyCode = this.inputHandler.getValidString("faculty code");
 
-        facultyService.findByCode(facultyCode).ifPresentOrElse(
-                studentService::getAllOnFacultyAlphabetical,
-                () -> System.out.println("Faculty with code " + facultyCode + " not found")
+        facultyService.findByCode(facultyCode).ifPresent(faculty -> {
+                    List<Student> students = studentService.getAllOnFacultyAlphabetical(faculty);
+
+                    if (!students.isEmpty()) {
+                        students.forEach(student -> {
+                            System.out.println(student.getFullName() + " " + student.getStudentId());
+                        });
+
+                    } else {
+                        System.out.println("No students on faculty: " + faculty.getName());
+                    }
+                }
+
+
         );
     }
 
@@ -202,10 +208,15 @@ public class RoleBasedMenu {
         listFaculties();
         String facultyCode = this.inputHandler.getValidString("faculty code");
 
-        facultyService.findByCode(facultyCode).ifPresentOrElse(
-                staffService::getAllOnFacultyAlphabetical,
-                () -> System.out.println("Faculty with code " + facultyCode + " not found")
-        );
+        facultyService.findByCode(facultyCode).ifPresent(faculty -> {
+            List<Staff> staff = staffService.getAllOnFacultyAlphabetical(faculty);
+
+            if (!staff.isEmpty()) {
+                listStaffs(staff);
+            } else {
+                System.out.println("No staff found");
+            }
+        });
     }
 
     private void handleStaffByDepartmentAlphabetical() {
@@ -340,7 +351,7 @@ public class RoleBasedMenu {
                 System.out.println(option);
             }
 
-            int choice = this.inputHandler.getValidInt("option", options.length - 1);
+            int choice = this.inputHandler.getValidInt("option", options.length);
 
             if (choice == 0) break;
 
@@ -413,9 +424,9 @@ public class RoleBasedMenu {
         student.ifPresentOrElse(
                 s -> {
                     studentService.delete(s);
-                    System.out.println("Student deleted successfully.");
+                    System.out.println("Student deleted successfully");
                 },
-                () -> System.out.println("Student not found.")
+                () -> System.out.println("Student not found")
         );
     }
 
@@ -438,6 +449,7 @@ public class RoleBasedMenu {
                 "1. Change Course (current: " + student.getCourse() + ")",
                 "2. Change Study Form (current: " + student.getStudyForm() + ")",
                 "3. Change Study Status (current: " + student.getStudyStatus() + ")",
+                "4. Change Group (current: " + student.getGroup() + ")",
                 "0. Back"
         };
 
@@ -445,7 +457,7 @@ public class RoleBasedMenu {
             System.out.println("\n--- Update Student: " + student.getFullName() + " ---");
             for (String opt : updateOptions) System.out.println(opt);
 
-            int choice = this.inputHandler.getValidInt("option", 3);
+            int choice = this.inputHandler.getValidInt("option", 4);
             if (choice == 0) break;
 
             try {
@@ -472,6 +484,17 @@ public class RoleBasedMenu {
                         };
                         student.setStudyStatus(newStatus);
                         System.out.println("Status updated");
+                    }
+                    case 4 -> {
+                        String group = this.inputHandler.getValidString("group name");
+
+                        Group group1 = groupService.findByName(group);
+
+                        if (group1 == null) {
+                            System.out.println("Group not found");
+                        } else {
+                            student.setGroup(group1);
+                        }
                     }
                 }
                 studentService.save(student);
@@ -548,7 +571,7 @@ public class RoleBasedMenu {
 
         User newUser = auth.UserFactory.createUser(type, name, password);
         userRepository.save(newUser);
-        System.out.println("User created and saved to " +  "user_config.csv");
+        System.out.println("User created and saved to " + "user_config.csv");
     }
 
     private void deleteUser() {

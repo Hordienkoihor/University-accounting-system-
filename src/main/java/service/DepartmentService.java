@@ -35,7 +35,7 @@ public class DepartmentService implements DepartmentServiceInt {
             throw new FacultyDoesNotExistException("Faculty with code " + department.getFaculty().getCode() + " not found");
         }
 
-        faculty.get().add(department);
+        this.departmentRepository.save(department);
     }
 
     @Override

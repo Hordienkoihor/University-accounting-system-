@@ -1,6 +1,7 @@
 package domain;
 
 import Utilitys.Validator;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import domain.abstractClasses.Staff;
 import exceptions.IllegalNameException;
 
@@ -10,6 +11,9 @@ public class Faculty {
 //    Map<String, Specialty> specialtyList = new HashMap<>();
 //    Map<String, Department> departmentMap = new HashMap<>();
     private String name;
+
+
+//    @JsonManagedReference("faculty-member")
     private Staff dean;
 
     public Faculty() {
@@ -24,10 +28,6 @@ public class Faculty {
         setName(name);
         this.code = code;
         this.dean = dean;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public Staff getDean() {
@@ -52,6 +52,10 @@ public class Faculty {
 
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 //    public List<Specialty> getSpecialtyList() {
