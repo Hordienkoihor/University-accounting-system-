@@ -12,7 +12,11 @@ public class Specialty {
 
     private Department department;
 
-    private List<Group> groups = new ArrayList<>();
+//    private List<Group> groups = new ArrayList<>();
+
+    public Specialty() {
+
+    }
 
     public Specialty(String name, String tag, Department department) {
         setName(name);
@@ -53,9 +57,9 @@ public class Specialty {
     }
 
 
-    public List<Group> getGroups() {
-        return groups;
-    }
+//    public List<Group> getGroups() {
+//        return groups;
+//    }
 
     @Override
     public String toString() {

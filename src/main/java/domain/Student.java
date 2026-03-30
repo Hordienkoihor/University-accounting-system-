@@ -12,12 +12,16 @@ import java.util.Random;
 
 public class Student extends Person {
     private final Random random = new Random();
-    private final StudentId studentId;
+    private  StudentId studentId;
     private int course;
     private StudyForm studyForm;
     private StudyStatus studyStatus;
 
     private Group group;
+
+    public Student() {
+        super();
+    }
 
     /*constructor with direct indication of a specific course */
     public Student(

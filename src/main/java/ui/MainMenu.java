@@ -47,7 +47,7 @@ public class MainMenu {
         if (currentUser != null) {
 
             ConfigLoader loader = new ConfigLoader(universityService, studentService, facultyService);
-            loader.load("config.csv");
+            loader.load("configTest.csv");
 
             System.out.println("Main menu for: " + currentUser.getName() + "\n");
 

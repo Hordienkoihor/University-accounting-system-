@@ -1,7 +1,10 @@
 package ui;
 
 import Utilitys.InputHandler;
+import auth.entities.User;
 import auth.enums.Rights;
+import auth.repository.UserRepository;
+import auth.repository.interfaces.UserRepositoryInt;
 import auth.service.interfaces.AuthenticationServiceInt;
 import domain.Department;
 import domain.Faculty;
@@ -31,6 +34,7 @@ public class RoleBasedMenu {
     private final StaffServiceInt staffService;
     /*auth service*/
     private final AuthenticationServiceInt authenticationService;
+    private final UserRepositoryInt<User> userRepository;
     /*function n options storages*/
     private final Map<Rights, Runnable> roleMenus = new LinkedHashMap<>();
     private final Map<Rights, String> roleCall = new LinkedHashMap<>();
@@ -40,6 +44,8 @@ public class RoleBasedMenu {
     private final StaffCRUDMenu staffCRUDMenu;
     private final FacultyCRUDMenu facultyCRUDMenu;
     private final DepartmentCRUDMenu departmentCRUDMenu;
+    private final SpecialtyCRUDMenu specialtyCRUDMenu;
+    private final GroupCRUDMenu groupCRUDMenu;
     
     private final InputHandler inputHandler;
 
@@ -75,6 +81,10 @@ public class RoleBasedMenu {
         this.staffCRUDMenu = new StaffCRUDMenu(staffService, departmentService);
         this.facultyCRUDMenu = new FacultyCRUDMenu(facultyService, staffService);
         this.departmentCRUDMenu = new DepartmentCRUDMenu(departmentService, facultyService, staffService);
+        this.specialtyCRUDMenu = new SpecialtyCRUDMenu(specialityService, departmentService);
+        this.groupCRUDMenu = new GroupCRUDMenu(groupService, specialityService);
+
+        this.userRepository = new UserRepository();
 
         initReportActions();
         initCrudActions();
@@ -123,8 +133,8 @@ public class RoleBasedMenu {
         crudActions.put(2, staffCRUDMenu::handleStaffCRUD);
         crudActions.put(3, facultyCRUDMenu::handleFacultyCRUD);
         crudActions.put(4, departmentCRUDMenu::handleDepartmentCRUD);
-//        crudActions.put(5, this::handleSpecialityCRUD);
-//        crudActions.put(6, this::handleGroupCRUD);
+        crudActions.put(5, specialtyCRUDMenu::handleSpecialtyCRUD);
+        crudActions.put(6, groupCRUDMenu::handleGroupCRUD);
     }
 
     private void initReportActions() {
@@ -239,16 +249,73 @@ public class RoleBasedMenu {
                 "2. Find student by full name",
                 "3. Find staff by ID",
                 "4. Find staff by full name",
+                "0. Back"
         };
 
+        while (true) {
+            System.out.println(DOUBLE_SEPARATOR);
+            System.out.println("    FIND MENU    ");
+            System.out.println(DOUBLE_SEPARATOR);
 
-        System.out.println(DOUBLE_SEPARATOR);
-        System.out.println("    FIND MENU    ");
-        System.out.println(DOUBLE_SEPARATOR);
+            for (String option : options) {
+                System.out.println(option);
+            }
 
+            int choice = this.inputHandler.getValidInt("action", 4);
+            if (choice == 0) break;
 
-        for (String option : options) {
-            System.out.println(option);
+            switch (choice) {
+                case 1 -> findStudentById();
+                case 2 -> findStudentByName();
+                case 3 -> findStaffById();
+                case 4 -> findStaffByName();
+            }
+        }
+    }
+
+    private void findStudentById() {
+        String id = this.inputHandler.getValidString("Student ID");
+        var student = studentService.findById(new domain.records.StudentId(id));
+        if (student != null) {
+            System.out.println("Found: " + student);
+        } else {
+            System.out.println("Student with ID " + id + " not found");
+        }
+    }
+
+    private void findStudentByName() {
+        String name = this.inputHandler.getValidString("full name snippet");
+        var students = studentService.findAll().values().stream()
+                .filter(s -> s.getFullName().toLowerCase().contains(name.toLowerCase()))
+                .toList();
+
+        if (students.isEmpty()) {
+            System.out.println("No students found matching: " + name);
+        } else {
+            students.forEach(System.out::println);
+        }
+    }
+
+    private void findStaffById() {
+        String id = this.inputHandler.getValidString("Staff ID");
+        var staff = staffService.findById(new domain.records.StaffId(id));
+        if (staff != null) {
+            System.out.println("Found: " + staff);
+        } else {
+            System.out.println("Staff member with ID " + id + " not found");
+        }
+    }
+
+    private void findStaffByName() {
+        String name = this.inputHandler.getValidString("full name snippet");
+        var staffList = staffService.findAll().values().stream()
+                .filter(s -> s.getFullName().toLowerCase().contains(name.toLowerCase()))
+                .toList();
+
+        if (staffList.isEmpty()) {
+            System.out.println("No staff found matching: " + name);
+        } else {
+            staffList.forEach(System.out::println);
         }
     }
 
@@ -443,14 +510,80 @@ public class RoleBasedMenu {
         };
 
 
-        System.out.println(DOUBLE_SEPARATOR);
-        System.out.println("    CRUD ADMIN MENU    ");
-        System.out.println(DOUBLE_SEPARATOR);
+        while (true) {
+            System.out.println(DOUBLE_SEPARATOR);
+            System.out.println("    CRUD ADMIN MENU    ");
+            System.out.println(DOUBLE_SEPARATOR);
 
+            for (String option : options) {
+                System.out.println(option);
+            }
 
-        for (String option : options) {
-            System.out.println(option);
+            int choice = this.inputHandler.getValidInt("action", 4);
+            if (choice == 0) break;
+
+            switch (choice) {
+                case 1 -> createUser();
+                case 2 -> deleteUser();
+                case 3 -> updateUser();
+                case 4 -> findUserById();
+            }
         }
+    }
+
+    private void createUser() {
+        System.out.println("--- Create New User ---");
+        String name = this.inputHandler.getValidString("username");
+
+        if (userRepository.existsById(name)) {
+            System.out.println("Error: User with this name already exists");
+            return;
+        }
+
+        String password = this.inputHandler.getValidString("password");
+
+        System.out.println("Select type: 1. User, 2. Manager");
+        int typeChoice = this.inputHandler.getValidInt("type", 2);
+        String type = (typeChoice == 2) ? "ManagerRole" : "UserRole";
+
+        User newUser = auth.UserFactory.createUser(type, name, password);
+        userRepository.save(newUser);
+        System.out.println("User created and saved to " +  "user_config.csv");
+    }
+
+    private void deleteUser() {
+        String name = this.inputHandler.getValidString("username to delete");
+        if (userRepository.existsById(name)) {
+            userRepository.deleteById(name);
+            System.out.println("User '" + name + "' deleted successfully");
+        } else {
+            System.out.println("User not found");
+        }
+    }
+
+    private void updateUser() {
+        String name = this.inputHandler.getValidString("username to update");
+        userRepository.findById(name).ifPresentOrElse(user -> {
+            System.out.println("Updating user: " + user.getName());
+            String newPassword = this.inputHandler.getValidString("new password");
+
+            User updatedUser = auth.UserFactory.createUser(
+                    user.getClass().getSimpleName(),
+                    user.getName(),
+                    newPassword
+            );
+
+            userRepository.save(updatedUser);
+            System.out.println("Password updated");
+        }, () -> System.out.println("User not found"));
+    }
+
+    private void findUserById() {
+        String name = this.inputHandler.getValidString("username");
+        userRepository.findById(name).ifPresentOrElse(
+                user -> System.out.println("Found: " + user.getClass().getSimpleName() + " [Name: " + user.getName() + "]"),
+                () -> System.out.println("User not found")
+        );
     }
 
     private void listFaculties() {

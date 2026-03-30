@@ -5,12 +5,15 @@ import domain.abstractClasses.Staff;
 import exceptions.IllegalNameException;
 
 public class Faculty {
-    private final String code;
+    private String code;
     //    Map<StaffId, Staff> staffMap = new HashMap<>();
 //    Map<String, Specialty> specialtyList = new HashMap<>();
 //    Map<String, Department> departmentMap = new HashMap<>();
     private String name;
     private Staff dean;
+
+    public Faculty() {
+    }
 
     public Faculty(String name, String code) {
         setName(name);
@@ -21,6 +24,10 @@ public class Faculty {
         setName(name);
         this.code = code;
         this.dean = dean;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Staff getDean() {

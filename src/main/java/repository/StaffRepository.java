@@ -4,18 +4,22 @@ import domain.Faculty;
 import domain.abstractClasses.Staff;
 import domain.records.StaffId;
 import repository.interfaces.StaffRepositoryInt;
+import repository.io.PersistenceService;
 
 import java.util.*;
 
 public class StaffRepository implements StaffRepositoryInt {
     Map<StaffId, Staff> staffMap = new HashMap<>();
+    private final PersistenceService<Staff> persistence = new PersistenceService<>(Staff.class, "staff.json");
 
     public StaffRepository() {
+        persistence.loadAll().forEach(this::save);
     }
 
     @Override
     public void save(Staff staff) {
         staffMap.put(staff.getStaffId(), staff);
+        persistence.saveAll(findAll());
     }
 
     @Override
@@ -36,6 +40,7 @@ public class StaffRepository implements StaffRepositoryInt {
     @Override
     public void deleteById(StaffId id) {
         staffMap.remove(id);
+        persistence.saveAll(findAll());
     }
 
     @Override

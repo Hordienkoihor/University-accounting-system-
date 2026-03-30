@@ -8,7 +8,11 @@ import java.util.Random;
 
 public abstract class Staff extends Person {
     private final Random random = new Random();
-    private final StaffId staffId;
+    private  StaffId staffId;
+
+    public Staff() {
+        super();
+    }
 
     protected Staff(
             String name,
@@ -20,6 +24,10 @@ public abstract class Staff extends Person {
     ) {
         super(name, surname, fatherName, email, phoneNumber, dateOfBirth);
         staffId = new StaffId("ST-ID-" + new Date().getTime() * random.nextInt(1, 500));
+    }
+
+    public void setStaffId(StaffId staffId) {
+        this.staffId = staffId;
     }
 
     public StaffId getStaffId() {

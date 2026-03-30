@@ -8,6 +8,10 @@ public class Group {
 
 //    private Department department;
 
+    public Group() {
+
+    }
+
     public Group(Specialty specialty, String name) {
         setSpecialty(specialty);
         setName(name);

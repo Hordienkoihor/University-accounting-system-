@@ -2,18 +2,22 @@ package repository;
 
 import domain.Specialty;
 import repository.interfaces.SpecialityRepositoryInt;
+import repository.io.PersistenceService;
 
 import java.util.*;
 
 public class SpecialityRepository implements SpecialityRepositoryInt {
     private Map<String, Specialty> specialtyMap = new HashMap<>();
+    private final PersistenceService<Specialty> persistence = new PersistenceService<>(Specialty.class, "specialties.json");
 
     public SpecialityRepository() {
+        persistence.loadAll().forEach(this::save);
     }
 
     @Override
     public void save(Specialty specialty) {
         specialtyMap.put(specialty.getTag(), specialty);
+        persistence.saveAll(findAll());
     }
 
 
@@ -84,6 +88,7 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
     @Override
     public void deleteById(String tag) {
         specialtyMap.remove(tag);
+        persistence.saveAll(findAll());
     }
 
 

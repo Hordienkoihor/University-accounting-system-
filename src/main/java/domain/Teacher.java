@@ -20,6 +20,10 @@ public class Teacher extends Staff {
 
     private Department department;
 
+    public Teacher() {
+
+    }
+
     public Teacher(
             String name,
             String surname,

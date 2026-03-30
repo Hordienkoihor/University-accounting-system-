@@ -51,6 +51,10 @@ public class Department {
         this.location = location;
     }
 
+    public Department() {
+
+    }
+
     public Department(String name, String code, Faculty faculty, Staff headOfDepartment, String location) {
         this.name = name;
         this.code = code;

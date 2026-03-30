@@ -3,6 +3,7 @@ package repository;
 import domain.Faculty;
 import exceptions.FacultyRegisterException;
 import repository.interfaces.FacultyRepositoryInt;
+import repository.io.PersistenceService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +12,10 @@ import java.util.Optional;
 
 public class FacultyRepository implements FacultyRepositoryInt {
     Map<String, Faculty> facultyMap = new HashMap<>();
+    private final PersistenceService<Faculty> persistence = new PersistenceService<>(Faculty.class, "faculties.json");
 
     public FacultyRepository() {
+        persistence.loadAll().forEach(this::save);
     }
 
     public void add(Faculty faculty) {
@@ -24,6 +27,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
     @Override
     public void save(Faculty faculty) {
         facultyMap.put(faculty.getCode(), faculty);
+        persistence.saveAll(findAll());
     }
 
     @Override
@@ -69,6 +73,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
     @Override
     public void deleteById(String code) {
         this.facultyMap.remove(code);
+        persistence.saveAll(findAll());
     }
 
     @Override
@@ -76,6 +81,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
         this.facultyMap
                 .values()
                 .removeIf(faculty -> faculty.getName().equals(name));
+        persistence.saveAll(findAll());
     }
 
 

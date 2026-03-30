@@ -1,6 +1,7 @@
 package domain.abstractClasses;
 
 import Utilitys.Validator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import domain.Faculty;
 import domain.Group;
 import exceptions.IllegalAgeException;
@@ -14,7 +15,7 @@ import java.util.Date;
 public abstract class Person {
     private static int idCounter = 0;
 
-    private final int id;
+    private int id;
 
     private String name;
     private String surname;
@@ -46,6 +47,10 @@ public abstract class Person {
 
     private Group group;
 
+    public Person() {
+
+    }
+
     protected Person(
             String name,
             String surname,
@@ -61,6 +66,10 @@ public abstract class Person {
         setEmail(email);
         setPhoneNumber(phoneNumber);
         setDateOfBirth(dateOfBirth);
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPhoneNumber() {
@@ -91,6 +100,7 @@ public abstract class Person {
         return name;
     }
 
+    @JsonIgnore
     public String getFullName() {
         return getName() + " " + getSurname() + " " + getFatherName();
     }

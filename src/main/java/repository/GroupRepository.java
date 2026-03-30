@@ -3,6 +3,7 @@ package repository;
 import domain.Group;
 import domain.Specialty;
 import repository.interfaces.GroupRepositoryInt;
+import repository.io.PersistenceService;
 import service.interfaces.SpecialityServiceInt;
 
 import java.util.*;
@@ -10,13 +11,16 @@ import java.util.stream.Collectors;
 
 public class GroupRepository implements GroupRepositoryInt {
     private final Map<String, Group> groupMap = new HashMap<>();
+    private final PersistenceService<Group> persistence = new PersistenceService<>(Group.class, "groups.json");
 
     public GroupRepository() {
+        persistence.loadAll().forEach(this::save);
     }
 
     @Override
     public void save(Group group) {
         groupMap.put(group.getName(), group);
+        persistence.saveAll(findAll());
     }
 
     @Override
@@ -37,6 +41,7 @@ public class GroupRepository implements GroupRepositoryInt {
     @Override
     public void deleteById(String name) {
         groupMap.remove(name);
+        persistence.saveAll(findAll());
     }
 
     @Override

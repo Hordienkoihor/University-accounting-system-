@@ -10,7 +10,7 @@ public class ManagerRole extends User {
     private final Role role = Role.MANAGER;
     private final Set<Rights> rights = new HashSet<>(Set.of(Rights.LOOK, Rights.REPORTS, Rights.CRUD));
 
-    ManagerRole(String name, String password) {
+    public ManagerRole(String name, String password) {
         super(name, password);
     }
 
