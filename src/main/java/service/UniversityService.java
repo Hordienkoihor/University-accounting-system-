@@ -1,7 +1,6 @@
 package service;
 
 import domain.University;
-import repository.UniversityRepository;
 import repository.interfaces.UniversityRepositoryInt;
 import service.interfaces.UniversityServiceInt;
 
@@ -9,10 +8,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class UniversityService implements UniversityServiceInt {
-    private UniversityRepositoryInt universityRepository;
+    private final UniversityRepositoryInt universityRepository;
 
     public UniversityService(UniversityRepositoryInt universityRepository) {
         this.universityRepository = universityRepository;
+    }
+
+    @Override
+    public void save(University university) {
+        universityRepository.save(university);
     }
 
     @Override

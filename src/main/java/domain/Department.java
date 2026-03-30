@@ -51,11 +51,30 @@ public class Department {
         this.location = location;
     }
 
+    public Department() {
+
+    }
+
     public Department(String name, String code, Faculty faculty, Staff headOfDepartment, String location) {
         this.name = name;
         this.code = code;
         this.faculty = faculty;
         this.headOfDepartment = headOfDepartment;
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        String facultyName = faculty == null ? "N/A" : faculty.getName();
+        String headOfDepartInfo = headOfDepartment == null ? "N/A" : headOfDepartment.getName() + " id: " + headOfDepartment.getStaffId();
+
+
+        return "Department{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", faculty=" + facultyName +
+                ", headOfDepartment=" + headOfDepartInfo +
+                ", location='" + location + '\'' +
+                '}';
     }
 }

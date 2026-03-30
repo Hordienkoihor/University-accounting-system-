@@ -12,26 +12,31 @@ import java.util.Random;
 
 public class Student extends Person {
     private final Random random = new Random();
-    private final StudentId studentId;
+    private  StudentId studentId;
     private int course;
     private StudyForm studyForm;
     private StudyStatus studyStatus;
+
+    private Group group;
+
+    public Student() {
+        super();
+    }
 
     /*constructor with direct indication of a specific course */
     public Student(
             String name,
             String surname,
             String fatherName,
-            int age,
             String email,
             String phoneNumber,
             LocalDate dateOfBirth,
             StudyForm studyForm,
             StudyStatus studyStatus
     ) {
-        super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
+        super(name, surname, fatherName, email, phoneNumber, dateOfBirth);
 
-        this.studentId = new StudentId( "SF-ID-" + new Date().getTime() * random.nextInt(1, 500));
+        this.studentId = new StudentId("SF-ID-" + new Date().getTime() * random.nextInt(1, 500));
         setCourse(1);
         setStudyForm(studyForm);
         setStudyStatus(studyStatus);
@@ -41,7 +46,6 @@ public class Student extends Person {
             String name,
             String surname,
             String fatherName,
-            int age,
             String email,
             String phoneNumber,
             LocalDate dateOfBirth,
@@ -49,12 +53,22 @@ public class Student extends Person {
             StudyForm studyForm,
             StudyStatus studyStatus
     ) {
-        super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
+        super(name, surname, fatherName, email, phoneNumber, dateOfBirth);
 
-        this.studentId = new StudentId( "SID-" + new Date().getTime() * random.nextInt(1, 500));
+        this.studentId = new StudentId("SID-" + new Date().getTime() * random.nextInt(1, 500));
         setCourse(course);
         setStudyForm(studyForm);
         setStudyStatus(studyStatus);
+    }
+
+    @Override
+    public Group getGroup() {
+        return group;
+    }
+
+    @Override
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public StudentId getStudentId() {
@@ -66,7 +80,7 @@ public class Student extends Person {
     }
 
     public void setCourse(int course) {
-        if (course < 1 || course > 5) {
+        if (course < 1 || course > 6) {
             throw new IllegalCourseException("Invalid course number");
         }
 
@@ -91,15 +105,24 @@ public class Student extends Person {
 
     @Override
     public String toString() {
+        String groupName = (group != null) ? group.getName() : "N?/A";
+        String specialityName = (group != null && group.getSpecialty() != null) ? group.getSpecialty().getName() : "N/A";
+        String deptName = (group != null && group.getSpecialty() != null && group.getSpecialty().getDepartment() != null)
+                ? group.getSpecialty().getDepartment().getName()
+                : "N/A";
+        String facultyName = (group != null && group.getSpecialty() != null && group.getSpecialty().getDepartment() != null && group.getSpecialty().getDepartment().getFaculty() != null)
+                ? group.getSpecialty().getDepartment().getFaculty().getName() : "N/A";
+
         return "Student {" + '\n' +
-                "   studentId= " + studentId + ',' + '\n' +
+                "   studentId=" + studentId + ',' + '\n' +
                 "   full name= " + getFullName() + ',' + '\n' +
-                "   course= " + course + ',' + '\n' +
                 "   dob= " + getDateOfBirth() + ',' + '\n' +
-                "   course= " + course + ',' + '\n' +
-                "   studyForm= " + studyForm + ',' + '\n' +
-                "   studyStatus= " + studyStatus + ',' + '\n' +
-                "   studyStatus= " + studyStatus + ',' + '\n' +
+                "   faculty= " + facultyName + ',' + '\n' +
+                "   department= " + deptName + ',' + '\n' +
+                "   group= " + groupName + ',' + '\n' +
+                "   course=" + course + ',' + '\n' +
+                "   studyForm=" + studyForm + ',' + '\n' +
+                "   studyStatus=" + studyStatus + ',' + '\n' +
                 "} ";
     }
 }

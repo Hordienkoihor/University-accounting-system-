@@ -24,7 +24,7 @@ public class DepartmentService implements DepartmentServiceInt {
     }
 
     @Override
-    public void createDepartment(Department department) {
+    public void register(Department department) {
         if (departmentRepository.existsById(department.getCode())) {
             throw new DepartmentAlreadyExistsException("Department with such code already exists");
         }

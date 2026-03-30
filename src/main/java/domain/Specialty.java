@@ -10,26 +10,22 @@ public class Specialty {
     private String name;
     private String tag;
 
-    private final Faculty faculty;
+    private Department department;
 
-    private List<Group> groups = new ArrayList<>();
+//    private List<Group> groups = new ArrayList<>();
 
-    public Specialty(String name, String tag, Faculty faculty) {
+    public Specialty() {
+
+    }
+
+    public Specialty(String name, String tag, Department department) {
         setName(name);
         setTag(tag);
-        this.faculty = faculty;
+        this.department = department;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -40,6 +36,10 @@ public class Specialty {
         this.name = name;
     }
 
+    public String getTag() {
+        return this.tag;
+    }
+
     public void setTag(String tag) {
         if (!Validator.isValidString(tag)) {
             throw new IllegalNameException("Tag must be a valid tag");
@@ -48,16 +48,27 @@ public class Specialty {
         this.tag = tag;
     }
 
-    public List<Group> getGroups() {
-        return groups;
+    public Department getDepartment() {
+        return this.department;
     }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+
+//    public List<Group> getGroups() {
+//        return groups;
+//    }
 
     @Override
     public String toString() {
+        String depName = department != null ? department.getName() : "N/A";
+
         return "Specialty {" + '\n' +
                 "   name='" + name + ',' + '\n' +
                 "   tag='" + tag + ',' + '\n' +
-                "   faculty=" + faculty.getName() + ',' + '\n' +
+                "   department=" + depName + " id " + +',' + '\n' +
                 '}';
     }
 }

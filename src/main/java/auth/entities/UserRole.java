@@ -10,7 +10,7 @@ public class UserRole extends User {
     private final Role role = Role.USER;
     private final Set<Rights> rights = new HashSet<>(Set.of(Rights.LOOK, Rights.REPORTS));
 
-    UserRole(String name, String password) {
+    public UserRole(String name, String password) {
         super(name, password);
     }
 

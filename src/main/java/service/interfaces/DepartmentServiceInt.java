@@ -5,7 +5,7 @@ import domain.Department;
 import java.util.List;
 
 public interface DepartmentServiceInt {
-    void createDepartment(Department department);
+    void register(Department department);
     Department getByCode(String code);
     List<Department> getAllDepartments();
     void deleteDepartment(String code);

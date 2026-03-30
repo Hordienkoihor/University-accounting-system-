@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SpecialityRepositoryInt extends DefaultRepository<Specialty, String> {
-    void save(String code, Specialty specialty);
+    void save(Specialty specialty);
 //
 //    Specialty findByTag(String tag);
     Optional<Specialty> findByName(String name);
@@ -17,7 +17,7 @@ public interface SpecialityRepositoryInt extends DefaultRepository<Specialty, St
 
 //    void deleteByTag(String tag);
 
-    List<Specialty> findAllOnFaculty(String code);
+    List<Specialty> findAllOnDepartment(String code);
 
 //    List<Specialty> findAll();
 

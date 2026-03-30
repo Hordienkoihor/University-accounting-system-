@@ -3,6 +3,7 @@ package service;
 import Utilitys.Validator;
 import domain.Specialty;
 import exceptions.SpecialityAlreadyExistsException;
+import exceptions.SpecialityDoesNotExistsException;
 import repository.interfaces.SpecialityRepositoryInt;
 import service.interfaces.SpecialityServiceInt;
 
@@ -16,12 +17,12 @@ public class SpecialityService implements SpecialityServiceInt {
     }
 
     @Override
-    public void register(String facultyCode, Specialty specialty) {
+    public void register(Specialty specialty) {
         if (existsByTag(specialty.getTag())) {
             throw new SpecialityAlreadyExistsException("Specialty with tag " + specialty.getTag() + " already exists");
         }
 
-        specialityRepository.save(facultyCode, specialty);
+        specialityRepository.save(specialty);
     }
 
     @Override
@@ -35,17 +36,20 @@ public class SpecialityService implements SpecialityServiceInt {
 
     @Override
     public Specialty findByTag(String tag) {
-        return specialityRepository.findById(tag).get();
+        return specialityRepository.findById(tag)
+                .orElseThrow(() -> new SpecialityDoesNotExistsException("Specialty with tag " + tag + " does not exist"));
     }
 
     @Override
     public Specialty findByName(String name) {
-        return specialityRepository.findByName(name).get();
+        return specialityRepository.findByName(name)
+                .orElseThrow(() -> new SpecialityDoesNotExistsException("Specialty with name " + name + " does not exist"));
+
     }
 
     @Override
-    public List<Specialty> findAllOnFaculty(String facultyCode) {
-        return specialityRepository.findAllOnFaculty(facultyCode);
+    public List<Specialty> findAllOnDepartment(String departmentCode) {
+        return specialityRepository.findAllOnDepartment(departmentCode);
     }
 
     @Override

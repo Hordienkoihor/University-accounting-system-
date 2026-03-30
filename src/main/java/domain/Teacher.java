@@ -18,11 +18,16 @@ public class Teacher extends Staff {
     private double weeklyHours;
     private double hourlyRate;
 
+    private Department department;
+
+    public Teacher() {
+
+    }
+
     public Teacher(
             String name,
             String surname,
             String fatherName,
-            int age,
             String email,
             String phoneNumber,
             LocalDate dateOfBirth,
@@ -31,46 +36,50 @@ public class Teacher extends Staff {
             double hours,
             double hourlyRate
     ) {
-        super(name, surname, fatherName, age, email, phoneNumber, dateOfBirth);
+        super(name, surname, fatherName, email, phoneNumber, dateOfBirth);
         setUniversityPosition(universityPosition);
         setScientificDegree(scientificDegree);
 
         setDateOfHiring(dateOfHiring);
 
-        setWeeklyHours(weeklyHours);
+        setWeeklyHours(hours);
         setHourlyRate(hourlyRate);
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public UniversityPosition getUniversityPosition() {
         return universityPosition;
     }
 
-    public ScientificDegree getScientificDegree() {
-        return scientificDegree;
-    }
-
-    public Date getDateOfHiring() {
-        return dateOfHiring;
-    }
-
-    public double getWeeklyHours() {
-        return weeklyHours;
-    }
-
-    public double getHourlyRate() {
-        return hourlyRate;
-    }
-
     public void setUniversityPosition(UniversityPosition universityPosition) {
         this.universityPosition = universityPosition;
+    }
+
+    public ScientificDegree getScientificDegree() {
+        return scientificDegree;
     }
 
     public void setScientificDegree(ScientificDegree scientificDegree) {
         this.scientificDegree = scientificDegree;
     }
 
+    public Date getDateOfHiring() {
+        return dateOfHiring;
+    }
+
     public void setDateOfHiring(Date dateOfHiring) {
         this.dateOfHiring = dateOfHiring;
+    }
+
+    public double getWeeklyHours() {
+        return weeklyHours;
     }
 
     public void setWeeklyHours(double weeklyHours) {
@@ -79,6 +88,10 @@ public class Teacher extends Staff {
         }
 
         this.weeklyHours = weeklyHours;
+    }
+
+    public double getHourlyRate() {
+        return hourlyRate;
     }
 
     public void setHourlyRate(double hourlyRate) {
@@ -95,11 +108,16 @@ public class Teacher extends Staff {
 
     @Override
     public String toString() {
+        String deptName = (department != null) ? department.getName() : "N/A";
+        String facultyName = (department != null && department.getFaculty() != null)
+                ? department.getFaculty().getName() : "N/A";
+
         return "Teacher {"  + '\n' +
                 "   staff id= " + getStaffId() + ',' + '\n' +
                 "   full name= " + getFullName() + ',' + '\n' +
                 "   dob= " + getDateOfBirth() + ',' + '\n' +
-                "   full name= " + getFullName() + ',' + '\n' +
+                "   faculty= " + facultyName + ',' + '\n' +
+                "   department= " + deptName + ',' + '\n' +
                 "   universityPosition=" + universityPosition + ',' + '\n' +
                 "   scientificDegree=" + scientificDegree + ',' + '\n' +
                 "   dateOfHiring=" + dateOfHiring + ',' + '\n' +

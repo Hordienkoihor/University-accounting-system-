@@ -5,13 +5,13 @@ import domain.Specialty;
 import java.util.List;
 
 public interface SpecialityServiceInt {
-    void register(String facultyCode, Specialty specialty);
+    void register(Specialty specialty);
 
     void update(String newName, String tag);
 
     Specialty findByTag(String tag);
     Specialty findByName(String name);
-    List<Specialty> findAllOnFaculty(String facultyCode);
+    List<Specialty> findAllOnDepartment(String departmentCode);
 
     boolean existsByTag(String tag);
 

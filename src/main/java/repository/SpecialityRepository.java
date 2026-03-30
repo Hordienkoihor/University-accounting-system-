@@ -1,27 +1,23 @@
 package repository;
 
-import domain.Faculty;
 import domain.Specialty;
 import repository.interfaces.SpecialityRepositoryInt;
-import service.interfaces.FacultyServiceInt;
+import repository.io.PersistenceService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class SpecialityRepository implements SpecialityRepositoryInt {
-    private final FacultyServiceInt facultyService;
+    private Map<String, Specialty> specialtyMap = new HashMap<>();
+    private final PersistenceService<Specialty> persistence = new PersistenceService<>(Specialty.class, "specialties.json");
 
-    public SpecialityRepository(FacultyServiceInt facultyService) {
-        this.facultyService = facultyService;
+    public SpecialityRepository() {
+        persistence.loadAll().forEach(this::save);
     }
 
     @Override
-    public void save(String code, Specialty specialty) {
-        Optional <Faculty> faculty = facultyService.findByCode(code);
-
-        if (faculty.isPresent()) {
-            faculty.get().addSpecialty(specialty);
-        }
+    public void save(Specialty specialty) {
+        specialtyMap.put(specialty.getTag(), specialty);
+        persistence.saveAll(findAll());
     }
 
 
@@ -36,8 +32,7 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 
     @Override
     public Optional<Specialty> findByName(String name) {
-        return facultyService.getAllAsList().stream()
-                .flatMap(f -> f.getSpecialtyList().stream())
+        return specialtyMap.values().stream()
                 .filter(s -> s.getName().equalsIgnoreCase(name))
                 .findFirst();
     }
@@ -58,27 +53,23 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 //    }
 
     @Override
-    public List<Specialty> findAllOnFaculty(String code) {
-        Optional <Faculty> faculty = facultyService.findByCode(code);
-
-        if (faculty.isPresent()) {
-            return faculty.get().getSpecialtyList();
-        }
-
-        return List.of();
-    }
-
-    @Override
-    public void save(Specialty entity) {
-        throw new UnsupportedOperationException("Use save(facultyCode, speciality) instead");
+    public List<Specialty> findAllOnDepartment(String code) {
+        return new ArrayList<>(
+                specialtyMap
+                        .values()
+                        .stream()
+                        .filter(
+                                specialty -> specialty
+                                        .getDepartment()
+                                        .getCode()
+                                        .equals(code)
+                        ).toList()
+        );
     }
 
     @Override
     public Optional<Specialty> findById(String tag) {
-        return facultyService.getAllAsList().stream()
-                .flatMap(f -> f.getSpecialtyList().stream())
-                .filter(s -> s.getTag().equalsIgnoreCase(tag))
-                .findFirst();
+        return Optional.ofNullable(specialtyMap.get(tag));
     }
 
     @Override
@@ -88,14 +79,16 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 
     @Override
     public List<Specialty> findAll() {
-        return facultyService.getAllAsList().stream()
-                .flatMap(f -> f.getSpecialtyList().stream())
+        return specialtyMap
+                .values()
+                .stream()
                 .toList();
     }
 
     @Override
     public void deleteById(String tag) {
-        facultyService.getAllAsList().forEach(f -> f.removeSpecialty(tag));
+        specialtyMap.remove(tag);
+        persistence.saveAll(findAll());
     }
 
 

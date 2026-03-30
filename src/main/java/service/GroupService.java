@@ -3,14 +3,13 @@ package service;
 import domain.Group;
 import domain.Specialty;
 import exceptions.GroupAlreadyExistsException;
+import exceptions.GroupDoesNotExistException;
 import exceptions.SpecialityDoesNotExistsException;
 import repository.interfaces.GroupRepositoryInt;
-import repository.interfaces.SpecialityRepositoryInt;
 import service.interfaces.GroupServiceInt;
 import service.interfaces.SpecialityServiceInt;
 
 import java.util.List;
-import java.util.Optional;
 
 public class GroupService implements GroupServiceInt {
     private final GroupRepositoryInt repository;
@@ -34,12 +33,13 @@ public class GroupService implements GroupServiceInt {
         }
 
         Group group = new Group(specialty, groupName);
-        repository.save(specialtyTag, group);
+        repository.save(group);
     }
 
     @Override
     public Group findByName(String name) {
-        return repository.findById(name).get();
+        return repository.findById(name)
+                .orElseThrow(() -> new GroupDoesNotExistException("Group not found with name: " + name));
     }
 
     @Override
@@ -52,11 +52,11 @@ public class GroupService implements GroupServiceInt {
         return repository.findAll();
     }
 
-
     @Override
     public void updateName(String oldName, String newName) {
-        Optional<Group> group = repository.findById(oldName);
-        group.ifPresent(value -> value.setName(newName));
+        Group group = repository.findById(oldName)
+                .orElseThrow(() -> new GroupDoesNotExistException("Group not found with name: " + oldName));
+        group.setName(newName);
     }
 
     @Override

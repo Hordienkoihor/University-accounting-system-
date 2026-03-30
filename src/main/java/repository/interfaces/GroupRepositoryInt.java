@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GroupRepositoryInt extends DefaultRepository<Group, String> {
-    void save(String specialtyTag, Group group);
+    void save(Group group);
 
     List<Group> findAllBySpecialty(String specialtyTag);
 

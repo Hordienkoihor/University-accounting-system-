@@ -1,12 +1,11 @@
 package service;
 
 import domain.Faculty;
-import domain.abstractClasses.Staff;
+import exceptions.FacultyDoesNotExistException;
 import exceptions.FacultyRegisterException;
 import repository.interfaces.FacultyRepositoryInt;
 import service.interfaces.FacultyServiceInt;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,13 +29,14 @@ public class FacultyService implements FacultyServiceInt {
     }
 
     @Override
-    public Optional <Faculty> findByCode(String code) {
+    public Optional<Faculty> findByCode(String code) {
         return facultyRepository.findById(code);
     }
 
     @Override
     public Faculty findByName(String name) {
-        return facultyRepository.findByName(name).get();
+        return facultyRepository.findByName(name)
+                .orElseThrow(() -> new FacultyDoesNotExistException("Faculty not found with name: " + name));
     }
 
     @Override
@@ -49,16 +49,19 @@ public class FacultyService implements FacultyServiceInt {
 
     @Override
     public void update(String code, String name) {
-        Optional<Faculty> oldFaculty = facultyRepository.findById(code);
+        Faculty oldFaculty = facultyRepository.findById(code)
+                .orElseThrow(() -> new FacultyDoesNotExistException("Faculty not found with code: " + code));
 
-        oldFaculty.ifPresent(faculty -> faculty.setName(name));
+        oldFaculty.setName(name);
+        facultyRepository.save(oldFaculty);
     }
 
     @Override
     public void deleteByCode(String code) {
-        if (facultyRepository.existsById(code)) {
-            facultyRepository.deleteById(code);
+        if (!facultyRepository.existsById(code)) {
+            throw new FacultyDoesNotExistException("Cannot delete: Faculty with code " + code + " not found");
         }
+        facultyRepository.deleteById(code);
     }
 
     @Override
@@ -78,13 +81,4 @@ public class FacultyService implements FacultyServiceInt {
         return facultyRepository.getAllAsMap();
     }
 
-    @Override
-    public List<Staff> getAllStaff(Faculty faculty) {
-        return faculty
-                .getStaffMap()
-                .values()
-                .stream()
-                .sorted(Comparator.comparing(Staff::getName))
-                .toList();
-    }
 }

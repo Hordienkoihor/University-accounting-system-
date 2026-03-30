@@ -1,0 +1,18 @@
+[ {
+  "id" : 0,
+  "name" : "Igor",
+  "surname" : "Hordiienko",
+  "fatherName" : "Volodimirovich",
+  "age" : 26,
+  "dateOfBirth" : [ 2000, 10, 10 ],
+  "email" : "example@ukr.net",
+  "phoneNumber" : "0680057368",
+  "faculty" : null,
+  "group" : null,
+  "studentId" : {
+    "studentId" : "SF-ID-791551534973508"
+  },
+  "course" : 1,
+  "studyForm" : "TUITION_FREE",
+  "studyStatus" : "PENDING"
+} ]

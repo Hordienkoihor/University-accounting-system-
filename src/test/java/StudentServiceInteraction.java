@@ -7,12 +7,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import repository.*;
-import repository.interfaces.*;
+import repository.interfaces.FacultyRepositoryInt;
+import repository.interfaces.GroupRepositoryInt;
+import repository.interfaces.SpecialityRepositoryInt;
+import repository.interfaces.StudentRepositoryInt;
 import service.*;
 import service.interfaces.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class StudentServiceInteraction {
     private static UniversityServiceInt universityService;
@@ -29,28 +31,28 @@ public class StudentServiceInteraction {
         universityService = new UniversityService(new UniversityRepository());
         universityService.loadUniversity("config.csv");
 
-        FacultyRepositoryInt facultyRepository = new FacultyRepository(universityService);
+        FacultyRepositoryInt facultyRepository = new FacultyRepository();
         facultyService = new FacultyService(facultyRepository);
 
-        SpecialityRepositoryInt specialityRepository = new SpecialityRepository(facultyService);
+        SpecialityRepositoryInt specialityRepository = new SpecialityRepository();
         specialityService = new SpecialityService(specialityRepository);
 
-        GroupRepositoryInt groupRepository = new GroupRepository(specialityService);
+        GroupRepositoryInt groupRepository = new GroupRepository();
         groupService = new GroupService(groupRepository, specialityService);
 
-        StudentRepositoryInt studentRepository = new StudentRepository(universityService);
+        StudentRepositoryInt studentRepository = new StudentRepository();
         studentService = new StudentService(studentRepository, groupService);
     }
 
     @ParameterizedTest
     @CsvSource({
-            "Karl,Malyuk,Tarasovich,18,karl@ukr.net,0680057368",
-            "Taras,Malyuk,Karlovich,29,taras@ukr.net,0680057368",
-            "Makar,Malyuk,Karlovich,20,taras1@ukr.net,0680057168",
-            "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
+            "Karl,Malyuk,Tarasovich,karl@ukr.net,0680057368",
+            "Taras,Malyuk,Karlovich,taras@ukr.net,0680057368",
+            "Makar,Malyuk,Karlovich,taras1@ukr.net,0680057168",
+            "Lev,Malyuk,Karlovich,taras2@ukr.net,0680052368"
     })
-    public void doesStudentExistByValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Student student = new Student(name, surname, fatherName, age, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
+    public void doesStudentExistByValidId(String name, String surname, String fatherName, String email, String phone) {
+        Student student = new Student(name, surname, fatherName, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
         studentService.save(student);
         StudentId studentId = student.getStudentId();
 
@@ -61,13 +63,13 @@ public class StudentServiceInteraction {
 
     @ParameterizedTest
     @CsvSource({
-            "Karl,Malyuk,Tarasovich,18,karl@ukr.net,0680057368",
-            "Taras,Malyuk,Karlovich,29,taras@ukr.net,0680057368",
-            "Makar,Malyuk,Karlovich,20,taras1@ukr.net,0680057168",
-            "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
+            "Karl,Malyuk,Tarasovich,karl@ukr.net,0680057368",
+            "Taras,Malyuk,Karlovich,taras@ukr.net,0680057368",
+            "Makar,Malyuk,Karlovich,taras1@ukr.net,0680057168",
+            "Lev,Malyuk,Karlovich,taras2@ukr.net,0680052368"
     })
-    public void doesStudentExistByInValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Student student = new Student(name, surname, fatherName, age, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
+    public void doesStudentExistByInValidId(String name, String surname, String fatherName, String email, String phone) {
+        Student student = new Student(name, surname, fatherName, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
         studentService.save(student);
         StudentId studentId = new StudentId("clearlyNotAnID");
 
@@ -76,13 +78,13 @@ public class StudentServiceInteraction {
 
     @ParameterizedTest
     @CsvSource({
-            "Karl,Malyuk,Tarasovich,18,karl@ukr.net,0680057368",
-            "Taras,Malyuk,Karlovich,29,taras@ukr.net,0680057368",
-            "Makar,Malyuk,Karlovich,20,taras1@ukr.net,0680057168",
-            "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
+            "Karl,Malyuk,Tarasovich,karl@ukr.net,0680057368",
+            "Taras,Malyuk,Karlovich,taras@ukr.net,0680057368",
+            "Makar,Malyuk,Karlovich,taras1@ukr.net,0680057168",
+            "Lev,Malyuk,Karlovich,taras2@ukr.net,0680052368"
     })
-    public void findStudentByValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Student student = new Student(name, surname, fatherName, age, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
+    public void findStudentByValidId(String name, String surname, String fatherName, String email, String phone) {
+        Student student = new Student(name, surname, fatherName, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
         studentService.save(student);
         StudentId studentId = student.getStudentId();
 
@@ -93,13 +95,13 @@ public class StudentServiceInteraction {
 
     @ParameterizedTest
     @CsvSource({
-            "Karl,Malyuk,Tarasovich,18,karl@ukr.net,0680057368",
-            "Taras,Malyuk,Karlovich,29,taras@ukr.net,0680057368",
-            "Makar,Malyuk,Karlovich,20,taras1@ukr.net,0680057168",
-            "Lev,Malyuk,Karlovich,17,taras2@ukr.net,0680052368"
+            "Karl,Malyuk,Tarasovich,karl@ukr.net,0680057368",
+            "Taras,Malyuk,Karlovich,taras@ukr.net,0680057368",
+            "Makar,Malyuk,Karlovich,taras1@ukr.net,0680057168",
+            "Lev,Malyuk,Karlovich,taras2@ukr.net,0680052368"
     })
-    public void findStudentByInValidId(String name, String surname, String fatherName, int age, String email, String phone) {
-        Student student = new Student(name, surname, fatherName, age, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
+    public void findStudentByInValidId(String name, String surname, String fatherName, String email, String phone) {
+        Student student = new Student(name, surname, fatherName, email, phone, LocalDate.now(), StudyForm.TUITION_FREE, StudyStatus.STUDYING);
         studentService.save(student);
         StudentId studentId = new StudentId("clearlyNotAnID");
 

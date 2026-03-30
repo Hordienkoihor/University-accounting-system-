@@ -1,29 +1,30 @@
 package repository;
 
+import domain.Faculty;
 import domain.abstractClasses.Staff;
 import domain.records.StaffId;
 import repository.interfaces.StaffRepositoryInt;
-import service.interfaces.UniversityServiceInt;
+import repository.io.PersistenceService;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class StaffRepository implements StaffRepositoryInt {
-    private final UniversityServiceInt universityService;
+    Map<StaffId, Staff> staffMap = new HashMap<>();
+    private final PersistenceService<Staff> persistence = new PersistenceService<>(Staff.class, "staff.json");
 
-    public StaffRepository(UniversityServiceInt universityServiceInt) {
-        this.universityService = universityServiceInt;
+    public StaffRepository() {
+        persistence.loadAll().forEach(this::save);
     }
 
     @Override
     public void save(Staff staff) {
-        universityService.getUniversity().addPerson(staff);
+        staffMap.put(staff.getStaffId(), staff);
+        persistence.saveAll(findAll());
     }
 
     @Override
     public Optional<Staff> findById(StaffId id) {
-        return universityService.getUniversity().findStaffById(id);
+        return Optional.ofNullable(staffMap.get(id));
     }
 
     @Override
@@ -33,22 +34,17 @@ public class StaffRepository implements StaffRepositoryInt {
 
     @Override
     public List<Staff> findAll() {
-        return universityService.getUniversity().getStaffAsList();
+        return new ArrayList<>(staffMap.values());
     }
 
     @Override
     public void deleteById(StaffId id) {
-        Optional<Staff> staff = findById(id);
-        if (staff.isPresent()) {
-            universityService.getUniversity().getFacultyList().forEach(f ->
-                    f.removeStaff(staff.get()));
-
-            universityService.getUniversity().removeStaff(staff.get());
-        }
+        staffMap.remove(id);
+        persistence.saveAll(findAll());
     }
 
     @Override
     public Map<StaffId, Staff> getAll() {
-        return universityService.getUniversity().getStaffAsMap();
+        return new HashMap<>(staffMap);
     }
 }

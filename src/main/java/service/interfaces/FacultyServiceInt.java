@@ -29,5 +29,5 @@ public interface FacultyServiceInt {
     Map<String, Faculty> getAllAsMap();
 
     //    List<Student> getAllStudents(Faculty faculty);
-    List<Staff> getAllStaff(Faculty faculty);
+//    List<Staff> getAllStaff(Faculty faculty);
 }

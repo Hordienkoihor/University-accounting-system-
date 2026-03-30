@@ -1,5 +1,7 @@
 package service;
 
+import domain.Department;
+import domain.Faculty;
 import domain.Group;
 import domain.Student;
 import domain.records.StudentId;
@@ -14,7 +16,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class StudentService implements StudentServiceInt {
     private final StudentRepositoryInt studentRepository;
@@ -34,8 +35,7 @@ public class StudentService implements StudentServiceInt {
         }
 
 
-        boolean alrInGroup = groupService.findAll()
-                .stream().anyMatch(group -> group.getStudents().contains(student.getStudentId()));
+        boolean alrInGroup = student.getGroup() != null;
 
         if (alrInGroup) {
             throw new StudentAddingError("Student already exists in group " + groupName);
@@ -44,7 +44,7 @@ public class StudentService implements StudentServiceInt {
         Group group = groupService.findByName(groupName);
 
         if (group != null) {
-            group.addStudent(student);
+            student.setGroup(group);
             System.out.println("Student added to group " + groupName);
         } else {
             throw new GroupDoesNotExistException("Group " + groupName + " does not exist");
@@ -56,11 +56,19 @@ public class StudentService implements StudentServiceInt {
         Group group = groupService.findByName(groupName);
 
         if (group != null) {
-            group.removeStudent(student);
+            student.setGroup(null);
             System.out.println("Student removed from group " + groupName);
         } else {
             throw new GroupDoesNotExistException("Group " + groupName + " does not exist");
         }
+    }
+
+    @Override
+    public void add(Student student) {
+        if (studentRepository.existsById(student.getStudentId())) {
+            throw new StudentAddingError("Error: Student with id" + student.getStudentId() + " already exists");
+        }
+        studentRepository.save(student);
     }
 
     @Override
@@ -74,9 +82,6 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public void delete(Student student) {
-        groupService.findAll()
-                .forEach(group -> group.removeStudent(student));
-
         this.studentRepository.deleteById(student.getStudentId());
     }
 
@@ -84,10 +89,7 @@ public class StudentService implements StudentServiceInt {
     public Student findById(StudentId id) {
         Optional<Student> student = studentRepository.findById(id);
 
-        if (student.isPresent()) {
-            return student.get();
-        }
-        return null;
+        return student.orElse(null);
     }
 
     @Override
@@ -110,9 +112,36 @@ public class StudentService implements StudentServiceInt {
     public List<Student> getAllCourseOrder() {
         return studentRepository.findAll().stream()
                 .sorted(Comparator.comparing(Student::getCourse))
-                .collect(Collectors.toList());
+                .toList();
     }
 
+    @Override
+    public List<Student> findByFaculty(String facultyCode) {
+        return studentRepository.getAll()
+                .values()
+                .stream()
+                .filter(student -> student.getFaculty().getCode().equals(facultyCode))
+                .toList();
+
+    }
+
+    @Override
+    public List<Student> getAllOnFacultyAlphabetical(Faculty faculty) {
+        return studentRepository.getAll()
+                .values()
+                .stream()
+                .filter(student -> student.getFaculty().equals(faculty))
+                .sorted(Comparator.comparing(Student::getName))
+                .toList();
+    }
+
+    @Override
+    public List<Student> getAllOnDepartmentAlphabetical(Department department) {
+        return findAll().values().stream()
+                .filter(student -> student.getGroup().getSpecialty().getDepartment().equals(department))
+                .sorted(Comparator.comparing(Student::getFullName))
+                .toList();
+    }
 
 
 }

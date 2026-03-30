@@ -3,18 +3,22 @@ package repository;
 import domain.Department;
 import domain.Faculty;
 import repository.interfaces.DepartmentRepositoryInt;
+import repository.io.PersistenceService;
 
 import java.util.*;
 
 public class DepartmentRepository implements DepartmentRepositoryInt {
     private final Map<String, Department> departments = new HashMap<>();
+    private final PersistenceService<Department> persistence = new PersistenceService<>(Department.class, "departments.json");
 
     public DepartmentRepository() {
+        persistence.loadAll().forEach(this::save);
     }
 
     @Override
     public void save(Department entity) {
         departments.put(entity.getCode(), entity);
+        persistence.saveAll(findAll());
     }
 
     @Override
@@ -35,8 +39,6 @@ public class DepartmentRepository implements DepartmentRepositoryInt {
     @Override
     public void deleteById(String s) {
         Department department = departments.remove(s);
-
-        Faculty faculty = department.getFaculty();
-        faculty.remove(department);
+        persistence.saveAll(findAll());
     }
 }

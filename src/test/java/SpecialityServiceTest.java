@@ -1,3 +1,4 @@
+import domain.Department;
 import domain.Faculty;
 import domain.Specialty;
 import exceptions.SpecialityAlreadyExistsException;
@@ -18,6 +19,7 @@ class SpecialityServiceTest {
     private SpecialityRepositoryInt repository;
     private SpecialityService service;
     private Faculty mockFaculty;
+    private Department mockDepartment;
 
     @BeforeEach
     void setUp() {
@@ -26,36 +28,38 @@ class SpecialityServiceTest {
 
         mockFaculty = mock(Faculty.class);
         when(mockFaculty.getName()).thenReturn("FI");
+
+        mockDepartment = mock(Department.class);
+        when(mockDepartment.getName()).thenReturn("MATH");
     }
 
     @Test
     @DisplayName("successfully register a new specialty")
     void registerSuccess() {
-        String facultyCode = "#FI";
-        Specialty specialty = new Specialty("ІПЗ", "ІПЗ-1", mockFaculty);
+        Specialty specialty = new Specialty("ІПЗ", "ІПЗ-1", mockDepartment);
         when(repository.existsById("ІПЗ-1")).thenReturn(false);
 
-        service.register(facultyCode, specialty);
+        service.register(specialty);
 
-        verify(repository, times(1)).save(facultyCode, specialty);
+        verify(repository, times(1)).save(specialty);
     }
 
     @Test
     @DisplayName("throw SpecialityAlreadyExistsException when already exists")
-    void registerDuplicateTagThrowsException() {
-        Specialty specialty = new Specialty("КН", "КН-1", mockFaculty);
+    void registerDuplicateTag_ThrowsException() {
+        Specialty specialty = new Specialty("КН", "КН-1", mockDepartment);
         when(repository.existsById("КН-1")).thenReturn(true);
 
         assertThrows(SpecialityAlreadyExistsException.class,
-                () -> service.register("#FI", specialty));
+                () -> service.register(specialty));
 
-        verify(repository, never()).save(anyString(), any());
+        verify(repository, never()).save(any());
     }
 
     @Test
     @DisplayName("return specialty by tag using Optional")
     void findByTagFound() {
-        Specialty expected = new Specialty("АВІС", "АВІС-1", mockFaculty);
+        Specialty expected = new Specialty("АВІС", "АВІС-1", mockDepartment);
         when(repository.findById("АВІС-1")).thenReturn(Optional.of(expected));
 
         Specialty result = service.findByTag("АВІС-1");
@@ -67,8 +71,8 @@ class SpecialityServiceTest {
 
     @Test
     @DisplayName("update specialty name only if it exists")
-    void updateShouldChangeNameWhenSpecialtyExists() {
-        Specialty existing = new Specialty("Old Name", "TAG-1", mockFaculty);
+    void updateShouldChangeName_WhenSpecialtyExists() {
+        Specialty existing = new Specialty("Old Name", "TAG-1", mockDepartment);
         when(repository.findById("TAG-1")).thenReturn(Optional.of(existing));
 
         service.update("New Name", "TAG-1");
@@ -78,16 +82,16 @@ class SpecialityServiceTest {
 
     @Test
     @DisplayName("return list of specialties for faculty")
-    void findAllOnFacultyShouldReturnList() {
+    void findAllOnFaculty_ShouldReturnList() {
         List<Specialty> list = List.of(
-                new Specialty("Spec 1", "S1", mockFaculty),
-                new Specialty("Spec 2", "S2", mockFaculty)
+                new Specialty("Spec 1", "S1", mockDepartment),
+                new Specialty("Spec 2", "S2", mockDepartment)
         );
-        when(repository.findAllOnFaculty("#FI")).thenReturn(list);
+        when(repository.findAllOnDepartment("#FI")).thenReturn(list);
 
-        List<Specialty> result = service.findAllOnFaculty("#FI");
+        List<Specialty> result = service.findAllOnDepartment("#FI");
 
         assertEquals(2, result.size());
-        verify(repository).findAllOnFaculty("#FI");
+        verify(repository).findAllOnDepartment("#FI");
     }
 }
