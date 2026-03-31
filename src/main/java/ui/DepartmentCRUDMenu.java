@@ -19,12 +19,17 @@ public class DepartmentCRUDMenu {
 
     private final InputHandler inputHandler;
 
-    public DepartmentCRUDMenu(DepartmentServiceInt departmentService, FacultyServiceInt facultyService, StaffServiceInt staffService) {
+    public DepartmentCRUDMenu(
+            DepartmentServiceInt departmentService,
+            FacultyServiceInt facultyService,
+            StaffServiceInt staffService,
+            InputHandler inputHandler
+    ) {
         this.departmentService = departmentService;
         this.facultyService = facultyService;
         this.staffService = staffService;
 
-        this.inputHandler = new InputHandler(new Scanner(System.in));
+        this.inputHandler = inputHandler;
     }
 
 
@@ -102,27 +107,13 @@ public class DepartmentCRUDMenu {
     }
 
     private void assignHead(Department department) {
-        staffService.findAll().values().forEach(staff -> {
-            System.out.println(staff.getName() + " id: " + staff.getStaffId() );
-        });
-
-        while (true) {
-            String input = this.inputHandler.getValidString("staffId (q to quit)");
-
-            if (input.equals("q")) {
-                break;
-            }
-
-            Staff teacher = staffService.findById(new StaffId(input));
-
-            if (teacher != null) {
-                System.out.println("Staff  found");
-                department.setHeadOfDepartment(teacher);
-                break;
-            }
-
-            System.out.println("Staff not found");
+        Staff head = StaffSelectorHelper.selectStaff(staffService, inputHandler);
+        if (head == null) {
+            return;
         }
+
+        department.setHeadOfDepartment(head);
+        System.out.println("Head assigned: " + head.getStaffId());
     }
 
 

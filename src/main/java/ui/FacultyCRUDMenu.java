@@ -21,11 +21,15 @@ public class FacultyCRUDMenu {
 
     private final InputHandler inputHandler;
 
-    public FacultyCRUDMenu(FacultyServiceInt facultyService, StaffServiceInt staffService) {
+    public FacultyCRUDMenu(
+            FacultyServiceInt facultyService,
+            StaffServiceInt staffService,
+            InputHandler inputHandler
+    ) {
         this.facultyService = facultyService;
         this.staffService = staffService;
 
-        this.inputHandler = new InputHandler(new Scanner(System.in));
+        this.inputHandler = inputHandler;
     }
 
     public void handleFacultyCRUD() {
@@ -71,27 +75,14 @@ public class FacultyCRUDMenu {
     }
 
     private void assignDean(Faculty faculty) {
-        staffService.findAll().values().forEach(staff -> {
-            System.out.println(staff.getName() + " id: " + staff.getStaffId() );
-        });
+        Staff dean = StaffSelectorHelper.selectStaff(staffService, inputHandler);
 
-        while (true) {
-            String input = this.inputHandler.getValidString("staffId (q to quit)");
-
-            if (input.equals("q")) {
-                break;
-            }
-
-            Staff teacher = staffService.findById(new StaffId(input));
-
-            if (teacher != null) {
-                System.out.println("Staff  found");
-                faculty.setDean(teacher);
-                break;
-            }
-
-            System.out.println("Staff not found");
+        if (dean == null) {
+            return;
         }
+
+        faculty.setDean(dean);
+        System.out.println("Dean assigned: " + dean.getStaffId());
     }
 
 

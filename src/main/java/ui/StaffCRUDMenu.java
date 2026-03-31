@@ -20,10 +20,14 @@ public class StaffCRUDMenu {
 
     private final InputHandler inputHandler;
 
-    public StaffCRUDMenu(StaffServiceInt staffService, DepartmentServiceInt departmentService) {
+    public StaffCRUDMenu(
+            StaffServiceInt staffService,
+            DepartmentServiceInt departmentService,
+            InputHandler inputHandler
+    ) {
         this.staffService = staffService;
         this.departmentService = departmentService;
-        this.inputHandler = new InputHandler(new Scanner(System.in));
+        this.inputHandler = inputHandler;
     }
 
     public void handleStaffCRUD() {

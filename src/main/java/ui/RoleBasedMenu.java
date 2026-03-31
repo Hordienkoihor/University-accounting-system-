@@ -73,11 +73,14 @@ public class RoleBasedMenu {
         this.staffService = staffService;
         this.authenticationService = authenticationService;
 
-        this.staffCRUDMenu = new StaffCRUDMenu(staffService, departmentService);
-        this.facultyCRUDMenu = new FacultyCRUDMenu(facultyService, staffService);
-        this.departmentCRUDMenu = new DepartmentCRUDMenu(departmentService, facultyService, staffService);
-        this.specialtyCRUDMenu = new SpecialtyCRUDMenu(specialityService, departmentService);
-        this.groupCRUDMenu = new GroupCRUDMenu(groupService, specialityService);
+
+        InputHandler inputHandler = new InputHandler(new Scanner(System.in));
+
+        this.staffCRUDMenu = new StaffCRUDMenu(staffService, departmentService, inputHandler);
+        this.facultyCRUDMenu = new FacultyCRUDMenu(facultyService, staffService, inputHandler);
+        this.departmentCRUDMenu = new DepartmentCRUDMenu(departmentService, facultyService, staffService, inputHandler);
+        this.specialtyCRUDMenu = new SpecialtyCRUDMenu(specialityService, departmentService, inputHandler);
+        this.groupCRUDMenu = new GroupCRUDMenu(groupService, specialityService, inputHandler);
 
         this.userRepository = new UserRepository();
 

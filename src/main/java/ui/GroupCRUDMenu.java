@@ -14,10 +14,14 @@ public class GroupCRUDMenu {
     private final SpecialityServiceInt specialityService;
     private final InputHandler inputHandler;
 
-    public GroupCRUDMenu(GroupServiceInt groupService, SpecialityServiceInt specialityService) {
+    public GroupCRUDMenu(
+            GroupServiceInt groupService,
+            SpecialityServiceInt specialityService,
+            InputHandler inputHandler
+    ) {
         this.groupService = groupService;
         this.specialityService = specialityService;
-        this.inputHandler = new InputHandler(new Scanner(System.in));
+        this.inputHandler = inputHandler;
     }
 
     public void handleGroupCRUD() {

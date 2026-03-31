@@ -13,11 +13,15 @@ public class SpecialtyCRUDMenu {
     private final DepartmentServiceInt departmentService;
     private final InputHandler inputHandler;
 
-    public SpecialtyCRUDMenu(SpecialityServiceInt specialityService, DepartmentServiceInt departmentService) {
+    public SpecialtyCRUDMenu(
+            SpecialityServiceInt specialityService,
+            DepartmentServiceInt departmentService,
+            InputHandler inputHandler
+    ) {
         this.specialityService = specialityService;
         this.departmentService = departmentService;
 
-        this.inputHandler = new InputHandler(new Scanner(System.in));
+        this.inputHandler = inputHandler;
     }
 
     public void handleSpecialtyCRUD() {
