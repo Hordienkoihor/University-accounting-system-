@@ -1,6 +1,6 @@
 package auth.entities;
 
-import auth.enums.Rights;
+import auth.enums.Right;
 import auth.enums.Role;
 
 import java.util.HashSet;
@@ -8,10 +8,11 @@ import java.util.Set;
 
 public class ManagerRole extends User {
     private final Role role = Role.MANAGER;
-    private final Set<Rights> rights = new HashSet<>(Set.of(Rights.LOOK, Rights.REPORTS, Rights.CRUD));
+//    private final Set<Right> rights = new HashSet<>(Set.of(Right.LOOK, Right.REPORTS, Right.CRUD));
 
     public ManagerRole(String name, String password) {
         super(name, password);
+        this.rightsMask = Right.createMask(Right.LOOK, Right.REPORTS, Right.CRUD);
     }
 
     public boolean changeName(String newName, String password) {
@@ -22,8 +23,12 @@ public class ManagerRole extends User {
         return false;
     }
 
-    @Override
-    public Set<Rights> getRights() {
-        return Set.copyOf(rights);
+    public Role getRole() {
+        return role;
     }
+
+//    @Override
+//    public Set<Right> getRights() {
+//        return Set.copyOf(rights);
+//    }
 }

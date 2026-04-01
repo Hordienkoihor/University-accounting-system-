@@ -1,12 +1,10 @@
 package ui;
 
 import auth.entities.LoginResponse;
-import auth.entities.User;
-import auth.enums.Rights;
+import auth.enums.Right;
 import auth.service.AuthenticationService;
 import auth.service.AuthorizationService;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -19,16 +17,29 @@ public class LoginMenuService {
         this.authorizationService = authorizationService;
     }
 
-    public Optional<Set<Rights>> login(String username, String password) {
+    public Optional<Integer> login(String username, String password) {
         try {
-            LoginResponse loginResponse = authenticationService.login(username, password);
+            LoginResponse<?> loginResponse = authenticationService.login(username, password);
+            int rightsMask = authorizationService.provideAuthorityMask(loginResponse.user());
 
-            return Optional.ofNullable(authorizationService.provideAuthority(loginResponse.user()));
+            return Optional.of(rightsMask);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return Optional.empty();
+    }
+
+    public boolean userHasRight(LoginResponse<?> loginResponse, Right right) {
+        return authorizationService.hasRight(loginResponse.user(), right);
+    }
+
+    public boolean userHasAllRights(LoginResponse<?> loginResponse, Right... rights) {
+        return authorizationService.hasAllRights(loginResponse.user(), rights);
+    }
+
+    public boolean userHasAnyRight(LoginResponse<?> loginResponse, Right... rights) {
+        return authorizationService.hasAnyRights(loginResponse.user(), rights);
     }
 
 

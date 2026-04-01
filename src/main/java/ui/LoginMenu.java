@@ -1,7 +1,7 @@
 package ui;
 
 import auth.entities.LoginResponse;
-import auth.enums.Rights;
+import auth.enums.Right;
 import auth.service.AuthenticationService;
 import auth.service.AuthorizationService;
 
@@ -34,13 +34,13 @@ public class LoginMenu {
 
             System.out.println("\nAuthenticating...");
 
-            LoginResponse response;
+            LoginResponse<?> response;
 
             try {
                 response = authenticationService.login(username, password);
 
-                Set<Rights> rights = authorizationService.provideAuthority(response.user());
-                printSuccess(username, rights);
+                int rightsMask = authorizationService.provideAuthorityMask(response.user());
+                printSuccess(username, rightsMask);
                 return Optional.of(response);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -65,15 +65,35 @@ public class LoginMenu {
         System.out.println(DOUBLE_SEPARATOR);
     }
 
-    private void printSuccess(String user, Set<Rights> rights) {
+    private void printSuccess(String user, int rightsMask) {
         System.out.println(SEPARATOR);
         System.out.println("SUCCESS: Welcome, " + user);
-        System.out.println("Your Permissions: " + rights);
+        System.out.println("Your Permissions: " + formatRights(rightsMask));
         System.out.println(DOUBLE_SEPARATOR + "\n");
     }
 
     private void printError() {
         System.out.println(SEPARATOR);
         System.out.println("ERROR: Invalid username or password");
+    }
+
+    private String formatRights(int rightsMask) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+        for (Right right : Right.values()) {
+            if (Right.hasRight(rightsMask, right)) {
+                builder.append(right);
+
+                builder.append(", ");
+            }
+        }
+
+        if (builder.length() > 1) {
+            builder.delete(builder.length() - 2, builder.length());
+        }
+
+        builder.append("]");
+
+        return builder.toString().length() == 2 ? "No rights?" : builder.toString();
     }
 }

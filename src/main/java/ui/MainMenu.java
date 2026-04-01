@@ -62,7 +62,7 @@ public class MainMenu {
                     authenticationService
             );
 
-            mainMenu.printMenu(authorizationService.provideAuthority(currentUser));
+            mainMenu.printMenu(currentUser.getRightsMask());
         }
 
     }

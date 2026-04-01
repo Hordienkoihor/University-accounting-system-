@@ -1,17 +1,10 @@
 package auth.service;
 
-import auth.entities.HeadAdminRole;
-import auth.entities.ManagerRole;
 import auth.entities.User;
-import auth.entities.UserRole;
-import auth.enums.Rights;
-import auth.enums.Role;
+import auth.enums.Right;
 import auth.service.interfaces.AuthenticationServiceInt;
 import auth.service.interfaces.AuthorizationServiceInt;
-import exceptions.AuthorizationException;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class AuthorizationService implements AuthorizationServiceInt {
@@ -22,7 +15,38 @@ public class AuthorizationService implements AuthorizationServiceInt {
     }
 
     @Override
-    public Set<Rights> provideAuthority(User user) {
-        return user.getRights();
+    public int provideAuthorityMask(User user) {
+        return user.getRightsMask();
     }
+
+    @Override
+    public boolean hasRight(User user, Right right) {
+        return user.hasRight(right);
+    }
+
+    @Override
+    public boolean hasAllRights(User user, Right... rights) {
+        return user.hasAllRights(rights);
+    }
+
+    @Override
+    public boolean hasAnyRights(User user, Right... rights) {
+        return user.hasAnyRights(rights);
+    }
+
+    @Override
+    public void setRight(User user, Right right) {
+        user.setRightsMask(Right.addRight(user.getRightsMask(), right));
+    }
+
+    @Override
+    public void revokeRight(User user, Right right) {
+        user.setRightsMask(Right.removeRight(user.getRightsMask(), right));
+    }
+
+//    @Override
+//    public Set<Right> provideAuthority(User user) {
+//        return user.getRights();
+
+//    }
 }

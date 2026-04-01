@@ -2,7 +2,7 @@ package ui;
 
 import Utilitys.InputHandler;
 import auth.entities.User;
-import auth.enums.Rights;
+import auth.enums.Right;
 import auth.repository.UserRepository;
 import auth.repository.interfaces.UserRepositoryInt;
 import auth.service.interfaces.AuthenticationServiceInt;
@@ -31,8 +31,8 @@ public class RoleBasedMenu {
     private final AuthenticationServiceInt authenticationService;
     private final UserRepositoryInt<User> userRepository;
     /*function n options storages*/
-    private final Map<Rights, Runnable> roleMenus = new LinkedHashMap<>();
-    private final Map<Rights, String> roleCall = new LinkedHashMap<>();
+    private final Map<Right, Runnable> roleMenus = new LinkedHashMap<>();
+    private final Map<Right, String> roleCall = new LinkedHashMap<>();
     private final Map<Integer, Runnable> reportActions = new HashMap<>();
     private final Map<Integer, Runnable> crudActions = new HashMap<>();
 
@@ -54,15 +54,15 @@ public class RoleBasedMenu {
             StaffServiceInt staffService,
             AuthenticationServiceInt authenticationService
     ) {
-        roleMenus.put(Rights.REPORTS, this::reportsMenu);
-        roleMenus.put(Rights.LOOK, this::lookUpMenu);
-        roleMenus.put(Rights.CRUD, this::crudMenu);
-        roleMenus.put(Rights.CRUD_ADMIN, this::crudAdminMenu);
+        roleMenus.put(Right.REPORTS, this::reportsMenu);
+        roleMenus.put(Right.LOOK, this::lookUpMenu);
+        roleMenus.put(Right.CRUD, this::crudMenu);
+        roleMenus.put(Right.CRUD_ADMIN, this::crudAdminMenu);
 
-        roleCall.put(Rights.REPORTS, " reports menu");
-        roleCall.put(Rights.LOOK, " look up menu");
-        roleCall.put(Rights.CRUD, " CRUD menu");
-        roleCall.put(Rights.CRUD_ADMIN, " CRUD admin menu");
+        roleCall.put(Right.REPORTS, " reports menu");
+        roleCall.put(Right.LOOK, " look up menu");
+        roleCall.put(Right.CRUD, " CRUD menu");
+        roleCall.put(Right.CRUD_ADMIN, " CRUD admin menu");
 
         this.universityService = universityService;
         this.facultyService = facultyService;
@@ -91,7 +91,7 @@ public class RoleBasedMenu {
     }
 
 
-    public void printMenu(Set<Rights> rights) {
+    public void printMenu(int rightsMask) {
         while (true) {
             System.out.println(DOUBLE_SEPARATOR);
             System.out.println("      MAIN MENU      ");
@@ -101,7 +101,7 @@ public class RoleBasedMenu {
 
             int[] counter = {1};
             roleCall.forEach((right, action) -> {
-                if (rights.contains(right)) {
+                if (Right.hasRight(rightsMask, right)) {
                     selectionMap.put(counter[0], roleMenus.get(right));
 
                     System.out.println(counter[0] + ". " + action);
