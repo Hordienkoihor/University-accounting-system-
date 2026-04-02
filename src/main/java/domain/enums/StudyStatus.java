@@ -1,5 +1,7 @@
 package domain.enums;
 
+import java.util.Arrays;
+
 public enum StudyStatus {
     STUDYING("studying"),
     EXPELLED("expelled"),
@@ -19,5 +21,15 @@ public enum StudyStatus {
     @Override
     public String toString() {
         return "Study status: " + displayName;
+    }
+
+    /**
+     *
+     * */
+    public static StudyStatus getStudyStatus(String name) {
+        return Arrays.stream(StudyStatus.values())
+                .filter(s -> s.getDisplayName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 }
