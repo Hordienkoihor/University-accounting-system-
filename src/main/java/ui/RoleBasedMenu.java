@@ -248,7 +248,7 @@ public class RoleBasedMenu {
             if (students.isEmpty()) {
                 System.out.println("No students found on department");
             } else {
-                int courseId = this.inputHandler.getValidInt("course ID", 6);
+                int courseId = this.inputHandler.getValidInt("course ", 6);
 
                 students = students.stream()
                         .filter(student -> student.getCourse() == courseId).toList();
