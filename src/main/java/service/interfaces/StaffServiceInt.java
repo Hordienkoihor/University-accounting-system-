@@ -21,6 +21,10 @@ public interface StaffServiceInt {
 
     Staff findById(StaffId id);
 
+    List<Staff> findBySurname(String surname);
+
+    List<Teacher> findTeacherBySurname(String surname);
+
     boolean existsById(StaffId id);
 
     Map<StaffId, Staff> findAll();
@@ -28,6 +32,8 @@ public interface StaffServiceInt {
     void transfer(Staff staff, String from, String to);
 
 //    List<Staff> getAllCourseOrder();
+
+    List<Teacher> findAllTeachers();
 
     List<Staff> findByFaculty(String facultyCode);
 

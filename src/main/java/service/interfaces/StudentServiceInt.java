@@ -22,6 +22,8 @@ public interface StudentServiceInt {
 
     Student findById(StudentId id);
 
+    List<Student> findBySurname(String surname);
+
     boolean existsById(StudentId id);
 
     Map<StudentId,Student> findAll();

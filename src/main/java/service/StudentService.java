@@ -93,6 +93,15 @@ public class StudentService implements StudentServiceInt {
     }
 
     @Override
+    public List<Student> findBySurname(String surname) {
+        List<Student> students = this.studentRepository.findAll();
+
+        return students.stream()
+                .filter(student -> student.getSurname().toLowerCase().contains(surname.toLowerCase()))
+                .toList();
+    }
+
+    @Override
     public boolean existsById(StudentId id) {
         return this.studentRepository.existsById(id);
     }
@@ -131,6 +140,7 @@ public class StudentService implements StudentServiceInt {
 
     }
 
+
     @Override
     public List<Student> getAllOnFacultyAlphabetical(Faculty faculty) {
         return studentRepository.getAll()
@@ -144,7 +154,7 @@ public class StudentService implements StudentServiceInt {
     @Override
     public List<Student> getAllOnDepartmentAlphabetical(Department department) {
         return findAll().values().stream()
-                .filter(student -> student.getGroup().getSpecialty().getDepartment().equals(department))
+                .filter(student -> student.getGroup().getSpecialty().getDepartment().getCode().equals(department.getCode()))
                 .sorted(Comparator.comparing(Student::getFullName))
                 .toList();
     }

@@ -261,8 +261,10 @@ public class RoleBasedMenu {
         String[] options = {
                 "1. Find student by ID",
                 "2. Find student by full name",
-                "3. Find staff by ID",
-                "4. Find staff by full name",
+                "3. Find students by surname",
+                "4. Find staff by ID",
+                "5. Find teacher by surname",
+                "6. Find staff by full name",
                 "0. Back"
         };
 
@@ -275,16 +277,42 @@ public class RoleBasedMenu {
                 System.out.println(option);
             }
 
-            int choice = this.inputHandler.getValidInt("action", 4);
+            int choice = this.inputHandler.getValidInt("action", 6);
             if (choice == 0) break;
 
             switch (choice) {
                 case 1 -> findStudentById();
-                case 2 -> findStudentByName();
-                case 3 -> findStaffById();
-                case 4 -> findStaffByName();
+                case 2 -> findStudentByFullName();
+                case 3 -> findStudentsBySurname();
+                case 4 -> findStaffById();
+                case 5 -> findTeacherBySurname();
+                case 6 -> findStaffByName();
             }
         }
+    }
+
+    private void findStudentsBySurname() {
+        String surname = this.inputHandler.getValidString("surname");
+        List<Student> students = studentService.findBySurname(surname);
+
+        if (students.isEmpty()) {
+            System.out.println("No students found");
+            return;
+        }
+
+        listStudents(students);
+    }
+
+    private void findTeacherBySurname() {
+        String surname = this.inputHandler.getValidString("surname");
+        List<Teacher> staff = staffService.findTeacherBySurname(surname);
+
+        if (staff.isEmpty()) {
+            System.out.println("No teachers found");
+            return;
+        }
+
+        listTeachers(staff);
     }
 
     private void findStudentById() {
@@ -297,7 +325,7 @@ public class RoleBasedMenu {
         }
     }
 
-    private void findStudentByName() {
+    private void findStudentByFullName() {
         String name = this.inputHandler.getValidString("full name snippet");
         var students = studentService.findAll().values().stream()
                 .filter(s -> s.getFullName().toLowerCase().contains(name.toLowerCase()))
@@ -639,20 +667,23 @@ public class RoleBasedMenu {
     private void listTeachers() {
         System.out.println(SEPARATOR);
         System.out.println("    Teachers    ");
-        List<Staff> staff = staffService.findAll().values().stream().toList();
+        List<Teacher> staff = staffService.findAllTeachers();
 
-        staff.forEach(stf -> System.out.println(stf.getFullName() + " " + stf.getStaffId()));
+        staff.forEach(teacher -> teacher.compactToString());
     }
 
     private void listStudents(List<Student> students) {
         System.out.println("\n " + SEPARATOR);
-        students.forEach(student -> System.out.println(student.getFullName() + " " + student.getStudentId()));
+        students.forEach(
+//                student -> System.out.println(student.getFullName() + ", " + student.getStudentId() + ", " + student.getSurname())
+                student -> System.out.println(student.compactToString())
+        );
         System.out.println(SEPARATOR + "\n");
     }
 
     private void listTeachers(List<Teacher> teachers) {
         System.out.println("\n " + SEPARATOR);
-        teachers.forEach(teacher -> System.out.println(teacher.getFullName() + " " + teacher.getStaffId()));
+        teachers.forEach(teacher -> System.out.println(teacher.compactToString()));
         System.out.println(SEPARATOR + "\n");
     }
 

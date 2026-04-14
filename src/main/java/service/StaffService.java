@@ -79,6 +79,22 @@ public class StaffService implements StaffServiceInt {
     }
 
     @Override
+    public List<Staff> findBySurname(String surname) {
+        List<Staff> staff = staffRepository.findAll();
+
+        return staff.stream()
+                .filter(staff1 -> staff1.getSurname().toLowerCase().contains(surname.toLowerCase()))
+                .toList();
+    }
+
+    @Override
+    public List<Teacher> findTeacherBySurname(String surname) {
+        return findAllTeachers().stream()
+                .filter(teacher -> teacher.getSurname().toLowerCase().contains(surname.toLowerCase()))
+                .toList();
+    }
+
+    @Override
     public boolean existsById(StaffId id) {
         return findById(id) != null;
     }
@@ -93,6 +109,14 @@ public class StaffService implements StaffServiceInt {
     public void transfer(Staff staff, String from, String to) {
         unregisterFromFaculty(staff, from);
         registerToFaculty(staff, to);
+    }
+
+    @Override
+    public List<Teacher> findAllTeachers() {
+        return staffRepository.findAll().stream()
+                .filter(staff -> staff instanceof Teacher)
+                .map(staff -> (Teacher) staff)
+                .toList();
     }
 
     @Override
@@ -128,7 +152,7 @@ public class StaffService implements StaffServiceInt {
         return findAll().values().stream()
                 .filter(staff -> staff instanceof Teacher)
                 .map(staff -> (Teacher) staff)
-                .filter(teacher -> teacher.getDepartment().equals(department))
+                .filter(teacher -> teacher.getDepartment() != null && teacher.getDepartment().equals(department))
                 .sorted(Comparator.comparing(Staff::getName))
                 .toList();
     }

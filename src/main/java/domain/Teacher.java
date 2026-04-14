@@ -129,4 +129,19 @@ public class Teacher extends Staff {
                 "   hourlyRate=" + hourlyRate + ',' + '\n' +
                 "} ";
     }
+
+    public String compactToString() {
+        String deptName = (department != null) ? department.getName() : "N/A";
+        String facultyName = (department != null && department.getFaculty() != null)
+                ? department.getFaculty().getName() : "N/A";
+
+        return getFullName() + ", id: " + getStaffId() +
+                "\n, scientific degree: "+ scientificDegree +
+                "\n, position: " + universityPosition +
+                "\n, rate" + hourlyRate  +
+                "\n, weeklyHours: " + weeklyHours +
+                "\n, department: " + deptName +
+                "\n, faculty: " + facultyName +
+                "\n";
+    }
 }

@@ -105,7 +105,7 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        String groupName = (group != null) ? group.getName() : "N?/A";
+        String groupName = (group != null) ? group.getName() : "N/A";
         String specialityName = (group != null && group.getSpecialty() != null) ? group.getSpecialty().getName() : "N/A";
         String deptName = (group != null && group.getSpecialty() != null && group.getSpecialty().getDepartment() != null)
                 ? group.getSpecialty().getDepartment().getName()
@@ -124,5 +124,17 @@ public class Student extends Person {
                 "   studyForm=" + studyForm + ',' + '\n' +
                 "   studyStatus=" + studyStatus + ',' + '\n' +
                 "} ";
+    }
+
+    public String compactToString() {
+        String groupName = (group != null) ? group.getName() : "N/A";
+        String specialityName = (group != null && group.getSpecialty() != null) ? group.getSpecialty().getName() : "N/A";
+        String deptName = (group != null && group.getSpecialty() != null && group.getSpecialty().getDepartment() != null)
+                ? group.getSpecialty().getDepartment().getName()
+                : "N/A";
+        String facultyName = (group != null && group.getSpecialty() != null && group.getSpecialty().getDepartment() != null && group.getSpecialty().getDepartment().getFaculty() != null)
+                ? group.getSpecialty().getDepartment().getFaculty().getName() : "N/A";
+
+        return getFullName() + ", id: " + studentId + ", group: "+ groupName +  ", speciality: " + specialityName + ", department: " + deptName + ", faculty: " + facultyName;
     }
 }
