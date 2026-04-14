@@ -7,9 +7,10 @@ import repository.interfaces.StaffRepositoryInt;
 import repository.io.PersistenceService;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class StaffRepository implements StaffRepositoryInt {
-    Map<StaffId, Staff> staffMap = new HashMap<>();
+    Map<StaffId, Staff> staffMap = new ConcurrentHashMap<>();
     private final PersistenceService<Staff> persistence = new PersistenceService<>(Staff.class, "staff.json");
 
     public StaffRepository() {

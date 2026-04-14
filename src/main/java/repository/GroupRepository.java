@@ -7,10 +7,11 @@ import repository.io.PersistenceService;
 import service.interfaces.SpecialityServiceInt;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class GroupRepository implements GroupRepositoryInt {
-    private final Map<String, Group> groupMap = new HashMap<>();
+    private final Map<String, Group> groupMap = new ConcurrentHashMap<>();
     private final PersistenceService<Group> persistence = new PersistenceService<>(Group.class, "groups.json");
 
     public GroupRepository() {

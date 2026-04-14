@@ -5,9 +5,10 @@ import repository.interfaces.SpecialityRepositoryInt;
 import repository.io.PersistenceService;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SpecialityRepository implements SpecialityRepositoryInt {
-    private Map<String, Specialty> specialtyMap = new HashMap<>();
+    private Map<String, Specialty> specialtyMap = new ConcurrentHashMap<>();
     private final PersistenceService<Specialty> persistence = new PersistenceService<>(Specialty.class, "specialties.json");
 
     public SpecialityRepository() {

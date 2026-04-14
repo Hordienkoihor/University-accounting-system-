@@ -9,9 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FacultyRepository implements FacultyRepositoryInt {
-    Map<String, Faculty> facultyMap = new HashMap<>();
+    Map<String, Faculty> facultyMap = new ConcurrentHashMap<>();
     private final PersistenceService<Faculty> persistence = new PersistenceService<>(Faculty.class, "faculties.json");
 
     public FacultyRepository() {

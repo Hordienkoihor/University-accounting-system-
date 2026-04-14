@@ -88,4 +88,74 @@
     },
     "location" : "first building"
   }
+}, {
+  "type" : "teacher",
+  "id" : {
+    "personId" : "P-ID-Elena Pechkurova Nikolaevna442267339569255"
+  },
+  "name" : "Elena",
+  "surname" : "Pechkurova",
+  "fatherName" : "Nikolaevna",
+  "dateOfBirth" : [ 2018, 9, 10 ],
+  "email" : "helen.ukma@gmail.com",
+  "phoneNumber" : "0991234567",
+  "staffId" : {
+    "staffId" : "ST-ID-19537914599456"
+  },
+  "universityPosition" : "PROFESSOR_OF_PRACTICE",
+  "scientificDegree" : "MASTER",
+  "dateOfHiring" : null,
+  "weeklyHours" : 40.0,
+  "hourlyRate" : 230.0,
+  "department" : {
+    "name" : "Department of math",
+    "code" : "@dm",
+    "faculty" : {
+      "code" : "#FI",
+      "name" : "FI",
+      "dean" : {
+        "type" : "teacher",
+        "id" : {
+          "personId" : "P-ID-ee wq eqwe631854734533784"
+        },
+        "name" : "ee",
+        "surname" : "wq",
+        "fatherName" : "eqwe",
+        "dateOfBirth" : [ 2000, 2, 22 ],
+        "email" : "fdf@ukr.net",
+        "phoneNumber" : "0680057368",
+        "staffId" : {
+          "staffId" : "ST-ID-440168466754120"
+        },
+        "universityPosition" : "ASSOCIATE_PROFESSOR",
+        "scientificDegree" : "BACHELOR",
+        "dateOfHiring" : null,
+        "weeklyHours" : 34.0,
+        "hourlyRate" : 55.0,
+        "department" : null
+      }
+    },
+    "headOfDepartment" : {
+      "type" : "teacher",
+      "id" : {
+        "personId" : "P-ID-weqgfg fg rtgrtg683326117545225"
+      },
+      "name" : "weqgfg",
+      "surname" : "fg",
+      "fatherName" : "rtgrtg",
+      "dateOfBirth" : [ 2000, 2, 12 ],
+      "email" : "kkkk@ukr.net",
+      "phoneNumber" : "0680057368",
+      "staffId" : {
+        "staffId" : "ST-ID-411770543559720"
+      },
+      "universityPosition" : "FULL_PROFESSOR",
+      "scientificDegree" : "MASTER",
+      "dateOfHiring" : null,
+      "weeklyHours" : 55.0,
+      "hourlyRate" : 43.0,
+      "department" : null
+    },
+    "location" : "first building"
+  }
 } ]

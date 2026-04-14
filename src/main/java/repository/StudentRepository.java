@@ -8,9 +8,10 @@ import repository.io.PersistenceService;
 import service.interfaces.UniversityServiceInt;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class StudentRepository implements StudentRepositoryInt {
-    private final Map<StudentId, Student> studentMap = new HashMap<>();
+    private final Map<StudentId, Student> studentMap = new ConcurrentHashMap<>();
     private final PersistenceService<Student> persistence = new PersistenceService<>(Student.class, "students.json");
 
     public StudentRepository() {

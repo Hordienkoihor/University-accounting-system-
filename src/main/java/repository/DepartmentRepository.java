@@ -6,9 +6,10 @@ import repository.interfaces.DepartmentRepositoryInt;
 import repository.io.PersistenceService;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DepartmentRepository implements DepartmentRepositoryInt {
-    private final Map<String, Department> departments = new HashMap<>();
+    private final Map<String, Department> departments = new ConcurrentHashMap<>();
     private final PersistenceService<Department> persistence = new PersistenceService<>(Department.class, "departments.json");
 
     public DepartmentRepository() {
