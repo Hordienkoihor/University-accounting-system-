@@ -2,6 +2,8 @@ package repository.io;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,6 +21,8 @@ public class PersistenceService<T> {
 
     private final ExecutorService writerExecutor = Executors.newSingleThreadExecutor();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
+
+    private final Logger log = LoggerFactory.getLogger(PersistenceService.class);
 
     public PersistenceService(Class<T> clazz, String fileName) {
         this.clazz = clazz;
@@ -38,13 +42,15 @@ public class PersistenceService<T> {
                 if (Files.notExists(storagePath.getParent())) {
                     Files.createDirectories(storagePath.getParent());
                 }
+
                 String json = mapper.writerWithDefaultPrettyPrinter()
                         .forType(mapper.getTypeFactory().constructCollectionType(List.class, clazz))
                         .writeValueAsString(copy);
 
                 Files.writeString(storagePath, json);
+                log.info("Saved {} objects to {}", copy.size(), storagePath.getFileName());
             } catch (Exception e) {
-                System.err.println("Error saving data: " + e.getMessage());
+                log.error("Error saving data: {}", e.getMessage());
             } finally {
                 lock.writeLock().unlock();
             }
@@ -53,18 +59,24 @@ public class PersistenceService<T> {
     }
 
     public List<T> loadAll() {
+        lock.readLock().lock();
         try {
             if (Files.notExists(storagePath)) return List.of();
 
             String json = Files.readString(storagePath);
-            return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
+            List<T> map = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
+            log.info("Loaded {} objects from {}", map.size(), storagePath.getFileName());
+            return map;
         } catch (Exception e) {
-            System.err.println("Error loading data: " + e.getMessage());
+            log.error("Error loading data from {}: {}", storagePath, e.getMessage());
             return List.of();
+        } finally {
+            lock.readLock().unlock();
         }
     }
 
     public void shutdown() {
+        log.info("Shutting down persistence service for {}", storagePath.getFileName());
         writerExecutor.shutdown();
     }
 }
