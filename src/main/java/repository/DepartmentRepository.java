@@ -20,7 +20,7 @@ public class DepartmentRepository implements DepartmentRepositoryInt {
         log.info("Initializing DepartmentRepository");
         List<Department> loadedData = persistence.loadAll();
         loadedData.forEach(d -> departments.put(d.getCode(), d));
-        log.info("Initialized with {} departments", departments.size());
+        log.info("Initialized DepartmentRepository with {} departments", departments.size());
     }
 
     @Override
