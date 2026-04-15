@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Department;
 import domain.Group;
 import domain.Specialty;
 import repository.interfaces.GroupRepositoryInt;
@@ -15,7 +16,8 @@ public class GroupRepository implements GroupRepositoryInt {
     private final PersistenceService<Group> persistence = new PersistenceService<>(Group.class, "groups.json");
 
     public GroupRepository() {
-        persistence.loadAll().forEach(this::save);
+        List<Group> loadedData = persistence.loadAll();
+        loadedData.forEach(g -> groupMap.put(g.getName(), g));
     }
 
     @Override

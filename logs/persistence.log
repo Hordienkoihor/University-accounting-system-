@@ -1,0 +1,8 @@
+2026-04-15 15:03:18 [main] INFO  r.i.PersistenceService - Loaded 2 objects from faculties.json
+2026-04-15 15:03:18 [main] INFO  r.DepartmentRepository - Initializing DepartmentRepository
+2026-04-15 15:03:18 [main] INFO  r.i.PersistenceService - Loaded 2 objects from departments.json
+2026-04-15 15:03:18 [main] INFO  r.DepartmentRepository - Initialized with 2 departments
+2026-04-15 15:03:18 [main] INFO  r.i.PersistenceService - Loaded 2 objects from specialties.json
+2026-04-15 15:03:18 [main] INFO  r.i.PersistenceService - Loaded 2 objects from groups.json
+2026-04-15 15:03:18 [main] INFO  r.i.PersistenceService - Loaded 4 objects from students.json
+2026-04-15 15:03:18 [main] INFO  r.i.PersistenceService - Loaded 3 objects from staff.json

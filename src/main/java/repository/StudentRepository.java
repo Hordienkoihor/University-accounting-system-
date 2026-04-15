@@ -15,7 +15,8 @@ public class StudentRepository implements StudentRepositoryInt {
     private final PersistenceService<Student> persistence = new PersistenceService<>(Student.class, "students.json");
 
     public StudentRepository() {
-        persistence.loadAll().forEach(this::save);
+        List<Student> loadedData = persistence.loadAll();
+        loadedData.forEach(s -> studentMap.put(s.getStudentId(), s));
     }
 
     @Override

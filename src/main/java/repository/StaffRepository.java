@@ -14,7 +14,8 @@ public class StaffRepository implements StaffRepositoryInt {
     private final PersistenceService<Staff> persistence = new PersistenceService<>(Staff.class, "staff.json");
 
     public StaffRepository() {
-        persistence.loadAll().forEach(this::save);
+        List<Staff> loadedData = persistence.loadAll();
+        loadedData.forEach(s -> staffMap.put(s.getStaffId(), s));
     }
 
     @Override

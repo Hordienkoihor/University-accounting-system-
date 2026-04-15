@@ -1,0 +1,2 @@
+2026-04-15 14:56:04 [main] ERROR r.i.PersistenceService - Error loading data from storage/students.json: No content to map due to end-of-input
+ at [Source: (String)""; line: 1, column: 0]

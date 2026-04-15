@@ -12,7 +12,8 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
     private final PersistenceService<Specialty> persistence = new PersistenceService<>(Specialty.class, "specialties.json");
 
     public SpecialityRepository() {
-        persistence.loadAll().forEach(this::save);
+        List<Specialty> loadedData = persistence.loadAll();
+        loadedData.forEach(s -> specialtyMap.put(s.getTag(), s));
     }
 
     @Override

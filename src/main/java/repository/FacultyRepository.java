@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Department;
 import domain.Faculty;
 import exceptions.FacultyRegisterException;
 import repository.interfaces.FacultyRepositoryInt;
@@ -16,7 +17,8 @@ public class FacultyRepository implements FacultyRepositoryInt {
     private final PersistenceService<Faculty> persistence = new PersistenceService<>(Faculty.class, "faculties.json");
 
     public FacultyRepository() {
-        persistence.loadAll().forEach(this::save);
+        List<Faculty> loadedData = persistence.loadAll();
+        loadedData.forEach(d -> facultyMap.put(d.getCode(), d));
     }
 
     public void add(Faculty faculty) {
