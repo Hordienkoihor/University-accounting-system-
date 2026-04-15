@@ -40,7 +40,7 @@ public class PersistenceService<T> {
                 }
                 String json = mapper.writerWithDefaultPrettyPrinter()
                         .forType(mapper.getTypeFactory().constructCollectionType(List.class, clazz))
-                        .writeValueAsString(data);
+                        .writeValueAsString(copy);
 
                 Files.writeString(storagePath, json);
             } catch (Exception e) {

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="basePath">logs</Property>
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{1.} - %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="PersistenceAppender"
+                     fileName="${basePath}/persistence.log"
+                     filePattern="${basePath}/persistence-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
+        <RollingFile name="ServicesAppender"
+                     fileName="${basePath}/services.log"
+                     filePattern="${basePath}/services-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="SecurityAppender"
+                     fileName="${basePath}/security.log"
+                     filePattern="${basePath}/security-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="UIAppender"
+                     fileName="${basePath}/ui.log"
+                     filePattern="${basePath}/ui-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="ErrorsAppender"
+                     fileName="${basePath}/errors.log"
+                     filePattern="${basePath}/errors-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="repository" level="info" additivity="true">
+            <AppenderRef ref="PersistenceAppender"/>
+        </Logger>
+
+        <Logger name="service" level="info" additivity="true">
+            <AppenderRef ref="ServicesAppender"/>
+        </Logger>
+
+        <Logger name="service.AuthenticationService" level="info" additivity="false">
+            <AppenderRef ref="SecurityAppender"/>
+        </Logger>
+        <Logger name="service.AuthorizationService" level="info" additivity="false">
+            <AppenderRef ref="SecurityAppender"/>
+        </Logger>
+
+        <Logger name="ui" level="info" additivity="true">
+            <AppenderRef ref="UIAppender"/>
+        </Logger>
+
+        <Root level="error">
+            <AppenderRef ref="ErrorsAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
