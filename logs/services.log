@@ -1,0 +1,2 @@
+2026-04-18 22:43:50 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-18 22:44:33 [main] INFO  s.StaffService - Found 1 tachers members matching surname 'pe'

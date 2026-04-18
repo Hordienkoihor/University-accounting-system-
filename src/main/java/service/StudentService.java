@@ -103,11 +103,14 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public List<Student> findBySurname(String surname) {
+        log.debug("Searching for students by surname contains: '{}'", surname);
         List<Student> students = this.studentRepository.findAll();
 
-        return students.stream()
+        List<Student> result = students.stream()
                 .filter(student -> student.getSurname().toLowerCase().contains(surname.toLowerCase()))
                 .toList();
+        log.info("Found {} tachers members matching surname '{}'", result.size(), surname);
+        return result;
     }
 
     @Override
