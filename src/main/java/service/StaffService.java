@@ -113,7 +113,7 @@ public class StaffService implements StaffServiceInt {
                 .filter(teacher -> teacher.getSurname().toLowerCase().contains(surname.toLowerCase()))
                 .toList();
 
-        log.info("Found {} tachers members matching surname '{}'", result.size(), surname);
+        log.info("Found {} teachers members matching surname '{}'", result.size(), surname);
         return result;
     }
 
