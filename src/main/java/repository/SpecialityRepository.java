@@ -1,6 +1,8 @@
 package repository;
 
 import domain.Specialty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.interfaces.SpecialityRepositoryInt;
 import repository.io.PersistenceService;
 
@@ -11,14 +13,19 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
     private Map<String, Specialty> specialtyMap = new ConcurrentHashMap<>();
     private final PersistenceService<Specialty> persistence = new PersistenceService<>(Specialty.class, "specialties.json");
 
+    private final Logger log = LoggerFactory.getLogger(SpecialityRepository.class);
+
     public SpecialityRepository() {
+        log.info("Initializing SpecialityRepository");
         List<Specialty> loadedData = persistence.loadAll();
         loadedData.forEach(s -> specialtyMap.put(s.getTag(), s));
+        log.info("Initialized SpecialityRepository with {} specialities", specialtyMap.size());
     }
 
     @Override
     public void save(Specialty specialty) {
         specialtyMap.put(specialty.getTag(), specialty);
+        log.debug("Speciality with tag {} saved to memory", specialty.getTag());
         persistence.saveAll(findAll());
     }
 
@@ -89,8 +96,13 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
 
     @Override
     public void deleteById(String tag) {
-        specialtyMap.remove(tag);
-        persistence.saveAll(findAll());
+        if (specialtyMap.remove(tag) != null) {
+            log.debug("Speciality with tag {} deleted from the memory", tag);
+            persistence.saveAll(findAll());
+        } else {
+            log.debug("Attempted to delete non-existing speciality with tag: {}", tag);
+        }
+
     }
 
 

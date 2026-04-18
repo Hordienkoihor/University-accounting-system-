@@ -25,7 +25,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
         log.info("Initializing FacultyRepository");
         List<Faculty> loadedData = persistence.loadAll();
         loadedData.forEach(d -> facultyMap.put(d.getCode(), d));
-        log.info("Initialised FacultyRepository with{} faculties", facultyMap.size());
+        log.info("Initialised FacultyRepository with {} faculties", facultyMap.size());
     }
 
     /*scrapped*/

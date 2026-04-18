@@ -3,6 +3,8 @@ package repository;
 import domain.Faculty;
 import domain.abstractClasses.Staff;
 import domain.records.StaffId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.interfaces.StaffRepositoryInt;
 import repository.io.PersistenceService;
 
@@ -13,14 +15,19 @@ public class StaffRepository implements StaffRepositoryInt {
     Map<StaffId, Staff> staffMap = new ConcurrentHashMap<>();
     private final PersistenceService<Staff> persistence = new PersistenceService<>(Staff.class, "staff.json");
 
+    private final Logger log = LoggerFactory.getLogger(StaffRepository.class);
+
     public StaffRepository() {
+        log.info("Initializing StaffRepository");
         List<Staff> loadedData = persistence.loadAll();
         loadedData.forEach(s -> staffMap.put(s.getStaffId(), s));
+        log.info("Initialized StaffRepository with {} staff", staffMap.size());
     }
 
     @Override
     public void save(Staff staff) {
         staffMap.put(staff.getStaffId(), staff);
+        log.debug("Staff with staffId {} saved to memory", staff.getStaffId());
         persistence.saveAll(findAll());
     }
 
@@ -41,8 +48,13 @@ public class StaffRepository implements StaffRepositoryInt {
 
     @Override
     public void deleteById(StaffId id) {
-        staffMap.remove(id);
-        persistence.saveAll(findAll());
+        if (staffMap.remove(id) != null) {
+            log.debug("Staff with staffId {} removed from memory", id);
+            persistence.saveAll(findAll());
+        } else {
+            log.debug("Attempted to delete non-existing staff with id: {}", id);
+        }
+
     }
 
     @Override

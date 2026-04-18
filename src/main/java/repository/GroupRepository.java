@@ -3,6 +3,8 @@ package repository;
 import domain.Department;
 import domain.Group;
 import domain.Specialty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.interfaces.GroupRepositoryInt;
 import repository.io.PersistenceService;
 import service.interfaces.SpecialityServiceInt;
@@ -15,15 +17,21 @@ public class GroupRepository implements GroupRepositoryInt {
     private final Map<String, Group> groupMap = new ConcurrentHashMap<>();
     private final PersistenceService<Group> persistence = new PersistenceService<>(Group.class, "groups.json");
 
+    private final Logger log = LoggerFactory.getLogger(GroupRepository.class);
+
     public GroupRepository() {
+        log.info("Initializing GroupRepository");
         List<Group> loadedData = persistence.loadAll();
         loadedData.forEach(g -> groupMap.put(g.getName(), g));
+        log.info("Initialized GroupRepository with {} groups", groupMap.size());
     }
 
     @Override
     public void save(Group group) {
         groupMap.put(group.getName(), group);
+        log.debug("Group with name {} saved to memory", group.getName());
         persistence.saveAll(findAll());
+
     }
 
     @Override
@@ -43,8 +51,13 @@ public class GroupRepository implements GroupRepositoryInt {
 
     @Override
     public void deleteById(String name) {
-        groupMap.remove(name);
-        persistence.saveAll(findAll());
+        if (groupMap.remove(name) != null) {
+            log.debug("Group with name {} removed from memory", name);
+            persistence.saveAll(findAll());
+        } else {
+            log.debug("Attempted to delete non-existing group with name: {}", name);
+        }
+
     }
 
     @Override
