@@ -8,6 +8,8 @@ import domain.records.StudentId;
 import exceptions.GroupDoesNotExistException;
 import exceptions.StudentAddingError;
 import exceptions.StudentRegisterToGroupException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.interfaces.StudentRepositoryInt;
 import service.interfaces.GroupServiceInt;
 import service.interfaces.StudentServiceInt;
@@ -21,6 +23,8 @@ public class StudentService implements StudentServiceInt {
     private final StudentRepositoryInt studentRepository;
     private final GroupServiceInt groupService;
 
+    private static final Logger log = LoggerFactory.getLogger(StudentService.class);
+
     public StudentService(StudentRepositoryInt studentRepository, GroupServiceInt groupService) {
         this.studentRepository = studentRepository;
         this.groupService = groupService;
@@ -28,9 +32,11 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public void registerToGroup(Student student, String groupName) {
+        log.info("Attempting to register student {} to group '{}'", student.getStudentId(), groupName);
         try {
             save(student);
         } catch (StudentAddingError e) {
+            log.error("Failed to save student during group registration: {}", e.getMessage());
             throw new StudentRegisterToGroupException(e.getMessage());
         }
 
@@ -38,6 +44,7 @@ public class StudentService implements StudentServiceInt {
         boolean alrInGroup = student.getGroup() != null;
 
         if (alrInGroup) {
+            log.warn("Registration blocked: Student {} already in group '{}'", student.getStudentId(), student.getGroup().getName());
             throw new StudentAddingError("Student already exists in group " + groupName);
         }
 
@@ -45,7 +52,7 @@ public class StudentService implements StudentServiceInt {
 
         if (group != null) {
             student.setGroup(group);
-            System.out.println("Student added to group " + groupName);
+            log.info("Student {} successfully added to group '{}'", student.getStudentId(), groupName);
         } else {
             throw new GroupDoesNotExistException("Group " + groupName + " does not exist");
         }
@@ -53,12 +60,14 @@ public class StudentService implements StudentServiceInt {
 
     @Override
     public void unregisterFromGroup(Student student, String groupName) {
+        log.info("Unregistering student {} from group '{}'", student.getStudentId(), groupName);
         Group group = groupService.findByName(groupName);
 
         if (group != null) {
             student.setGroup(null);
-            System.out.println("Student removed from group " + groupName);
+            log.info("Student {} removed from group '{}'", student.getStudentId(), groupName);
         } else {
+            log.error("Unregister failed: Group '{}' not found", groupName);
             throw new GroupDoesNotExistException("Group " + groupName + " does not exist");
         }
     }

@@ -6,6 +6,8 @@ import domain.Teacher;
 import domain.abstractClasses.Staff;
 import domain.records.StaffId;
 import exceptions.FacultyDoesNotExistException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.interfaces.StaffRepositoryInt;
 import service.interfaces.FacultyServiceInt;
 import service.interfaces.StaffServiceInt;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class StaffService implements StaffServiceInt {
     private final StaffRepositoryInt staffRepository;
     private final FacultyServiceInt facultyService;
+
+    private static final Logger log = LoggerFactory.getLogger(StaffService.class);
 
     public StaffService(StaffRepositoryInt staffRepository, FacultyServiceInt facultyService) {
         this.staffRepository = staffRepository;
@@ -58,6 +62,7 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public void save(Staff staff) {
+        log.info("Saving staff member: {} {} (ID: {})", staff.getName(), staff.getSurname(), staff.getStaffId());
         staffRepository.save(staff);
     }
 
@@ -68,30 +73,48 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public void delete(StaffId id) {
-        staffRepository.deleteById(id);
+        log.info("Attempting to delete staff member with ID: {}", id);
+        if (!staffRepository.existsById(id)) {
+            log.warn("Delete failed: Staff member with ID {} not found", id);
+        } else {
+            staffRepository.deleteById(id);
+            log.info("Staff member with ID {} deleted successfully", id);
+        }
     }
 
     @Override
     public Staff findById(StaffId id) {
-        Optional<Staff> staff = staffRepository.findById(id);
+        log.debug("Searching for staff by ID: {}", id);
 
-        return staff.orElse(null);
+        return staffRepository.findById(id).orElseGet(() -> {
+            log.warn("Staff member with ID {} not found", id);
+            return null;
+        });
     }
 
     @Override
     public List<Staff> findBySurname(String surname) {
+        log.debug("Searching for staff by surname contains: '{}'", surname);
         List<Staff> staff = staffRepository.findAll();
 
-        return staff.stream()
+        List<Staff> result = staff.stream()
                 .filter(staff1 -> staff1.getSurname().toLowerCase().contains(surname.toLowerCase()))
                 .toList();
+
+        log.info("Found {} staff members matching surname '{}'", result.size(), surname);
+        return result;
     }
 
     @Override
     public List<Teacher> findTeacherBySurname(String surname) {
-        return findAllTeachers().stream()
+        log.debug("Searching for teacher by surname contains: '{}'", surname);
+
+        List<Teacher> result = findAllTeachers().stream()
                 .filter(teacher -> teacher.getSurname().toLowerCase().contains(surname.toLowerCase()))
                 .toList();
+
+        log.info("Found {} tachers members matching surname '{}'", result.size(), surname);
+        return result;
     }
 
     @Override
@@ -113,6 +136,7 @@ public class StaffService implements StaffServiceInt {
 
     @Override
     public List<Teacher> findAllTeachers() {
+        log.debug("Fetching all teachers from staff list");
         return staffRepository.findAll().stream()
                 .filter(staff -> staff instanceof Teacher)
                 .map(staff -> (Teacher) staff)
