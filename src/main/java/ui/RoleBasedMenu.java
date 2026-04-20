@@ -661,7 +661,7 @@ public class RoleBasedMenu {
         System.out.println("    STUDENTS    ");
         List<Student> students = studentService.findAll().values().stream().toList();
 
-        students.forEach(student -> System.out.println(student.getFullName() + " " + student.getStudentId()));
+        students.forEach(student -> System.out.println(student.compactToString()));
     }
 
     private void listTeachers() {
@@ -669,7 +669,7 @@ public class RoleBasedMenu {
         System.out.println("    Teachers    ");
         List<Teacher> staff = staffService.findAllTeachers();
 
-        staff.forEach(teacher -> teacher.compactToString());
+        staff.forEach(teacher -> System.out.println(teacher.compactToString()));
     }
 
     private void listStudents(List<Student> students) {
