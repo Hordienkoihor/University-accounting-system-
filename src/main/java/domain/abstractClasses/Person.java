@@ -1,6 +1,7 @@
 package domain.abstractClasses;
 
 import Utilitys.Validator;
+import annotations.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -34,13 +35,19 @@ public abstract class Person {
 
     private PersonId id;
 
+    @NotNull
     private String name;
+    @NotNull
     private String surname;
+    @NotNull
     private String fatherName;
 
+    @NotNull
     private LocalDate dateOfBirth;
 
+    @NotNull
     private String email;
+    @NotNull
     private String phoneNumber;
 
 //    @JsonBackReference("faculty-member")
@@ -82,6 +89,13 @@ public abstract class Person {
         setEmail(email);
         setPhoneNumber(phoneNumber);
         setDateOfBirth(dateOfBirth);
+
+        try {
+            Utilitys.AnnotationValidator.validate(this);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Error checking annotation", e);
+        }
+
         this.id = new PersonId("P-ID-" + getFullName() +new Date().getTime() * random.nextInt(1, 500));
     }
 

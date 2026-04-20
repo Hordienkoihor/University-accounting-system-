@@ -5,3 +5,15 @@
 2026-04-20 11:51:18 [main] INFO  s.FacultyService - Faculty registered successfully: @FEN
 2026-04-20 11:54:19 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-20 11:54:36 [main] INFO  s.StaffService - Found 1 teachers members matching surname 'pech'
+2026-04-20 12:01:03 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 12:05:30 [main] INFO  s.StaffService - Saving staff member: Tkachuk Maryna (ID: ST-ID-254064655548704)
+2026-04-20 12:05:40 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 12:06:16 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Humanities (@FOH)
+2026-04-20 12:06:16 [main] INFO  s.FacultyService - Faculty registered successfully: @FOH
+2026-04-20 12:07:18 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 12:07:33 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 12:08:32 [main] INFO  s.DepartmentService - Attempting to register new department: #cs
+2026-04-20 12:08:32 [main] INFO  s.DepartmentService - Department #cs successfully registered.
+2026-04-20 12:09:31 [main] INFO  s.StaffService - Saving staff member: Tkachuk Maryna (ID: ST-ID-254064655548704)
+2026-04-20 12:50:02 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 12:53:50 [main] INFO  s.UniversityService - Saving university data: Test full name
