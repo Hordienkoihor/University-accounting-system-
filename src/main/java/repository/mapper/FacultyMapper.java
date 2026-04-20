@@ -1,12 +1,13 @@
 package repository.mapper;
 
 import domain.Faculty;
+import domain.Teacher;
 import repository.dto.FacultyDto;
 import repository.mapper.interfaces.ObjectMapper;
 
 import java.util.List;
 
-public class FacultyMapper implements ObjectMapper<Faculty, FacultyDto, List<Integer>> {
+public class FacultyMapper implements ObjectMapper<Faculty, FacultyDto,Teacher> {
     @Override
     public FacultyDto toDto(Faculty t) {
         FacultyDto dto = new FacultyDto();
@@ -15,7 +16,7 @@ public class FacultyMapper implements ObjectMapper<Faculty, FacultyDto, List<Int
         dto.setCode(t.getCode());
 
         if (t.getDean() != null) {
-            dto.setDeanId(t.getDean().getStaffId());
+            dto.setDeanId(t.getDean().getStaffId().staffId());
         }
 
 
@@ -23,13 +24,20 @@ public class FacultyMapper implements ObjectMapper<Faculty, FacultyDto, List<Int
     }
 
     @Override
-    public Faculty toEntity(FacultyDto dto, List<List<Integer>> linkedEntities) {
+    public Faculty toEntity(FacultyDto dto, List<Teacher> linkedEntities) {
         Faculty faculty = new Faculty();
 
         faculty.setName(dto.getName());
         faculty.setCode(dto.getCode());
 
+        if (dto.getDeanId() != null && linkedEntities != null && !linkedEntities.isEmpty()) {
+            Teacher dean = linkedEntities.stream()
+                    .filter(teacher -> teacher.getStaffId().equals(dto.getDeanId()))
+                    .findFirst()
+                    .orElse(null);
+            faculty.setDean(dean);
+        }
 
-        return null;
+        return faculty;
     }
 }

@@ -6,14 +6,14 @@ import domain.records.StudentId;
 import java.time.LocalDate;
 
 public class StudentDto {
-    private PersonId id;
+    private String id;
     private String name;
     private String surname;
     private String fatherName;
     private LocalDate dateOfBirth;
     private String email;
     private String phoneNumber;
-    private StudentId studentId;
+    private String studentId;
     private int course;
     private String studyForm;
     private String studyStatus;
@@ -22,7 +22,7 @@ public class StudentDto {
     public StudentDto() {
     }
 
-    public StudentDto(PersonId id, String name, String surname, String fatherName, LocalDate dateOfBirth, String email, String phoneNumber, StudentId studentId, int course, String studyForm, String studyStatus, String groupName) {
+    public StudentDto(String id, String name, String surname, String fatherName, LocalDate dateOfBirth, String email, String phoneNumber, String studentId, int course, String studyForm, String studyStatus, String groupName) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -37,11 +37,11 @@ public class StudentDto {
         this.groupName = groupName;
     }
 
-    public PersonId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(PersonId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -93,11 +93,11 @@ public class StudentDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public StudentId getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(StudentId studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

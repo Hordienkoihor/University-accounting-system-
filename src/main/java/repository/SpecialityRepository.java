@@ -1,32 +1,53 @@
 package repository;
 
+import domain.Group;
 import domain.Specialty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import repository.dto.GroupDto;
+import repository.dto.SpecialityDto;
 import repository.interfaces.SpecialityRepositoryInt;
 import repository.io.PersistenceService;
+import repository.mapper.SpecialityMapper;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SpecialityRepository implements SpecialityRepositoryInt {
     private Map<String, Specialty> specialtyMap = new ConcurrentHashMap<>();
-    private final PersistenceService<Specialty> persistence = new PersistenceService<>(Specialty.class, "specialties.json");
+    private final PersistenceService<SpecialityDto> persistence = new PersistenceService<>(SpecialityDto.class, "specialtiesDto.json");
+    private final SpecialityMapper mapper = new SpecialityMapper();
 
     private final Logger log = LoggerFactory.getLogger(SpecialityRepository.class);
 
     public SpecialityRepository() {
         log.info("Initializing SpecialityRepository");
-        List<Specialty> loadedData = persistence.loadAll();
-        loadedData.forEach(s -> specialtyMap.put(s.getTag(), s));
+//        List<Specialty> loadedData = persistence.loadAll();
+//        loadedData.forEach(s -> specialtyMap.put(s.getTag(), s));
+//        log.info("Initialized SpecialityRepository with {} specialities", specialtyMap.size());
+    }
+
+    public void initData(List<Specialty> loadedSpecialties) {
+        loadedSpecialties.forEach(s -> specialtyMap.put(s.getTag(), s));
         log.info("Initialized SpecialityRepository with {} specialities", specialtyMap.size());
+    }
+
+    public List<SpecialityDto> loadRawDtos() {
+        return persistence.loadAll();
+    }
+
+    private void saveToFile() {
+        List<SpecialityDto> dtos = specialtyMap.values().stream()
+                .map(mapper::toDto)
+                .toList();
+        persistence.saveAll(dtos);
     }
 
     @Override
     public void save(Specialty specialty) {
         specialtyMap.put(specialty.getTag(), specialty);
         log.debug("Speciality with tag {} saved to memory", specialty.getTag());
-        persistence.saveAll(findAll());
+        saveToFile();
     }
 
 
@@ -98,7 +119,7 @@ public class SpecialityRepository implements SpecialityRepositoryInt {
     public void deleteById(String tag) {
         if (specialtyMap.remove(tag) != null) {
             log.debug("Speciality with tag {} deleted from the memory", tag);
-            persistence.saveAll(findAll());
+            saveToFile();
         } else {
             log.debug("Attempted to delete non-existing speciality with tag: {}", tag);
         }

@@ -61,6 +61,9 @@ public class Student extends Person {
         setStudyStatus(studyStatus);
     }
 
+    public void setStudentId(StudentId studentId) {
+        this.studentId = studentId;
+    }
 
     public Group getGroup() {
         return group;

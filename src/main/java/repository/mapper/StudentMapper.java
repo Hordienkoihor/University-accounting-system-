@@ -4,6 +4,8 @@ import domain.Group;
 import domain.Student;
 import domain.enums.StudyForm;
 import domain.enums.StudyStatus;
+import domain.records.PersonId;
+import domain.records.StudentId;
 import repository.dto.StudentDto;
 import repository.mapper.interfaces.ObjectMapper;
 
@@ -13,13 +15,19 @@ public class StudentMapper implements ObjectMapper<Student, StudentDto, Group> {
     @Override
     public StudentDto toDto(Student student) {
         StudentDto studentDto = new StudentDto();
-        studentDto.setId(student.getId());
+
+        if (student.getId() != null) {
+            studentDto.setId(student.getId().toString());
+        }
+        if (student.getStudentId() != null) {
+            studentDto.setStudentId(student.getStudentId().toString());
+        }
         studentDto.setName(student.getName());
         studentDto.setSurname(student.getSurname());
         studentDto.setFatherName(student.getFatherName());
         studentDto.setEmail(student.getEmail());
         studentDto.setPhoneNumber(student.getPhoneNumber());
-        studentDto.setStudentId(student.getStudentId());
+        studentDto.setStudentId(student.getStudentId().toString());
         studentDto.setCourse(student.getCourse());
 
         if (student.getStudyForm() != null) {
@@ -41,6 +49,14 @@ public class StudentMapper implements ObjectMapper<Student, StudentDto, Group> {
         if (dto == null) return null;
 
         Student student = new Student();
+
+        if (dto.getId() != null) {
+            student.setId(new PersonId(dto.getId()));
+        }
+        if (dto.getStudentId() != null) {
+            student.setStudentId(new StudentId(dto.getStudentId()));
+        }
+
         student.setName(dto.getName());
         student.setSurname(dto.getSurname());
         student.setFatherName(dto.getFatherName());

@@ -20,7 +20,7 @@ public class DepartmentMapper implements ObjectMapper<Department, DepartmentDto,
         }
 
         if (t.getHeadOfDepartment() != null) {
-            dto.setHeadId(t.getHeadOfDepartment().getStaffId());
+            dto.setHeadId(t.getHeadOfDepartment().getStaffId().staffId());
         }
 
         return dto;
@@ -40,6 +40,6 @@ public class DepartmentMapper implements ObjectMapper<Department, DepartmentDto,
             department.setFaculty(matchedFaculty);
         }
 
-        return null;
+        return department;
     }
 }

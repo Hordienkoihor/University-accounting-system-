@@ -7,7 +7,9 @@ import auth.repository.UserRepository;
 import auth.repository.interfaces.UserRepositoryInt;
 import auth.service.AuthenticationService;
 import auth.service.AuthorizationService;
+import domain.Department;
 import repository.*;
+import repository.mapper.FacultyDepartmentPersonLinker;
 import service.*;
 import service.interfaces.*;
 
@@ -30,13 +32,26 @@ public class MainMenu {
         AuthenticationService<User> authenticationService = new AuthenticationService(repo);
         AuthorizationService authorizationService = new AuthorizationService(authenticationService);
 
+        FacultyRepository facultyRepo = new FacultyRepository();
+        DepartmentRepository departmentRepo = new DepartmentRepository();
+        StaffRepository staffRepo = new StaffRepository();
+
+        SpecialityRepository specialityRepo = new SpecialityRepository();
+        GroupRepository groupRepo = new GroupRepository();
+        StudentRepository studentRepo = new StudentRepository();
+
+        FacultyDepartmentPersonLinker facultyDepartmentPersonLinker = new FacultyDepartmentPersonLinker();
+        facultyDepartmentPersonLinker.loadUniversityData(facultyRepo, departmentRepo, staffRepo, specialityRepo, groupRepo, studentRepo);
+
+
+
         universityService = new UniversityService(new UniversityRepository());
-        facultyService = new FacultyService(new FacultyRepository());
-        departmentService = new DepartmentService(new DepartmentRepository(), facultyService);
-        specialityService = new SpecialityService(new SpecialityRepository());
-        groupService = new GroupService(new GroupRepository(), specialityService);
-        studentService = new StudentService(new StudentRepository(), groupService);
-        staffService = new StaffService(new StaffRepository(), facultyService);
+        facultyService = new FacultyService(facultyRepo);
+        departmentService = new DepartmentService(departmentRepo, facultyService);
+        specialityService = new SpecialityService(specialityRepo);
+        groupService = new GroupService(groupRepo, specialityService);
+        studentService = new StudentService(studentRepo, groupService);
+        staffService = new StaffService(staffRepo, facultyService);
 
         LoginMenu loginMenu = new LoginMenu(authenticationService, authorizationService);
 

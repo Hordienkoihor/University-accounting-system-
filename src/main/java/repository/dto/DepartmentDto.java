@@ -6,9 +6,9 @@ public class DepartmentDto {
     private String name;
     private String code;
     private String facultyCode;
-    private StaffId headId;
+    private String headId;
 
-    public DepartmentDto(String name, String code, String facultyCode, StaffId headId) {
+    public DepartmentDto(String name, String code, String facultyCode, String headId) {
         this.name = name;
         this.code = code;
         this.facultyCode = facultyCode;
@@ -19,11 +19,11 @@ public class DepartmentDto {
 
     }
 
-    public StaffId getHeadId() {
+    public String getHeadId() {
         return headId;
     }
 
-    public void setHeadId(StaffId headId) {
+    public void setHeadId(String headId) {
         this.headId = headId;
     }
 

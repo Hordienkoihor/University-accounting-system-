@@ -5,9 +5,9 @@ import domain.records.StaffId;
 public class FacultyDto {
     private String name;
     private String code;
-    private StaffId deanId;
+    private String deanId;
 
-    public FacultyDto(String name, String code, StaffId deanId) {
+    public FacultyDto(String name, String code, String deanId) {
         this.name = name;
         this.code = code;
         this.deanId = deanId;
@@ -32,11 +32,11 @@ public class FacultyDto {
         this.code = code;
     }
 
-    public StaffId getDeanId() {
+    public String getDeanId() {
         return deanId;
     }
 
-    public void setDeanId(StaffId deanId) {
+    public void setDeanId(String deanId) {
         this.deanId = deanId;
     }
 }

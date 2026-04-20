@@ -1,0 +1,22 @@
+[
+  {
+    "id": "P-ID-Maryna Tkachuk Leonidivna595200484217560",
+    "name": "Maryna",
+    "surname": "Tkachuk",
+    "fatherName": "Leonidivna",
+    "dateOfBirth": [
+      1964,
+      9,
+      21
+    ],
+    "email": "tkachuk@ukr.net",
+    "phoneNumber": "0444251420",
+    "staffId": "ST-ID-845717702948412",
+    "departmentCode": "@culstud",
+    "universityPosition": "FULL_PROFESSOR",
+    "scientificDegree": "DOCTORATE",
+    "dateOfHiring": null,
+    "weeklyHours": 40.0,
+    "hourlyRate": 30.0
+  }
+]

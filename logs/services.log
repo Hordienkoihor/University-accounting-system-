@@ -60,3 +60,15 @@
 2026-04-20 21:40:14 [main] INFO  s.DepartmentService - Department #finance successfully registered.
 2026-04-20 21:40:46 [main] INFO  s.StaffService - Saving staff member: Олексій Правовий (ID: ST-ID-88442211)
 2026-04-20 21:42:49 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 23:41:00 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 23:41:48 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Humanities (#FOH)
+2026-04-20 23:41:48 [main] INFO  s.FacultyService - Faculty registered successfully: #FOH
+2026-04-20 23:42:29 [main] INFO  s.DepartmentService - Attempting to register new department: @culstud
+2026-04-20 23:42:29 [main] INFO  s.DepartmentService - Department @culstud successfully registered.
+2026-04-20 23:44:42 [main] INFO  s.StaffService - Saving staff member: Maryna Tkachuk (ID: ST-ID-845717702948412)
+2026-04-20 23:46:46 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 23:47:00 [main] INFO  s.StaffService - Found 1 teachers members matching surname 't'
+2026-04-20 23:47:58 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 00:02:49 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 00:04:55 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 00:06:44 [main] INFO  s.UniversityService - Saving university data: Test full name

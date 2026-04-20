@@ -297,3 +297,36 @@
   "department" : null
 }, {
   "type" "[truncated 6986 chars]; line: 2, column: 12] (through reference chain: java.util.ArrayList[0])
+2026-04-20 23:47:49 [main] ERROR r.i.PersistenceService - Error loading data from storage/facultiesDto.json: Cannot construct instance of `domain.records.StaffId` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value ('ST-ID-845717702948412')
+ at [Source: (String)"[ {
+  "name" : "Faculty of Humanities",
+  "code" : "#FOH",
+  "deanId" : "ST-ID-845717702948412"
+} ]"; line: 4, column: 14] (through reference chain: java.util.ArrayList[0]->repository.dto.FacultyDto["deanId"])
+2026-04-20 23:47:49 [main] ERROR r.i.PersistenceService - Error loading data from storage/departmentsDto.json: Cannot construct instance of `domain.records.StaffId` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value ('ST-ID-845717702948412')
+ at [Source: (String)"[ {
+  "name" : "Cultural Studies",
+  "code" : "@culstud",
+  "facultyCode" : "#FOH",
+  "headId" : "ST-ID-845717702948412"
+} ]"; line: 5, column: 14] (through reference chain: java.util.ArrayList[0]->repository.dto.DepartmentDto["headId"])
+2026-04-21 00:02:45 [main] ERROR r.i.PersistenceService - Error loading data from storage/staffDto.json: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)
+ at [Source: (String)"[ {
+  "id" : {
+    "personId" : "P-ID-Maryna Tkachuk Leonidivna595200484217560"
+  },
+  "name" : "Maryna",
+  "surname" : "Tkachuk",
+  "fatherName" : "Leonidivna",
+  "dateOfBirth" : [ 1964, 9, 21 ],
+  "email" : "tkachuk@ukr.net",
+  "phoneNumber" : "0444251420",
+  "staffId" : {
+    "staffId" : "ST-ID-845717702948412"
+  },
+  "departmentCode" : "@culstud",
+  "universityPosition" : "FULL_PROFESSOR",
+  "scientificDegree" : "DOCTORATE",
+  "dateOfHiring" : null,
+  "weeklyHours" : 40.0,
+  "hourlyRate" : 3"[truncated 7 chars]; line: 2, column: 10] (through reference chain: java.util.ArrayList[0]->repository.dto.TeacherDto["id"])

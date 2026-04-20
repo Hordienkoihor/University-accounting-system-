@@ -5,8 +5,12 @@ import domain.Faculty;
 import exceptions.FacultyRegisterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import repository.dto.DepartmentDto;
+import repository.dto.FacultyDto;
+import repository.dto.TeacherDto;
 import repository.interfaces.FacultyRepositoryInt;
 import repository.io.PersistenceService;
+import repository.mapper.FacultyMapper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,16 +20,34 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FacultyRepository implements FacultyRepositoryInt {
     Map<String, Faculty> facultyMap = new ConcurrentHashMap<>();
-    private final PersistenceService<Faculty> persistence = new PersistenceService<>(Faculty.class, "faculties.json");
+    private final PersistenceService<FacultyDto> persistence = new PersistenceService<>(FacultyDto.class, "facultiesDto.json");
+
+    private final FacultyMapper mapper = new FacultyMapper();
 
     private final Logger log = LoggerFactory.getLogger(FacultyRepository.class);
 
 
     public FacultyRepository() {
         log.info("Initializing FacultyRepository");
-        List<Faculty> loadedData = persistence.loadAll();
-        loadedData.forEach(d -> facultyMap.put(d.getCode(), d));
-        log.info("Initialised FacultyRepository with {} faculties", facultyMap.size());
+//        List<Faculty> loadedData = persistence.loadAll();
+//        loadedData.forEach(d -> facultyMap.put(d.getCode(), d));
+//        log.info("Initialised FacultyRepository with {} faculties", facultyMap.size());
+    }
+
+    public void initData(List<Faculty> loadedFaculties) {
+        loadedFaculties.forEach(f -> facultyMap.put(f.getCode(), f));
+        log.info("Initialized FacultyRepository with {} faculties", facultyMap.size());
+    }
+
+    public List<FacultyDto> loadRawDtos() {
+        return persistence.loadAll();
+    }
+
+    private void saveToFile() {
+        List<FacultyDto> dtos = facultyMap.values().stream()
+                .map(mapper::toDto)
+                .toList();
+        persistence.saveAll(dtos);
     }
 
     /*scrapped*/
@@ -39,7 +61,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
     public void save(Faculty faculty) {
         facultyMap.put(faculty.getCode(), faculty);
         log.debug("Faculty with code {} saved to memory", faculty.getCode());
-        persistence.saveAll(findAll());
+        saveToFile();
     }
 
     @Override
@@ -86,7 +108,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
     public void deleteById(String code) {
         if (facultyMap.remove(code) != null) {
             log.debug("Faculty with code {} deleted", code);
-            persistence.saveAll(findAll());
+            saveToFile();
         } else {
             log.warn("Attempted to delete non-existent faculty with code: {}", code);
         }
@@ -97,7 +119,7 @@ public class FacultyRepository implements FacultyRepositoryInt {
         boolean removed = facultyMap.values().removeIf(faculty -> faculty.getName().equals(name));
         if (removed) {
             log.info("Faculty with name '{}' deleted", name);
-            persistence.saveAll(findAll());
+            saveToFile();
         } else {
             log.warn("Attempted to delete non-existent faculty with name: {}", name);
         }
