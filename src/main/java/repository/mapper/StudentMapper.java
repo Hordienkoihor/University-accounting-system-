@@ -21,8 +21,13 @@ public class StudentMapper implements ObjectMapper<Student, StudentDto, Group> {
         studentDto.setPhoneNumber(student.getPhoneNumber());
         studentDto.setStudentId(student.getStudentId());
         studentDto.setCourse(student.getCourse());
-        studentDto.setStudyForm(student.getStudyForm().displayName);
-        studentDto.setStudyStatus(student.getStudyStatus().getDisplayName());
+
+        if (student.getStudyForm() != null) {
+            studentDto.setStudyForm(student.getStudyForm().name());
+        }
+        if (student.getStudyStatus() != null) {
+            studentDto.setStudyStatus(student.getStudyStatus().name());
+        }
 
         if (student.getGroup() != null) {
             studentDto.setGroupName(student.getGroup().getName());
@@ -42,7 +47,6 @@ public class StudentMapper implements ObjectMapper<Student, StudentDto, Group> {
         student.setEmail(dto.getEmail());
         student.setPhoneNumber(dto.getPhoneNumber());
         student.setCourse(dto.getCourse());
-        student.setCourse(dto.getCourse());
 
         student.setStudyStatus(StudyStatus.getStudyStatus(dto.getStudyStatus()));
         student.setStudyForm(StudyForm.getStudyForm(dto.getStudyForm()));
@@ -52,7 +56,7 @@ public class StudentMapper implements ObjectMapper<Student, StudentDto, Group> {
             Group studentGroup = groups.stream()
                     .filter(g -> g.getName().equals(dto.getGroupName()))
                     .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Групу " + dto.getGroupName() + " не знайдено"));
+                    .orElse(null);
             student.setGroup(studentGroup);
         }
 

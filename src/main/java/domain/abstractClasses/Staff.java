@@ -24,7 +24,6 @@ public abstract class Staff extends Person {
     private final Random random = new Random();
     private StaffId staffId;
 
-    @JsonBackReference
     protected Department department;
 
     public Department getDepartment() {

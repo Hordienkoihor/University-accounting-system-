@@ -9,7 +9,6 @@ public class Department {
 
     private Faculty faculty;
 
-    @JsonManagedReference
     private Staff headOfDepartment;
 
     private String location;
