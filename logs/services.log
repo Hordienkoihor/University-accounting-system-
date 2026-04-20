@@ -3,3 +3,5 @@
 2026-04-20 11:50:46 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-20 11:51:18 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Economics (@FEN)
 2026-04-20 11:51:18 [main] INFO  s.FacultyService - Faculty registered successfully: @FEN
+2026-04-20 11:54:19 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 11:54:36 [main] INFO  s.StaffService - Found 1 teachers members matching surname 'pech'

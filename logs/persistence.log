@@ -43,3 +43,21 @@
 2026-04-20 11:50:40 [main] INFO  r.i.PersistenceService - Loaded 3 objects from staff.json
 2026-04-20 11:50:40 [main] INFO  r.StaffRepository - Initialized StaffRepository with 3 staff
 2026-04-20 11:51:18 [pool-2-thread-1] INFO  r.i.PersistenceService - Saved 3 objects to faculties.json
+2026-04-20 11:54:15 [main] INFO  r.FacultyRepository - Initializing FacultyRepository
+2026-04-20 11:54:15 [main] INFO  r.i.PersistenceService - Loaded 3 objects from faculties.json
+2026-04-20 11:54:15 [main] INFO  r.FacultyRepository - Initialised FacultyRepository with 3 faculties
+2026-04-20 11:54:15 [main] INFO  r.DepartmentRepository - Initializing DepartmentRepository
+2026-04-20 11:54:15 [main] INFO  r.i.PersistenceService - Loaded 2 objects from departments.json
+2026-04-20 11:54:15 [main] INFO  r.DepartmentRepository - Initialized DepartmentRepository with 2 departments
+2026-04-20 11:54:15 [main] INFO  r.SpecialityRepository - Initializing SpecialityRepository
+2026-04-20 11:54:15 [main] INFO  r.i.PersistenceService - Loaded 2 objects from specialties.json
+2026-04-20 11:54:15 [main] INFO  r.SpecialityRepository - Initialized SpecialityRepository with 2 specialities
+2026-04-20 11:54:15 [main] INFO  r.GroupRepository - Initializing GroupRepository
+2026-04-20 11:54:15 [main] INFO  r.i.PersistenceService - Loaded 2 objects from groups.json
+2026-04-20 11:54:15 [main] INFO  r.GroupRepository - Initialized GroupRepository with 2 groups
+2026-04-20 11:54:15 [main] INFO  r.StaffRepository - Initializing StudentRepository
+2026-04-20 11:54:15 [main] INFO  r.i.PersistenceService - Loaded 4 objects from students.json
+2026-04-20 11:54:15 [main] INFO  r.StaffRepository - Initialized StudentRepository with 4 students
+2026-04-20 11:54:15 [main] INFO  r.StaffRepository - Initializing StaffRepository
+2026-04-20 11:54:15 [main] INFO  r.i.PersistenceService - Loaded 3 objects from staff.json
+2026-04-20 11:54:15 [main] INFO  r.StaffRepository - Initialized StaffRepository with 3 staff

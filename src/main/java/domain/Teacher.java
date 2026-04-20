@@ -138,7 +138,7 @@ public class Teacher extends Staff {
         return getFullName() + ", id: " + getStaffId() +
                 "\n, scientific degree: "+ scientificDegree +
                 "\n, position: " + universityPosition +
-                "\n, rate" + hourlyRate  +
+                "\n, rate: " + hourlyRate  +
                 "\n, weeklyHours: " + weeklyHours +
                 "\n, department: " + deptName +
                 "\n, faculty: " + facultyName +
