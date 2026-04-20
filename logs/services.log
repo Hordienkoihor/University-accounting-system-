@@ -1,2 +1,5 @@
 2026-04-18 22:43:50 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-18 22:44:33 [main] INFO  s.StaffService - Found 1 tachers members matching surname 'pe'
+2026-04-20 11:50:46 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 11:51:18 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Economics (@FEN)
+2026-04-20 11:51:18 [main] INFO  s.FacultyService - Faculty registered successfully: @FEN
