@@ -1,5 +1,6 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import domain.abstractClasses.Staff;
 
 public class Department {
@@ -7,6 +8,8 @@ public class Department {
     private String code;
 
     private Faculty faculty;
+
+    @JsonManagedReference
     private Staff headOfDepartment;
 
     private String location;

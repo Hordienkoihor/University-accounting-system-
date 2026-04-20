@@ -3,6 +3,7 @@ package domain.abstractClasses;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import domain.Department;
 import domain.Faculty;
 import domain.Teacher;
 import domain.records.StaffId;
@@ -23,6 +24,16 @@ public abstract class Staff extends Person {
     private final Random random = new Random();
     private StaffId staffId;
 
+    @JsonBackReference
+    protected Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public Staff() {
         super();

@@ -16,8 +16,45 @@
   "scientificDegree" : "BACHELOR",
   "dateOfHiring" : null,
   "weeklyHours" : 34.0,
-  "hourlyRate" : 55.0,
-  "department" : null
+  "hourlyRate" : 55.0
+}, {
+  "type" : "teacher",
+  "id" : {
+    "personId" : "P-ID-Марія Законна Іванівна765432100"
+  },
+  "name" : "Марія",
+  "surname" : "Законна",
+  "fatherName" : "Іванівна",
+  "dateOfBirth" : [ 1982, 10, 15 ],
+  "email" : "m.zakonna@ukma.edu.ua",
+  "phoneNumber" : "0502223344",
+  "staffId" : {
+    "staffId" : "ST-ID-55667788"
+  },
+  "universityPosition" : "ASSOCIATE_PROFESSOR",
+  "scientificDegree" : "MASTER",
+  "dateOfHiring" : null,
+  "weeklyHours" : 35.0,
+  "hourlyRate" : 250.0
+}, {
+  "type" : "teacher",
+  "id" : {
+    "personId" : "P-ID-Олексій Правовий Петрович123123123"
+  },
+  "name" : "Олексій",
+  "surname" : "Правовий",
+  "fatherName" : "Петрович",
+  "dateOfBirth" : [ 1975, 5, 20 ],
+  "email" : "alex.prav@ukma.edu.ua",
+  "phoneNumber" : "0671112233",
+  "staffId" : {
+    "staffId" : "ST-ID-88442211"
+  },
+  "universityPosition" : "FULL_PROFESSOR",
+  "scientificDegree" : "DOCTORATE",
+  "dateOfHiring" : null,
+  "weeklyHours" : 40.0,
+  "hourlyRate" : 300.0
 }, {
   "type" : "teacher",
   "id" : {
@@ -36,58 +73,26 @@
   "scientificDegree" : "MASTER",
   "dateOfHiring" : null,
   "weeklyHours" : 55.0,
-  "hourlyRate" : 43.0,
-  "department" : {
-    "name" : "Department of math",
-    "code" : "@dm",
-    "faculty" : {
-      "code" : "#FI",
-      "name" : "FI",
-      "dean" : {
-        "type" : "teacher",
-        "id" : {
-          "personId" : "P-ID-ee wq eqwe631854734533784"
-        },
-        "name" : "ee",
-        "surname" : "wq",
-        "fatherName" : "eqwe",
-        "dateOfBirth" : [ 2000, 2, 22 ],
-        "email" : "fdf@ukr.net",
-        "phoneNumber" : "0680057368",
-        "staffId" : {
-          "staffId" : "ST-ID-440168466754120"
-        },
-        "universityPosition" : "ASSOCIATE_PROFESSOR",
-        "scientificDegree" : "BACHELOR",
-        "dateOfHiring" : null,
-        "weeklyHours" : 34.0,
-        "hourlyRate" : 55.0,
-        "department" : null
-      }
-    },
-    "headOfDepartment" : {
-      "type" : "teacher",
-      "id" : {
-        "personId" : "P-ID-weqgfg fg rtgrtg683326117545225"
-      },
-      "name" : "weqgfg",
-      "surname" : "fg",
-      "fatherName" : "rtgrtg",
-      "dateOfBirth" : [ 2000, 2, 12 ],
-      "email" : "kkkk@ukr.net",
-      "phoneNumber" : "0680057368",
-      "staffId" : {
-        "staffId" : "ST-ID-411770543559720"
-      },
-      "universityPosition" : "FULL_PROFESSOR",
-      "scientificDegree" : "MASTER",
-      "dateOfHiring" : null,
-      "weeklyHours" : 55.0,
-      "hourlyRate" : 43.0,
-      "department" : null
-    },
-    "location" : "first building"
-  }
+  "hourlyRate" : 43.0
+}, {
+  "type" : "teacher",
+  "id" : {
+    "personId" : "P-ID-Сергій Василенко Олегович367778369503971"
+  },
+  "name" : "Сергій",
+  "surname" : "Василенко",
+  "fatherName" : "Олегович",
+  "dateOfBirth" : [ 1980, 5, 20 ],
+  "email" : "sergei@ukma.edu.ua",
+  "phoneNumber" : "0671110001",
+  "staffId" : {
+    "staffId" : "ST-ID-85281940754544"
+  },
+  "universityPosition" : "ASSOCIATE_PROFESSOR",
+  "scientificDegree" : "MASTER",
+  "dateOfHiring" : null,
+  "weeklyHours" : 20.0,
+  "hourlyRate" : 34.0
 }, {
   "type" : "teacher",
   "id" : {
@@ -106,58 +111,7 @@
   "scientificDegree" : "MASTER",
   "dateOfHiring" : null,
   "weeklyHours" : 40.0,
-  "hourlyRate" : 230.0,
-  "department" : {
-    "name" : "Department of math",
-    "code" : "@dm",
-    "faculty" : {
-      "code" : "#FI",
-      "name" : "FI",
-      "dean" : {
-        "type" : "teacher",
-        "id" : {
-          "personId" : "P-ID-ee wq eqwe631854734533784"
-        },
-        "name" : "ee",
-        "surname" : "wq",
-        "fatherName" : "eqwe",
-        "dateOfBirth" : [ 2000, 2, 22 ],
-        "email" : "fdf@ukr.net",
-        "phoneNumber" : "0680057368",
-        "staffId" : {
-          "staffId" : "ST-ID-440168466754120"
-        },
-        "universityPosition" : "ASSOCIATE_PROFESSOR",
-        "scientificDegree" : "BACHELOR",
-        "dateOfHiring" : null,
-        "weeklyHours" : 34.0,
-        "hourlyRate" : 55.0,
-        "department" : null
-      }
-    },
-    "headOfDepartment" : {
-      "type" : "teacher",
-      "id" : {
-        "personId" : "P-ID-weqgfg fg rtgrtg683326117545225"
-      },
-      "name" : "weqgfg",
-      "surname" : "fg",
-      "fatherName" : "rtgrtg",
-      "dateOfBirth" : [ 2000, 2, 12 ],
-      "email" : "kkkk@ukr.net",
-      "phoneNumber" : "0680057368",
-      "staffId" : {
-        "staffId" : "ST-ID-411770543559720"
-      },
-      "universityPosition" : "FULL_PROFESSOR",
-      "scientificDegree" : "MASTER",
-      "dateOfHiring" : null,
-      "weeklyHours" : 55.0,
-      "hourlyRate" : 43.0,
-      "department" : null
-    },
-    "location" : "first building"
-  }
+  "hourlyRate" : 230.0
 }, {
   "type" : "teacher",
   "id" : {
@@ -176,56 +130,5 @@
   "scientificDegree" : "DOCTORATE",
   "dateOfHiring" : null,
   "weeklyHours" : 40.0,
-  "hourlyRate" : 35.0,
-  "department" : {
-    "name" : "Department of math",
-    "code" : "@dm",
-    "faculty" : {
-      "code" : "#FI",
-      "name" : "FI",
-      "dean" : {
-        "type" : "teacher",
-        "id" : {
-          "personId" : "P-ID-ee wq eqwe631854734533784"
-        },
-        "name" : "ee",
-        "surname" : "wq",
-        "fatherName" : "eqwe",
-        "dateOfBirth" : [ 2000, 2, 22 ],
-        "email" : "fdf@ukr.net",
-        "phoneNumber" : "0680057368",
-        "staffId" : {
-          "staffId" : "ST-ID-440168466754120"
-        },
-        "universityPosition" : "ASSOCIATE_PROFESSOR",
-        "scientificDegree" : "BACHELOR",
-        "dateOfHiring" : null,
-        "weeklyHours" : 34.0,
-        "hourlyRate" : 55.0,
-        "department" : null
-      }
-    },
-    "headOfDepartment" : {
-      "type" : "teacher",
-      "id" : {
-        "personId" : "P-ID-weqgfg fg rtgrtg683326117545225"
-      },
-      "name" : "weqgfg",
-      "surname" : "fg",
-      "fatherName" : "rtgrtg",
-      "dateOfBirth" : [ 2000, 2, 12 ],
-      "email" : "kkkk@ukr.net",
-      "phoneNumber" : "0680057368",
-      "staffId" : {
-        "staffId" : "ST-ID-411770543559720"
-      },
-      "universityPosition" : "FULL_PROFESSOR",
-      "scientificDegree" : "MASTER",
-      "dateOfHiring" : null,
-      "weeklyHours" : 55.0,
-      "hourlyRate" : 43.0,
-      "department" : null
-    },
-    "location" : "first building"
-  }
+  "hourlyRate" : 35.0
 } ]

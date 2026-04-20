@@ -20,8 +20,7 @@ public class Teacher extends Staff {
     private double weeklyHours;
     private double hourlyRate;
 
-//    @JsonBackReference
-    private Department department;
+
 
     public Teacher() {
 

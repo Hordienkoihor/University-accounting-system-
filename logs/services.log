@@ -18,3 +18,45 @@
 2026-04-20 12:50:02 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-20 12:53:50 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-20 12:57:27 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 17:31:49 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 17:35:28 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 20:41:28 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 20:42:29 [main] INFO  s.SpecialityService - Attempting to register specialty: Software Engeniring (#IPZ)
+2026-04-20 20:42:29 [main] INFO  s.SpecialityService - Specialty registered successfully: #IPZ
+2026-04-20 20:43:50 [main] INFO  s.DepartmentService - Attempting to register new department: #CS
+2026-04-20 20:43:50 [main] INFO  s.DepartmentService - Department #CS successfully registered.
+2026-04-20 20:45:04 [main] INFO  s.StaffService - Saving staff member: Сергій Василенко (ID: ST-ID-85281940754544)
+2026-04-20 20:46:41 [main] INFO  s.SpecialityService - Updating specialty '#IPZ' with new name: 'Software enginiring'
+2026-04-20 20:46:41 [main] INFO  s.SpecialityService - Specialty '#IPZ' updated successfully
+2026-04-20 20:47:02 [main] INFO  s.SpecialityService - Updating specialty '#IPZ' with new name: 'Computer Science'
+2026-04-20 20:47:02 [main] INFO  s.SpecialityService - Specialty '#IPZ' updated successfully
+2026-04-20 20:47:23 [main] INFO  s.SpecialityService - Attempting to register specialty: Software Enginiring (#ipz)
+2026-04-20 20:47:23 [main] INFO  s.SpecialityService - Specialty registered successfully: #ipz
+2026-04-20 20:47:35 [main] INFO  s.SpecialityService - Attempting to remove specialty with tag: #IPZ
+2026-04-20 20:47:35 [main] INFO  s.SpecialityService - Specialty '#IPZ' removed successfully
+2026-04-20 20:48:10 [main] INFO  s.GroupService - Attempting to register group '#ipz-1' for specialty '#ipz'
+2026-04-20 20:48:10 [main] INFO  s.GroupService - Group '#ipz-1' successfully registered for specialty '#ipz'
+2026-04-20 20:54:33 [main] INFO  s.GroupService - Attempting to register group '#ipz-2' for specialty '#ipz'
+2026-04-20 20:54:33 [main] INFO  s.GroupService - Group '#ipz-2' successfully registered for specialty '#ipz'
+2026-04-20 20:54:53 [main] INFO  s.GroupService - Attempting to register group '@econ-23' for specialty '@econ'
+2026-04-20 20:54:53 [main] INFO  s.GroupService - Group '@econ-23' successfully registered for specialty '@econ'
+2026-04-20 21:00:10 [main] INFO  s.SpecialityService - Attempting to register specialty: german philology (@gph)
+2026-04-20 21:00:10 [main] INFO  s.SpecialityService - Specialty registered successfully: @gph
+2026-04-20 21:00:24 [main] WARN  s.SpecialityService - Search failed: Specialty with tag '@gph-1' not found
+2026-04-20 21:00:37 [main] INFO  s.GroupService - Attempting to register group '@gph-1' for specialty '@gph'
+2026-04-20 21:00:37 [main] INFO  s.GroupService - Group '@gph-1' successfully registered for specialty '@gph'
+2026-04-20 21:09:27 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:09:57 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:11:41 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:14:05 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:15:52 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:20:37 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:21:21 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:34:56 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:37:09 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-20 21:39:06 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Economics (#FEN)
+2026-04-20 21:39:06 [main] INFO  s.FacultyService - Faculty registered successfully: #FEN
+2026-04-20 21:40:14 [main] INFO  s.DepartmentService - Attempting to register new department: #finance
+2026-04-20 21:40:14 [main] INFO  s.DepartmentService - Department #finance successfully registered.
+2026-04-20 21:40:46 [main] INFO  s.StaffService - Saving staff member: Олексій Правовий (ID: ST-ID-88442211)
+2026-04-20 21:42:49 [main] INFO  s.UniversityService - Saving university data: Test full name

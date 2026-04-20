@@ -76,6 +76,24 @@
 }, {
   "type" : "student",
   "id" : {
+    "personId" : "P-ID-Андрій Коваль Петрович234525367652532"
+  },
+  "name" : "Андрій",
+  "surname" : "Коваль",
+  "fatherName" : "Петрович",
+  "dateOfBirth" : [ 2005, 9, 12 ],
+  "email" : "andriy.koval@ukma.edu.ua",
+  "phoneNumber" : "0971112233",
+  "studentId" : {
+    "studentId" : "SF-ID-111932561834163"
+  },
+  "course" : 1,
+  "studyForm" : "TUITION_FREE",
+  "studyStatus" : "PENDING",
+  "group" : null
+}, {
+  "type" : "student",
+  "id" : {
     "personId" : "P-ID-Vadim Dudar NeZanay655594460887248"
   },
   "name" : "Vadim",
