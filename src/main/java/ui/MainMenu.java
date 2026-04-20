@@ -7,9 +7,8 @@ import auth.repository.UserRepository;
 import auth.repository.interfaces.UserRepositoryInt;
 import auth.service.AuthenticationService;
 import auth.service.AuthorizationService;
-import domain.Department;
 import repository.*;
-import repository.mapper.FacultyDepartmentPersonLinker;
+import repository.mapper.DbLoader;
 import service.*;
 import service.interfaces.*;
 
@@ -40,8 +39,8 @@ public class MainMenu {
         GroupRepository groupRepo = new GroupRepository();
         StudentRepository studentRepo = new StudentRepository();
 
-        FacultyDepartmentPersonLinker facultyDepartmentPersonLinker = new FacultyDepartmentPersonLinker();
-        facultyDepartmentPersonLinker.loadUniversityData(facultyRepo, departmentRepo, staffRepo, specialityRepo, groupRepo, studentRepo);
+        DbLoader dbLoader = new DbLoader();
+        dbLoader.loadUniversityData(facultyRepo, departmentRepo, staffRepo, specialityRepo, groupRepo, studentRepo);
 
 
 

@@ -849,3 +849,18 @@
 2026-04-21 00:06:41 [main] INFO  r.SpecialityRepository - Initialized SpecialityRepository with 0 specialities
 2026-04-21 00:06:41 [main] INFO  r.GroupRepository - Initialized GroupRepository with 0 groups
 2026-04-21 00:06:41 [main] INFO  r.StaffRepository - Initialized StudentRepository with 0 students
+2026-04-21 00:07:34 [main] INFO  r.FacultyRepository - Initializing FacultyRepository
+2026-04-21 00:07:34 [main] INFO  r.DepartmentRepository - Initializing DepartmentRepository
+2026-04-21 00:07:34 [main] INFO  r.StaffRepository - Initializing StaffRepository
+2026-04-21 00:07:34 [main] INFO  r.SpecialityRepository - Initializing SpecialityRepository
+2026-04-21 00:07:34 [main] INFO  r.GroupRepository - Initializing GroupRepository
+2026-04-21 00:07:34 [main] INFO  r.StaffRepository - Initializing StudentRepository
+2026-04-21 00:07:34 [main] INFO  r.i.PersistenceService - Loaded 1 objects from facultiesDto.json
+2026-04-21 00:07:34 [main] INFO  r.i.PersistenceService - Loaded 1 objects from departmentsDto.json
+2026-04-21 00:07:34 [main] INFO  r.i.PersistenceService - Loaded 1 objects from staffDto.json
+2026-04-21 00:07:34 [main] INFO  r.FacultyRepository - Initialized FacultyRepository with 1 faculties
+2026-04-21 00:07:34 [main] INFO  r.DepartmentRepository - Initialized DepartmentRepository with 1 departments
+2026-04-21 00:07:34 [main] INFO  r.StaffRepository - Initialized StaffRepository with 1 staff
+2026-04-21 00:07:34 [main] INFO  r.SpecialityRepository - Initialized SpecialityRepository with 0 specialities
+2026-04-21 00:07:34 [main] INFO  r.GroupRepository - Initialized GroupRepository with 0 groups
+2026-04-21 00:07:34 [main] INFO  r.StaffRepository - Initialized StudentRepository with 0 students

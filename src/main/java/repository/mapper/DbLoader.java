@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FacultyDepartmentPersonLinker {
+public class DbLoader {
     public void loadUniversityData(
             FacultyRepository facultyRepo,
             DepartmentRepository deptRepo,
@@ -31,39 +31,37 @@ public class FacultyDepartmentPersonLinker {
 
 
         Map<String, Faculty> faculties = new HashMap<>();
-        for (FacultyDto dto : facultyDtos) {
+        facultyDtos.forEach(dto -> {
             Faculty f = facultyMapper.toEntity(dto, null);
-            faculties.put(f.getCode(), f);
-        }
+            faculties.put(f.getCode(), f);});
+
 
         Map<String, Department> departments = new HashMap<>();
-        for (DepartmentDto dto : deptDtos) {
+        deptDtos.forEach(dto -> {
             Department d = departmentMapper.toEntity(dto, faculties.values().stream().toList());
-            departments.put(d.getCode(), d);
-        }
+            departments.put(d.getCode(), d);});
 
         Map<StaffId, Teacher> teachers = new HashMap<>();
-        for (TeacherDto dto : teacherDtos) {
+        teacherDtos.forEach(dto -> {
             Teacher t = teacherMapper.toEntity(dto, departments.values().stream().toList());
             teachers.put(new StaffId(dto.getStaffId()), t);
-        }
+        });
 
-
-        for (FacultyDto dto : facultyDtos) {
+        facultyDtos.forEach(dto -> {
             if (dto.getDeanId() != null) {
                 Faculty f = faculties.get(dto.getCode());
                 Teacher dean = teachers.get(new StaffId(dto.getDeanId()));
                 f.setDean(dean);
             }
-        }
+        });
 
-        for (DepartmentDto dto : deptDtos) {
+        deptDtos.forEach(dto -> {
             if (dto.getHeadId() != null) {
                 Department d = departments.get(dto.getCode());
                 Teacher head = teachers.get(new StaffId(dto.getHeadId()));
                 d.setHeadOfDepartment(head);
             }
-        }
+        });
 
         facultyRepo.initData(faculties.values().stream().toList());
         deptRepo.initData(departments.values().stream().toList());
@@ -80,22 +78,23 @@ public class FacultyDepartmentPersonLinker {
         List<StudentDto> studentDtos = studentRepo.loadRawDtos();
 
         Map<String, Specialty> specialties = new HashMap<>();
-        for (SpecialityDto dto : specialtyDtos) {
+        specialtyDtos.forEach(dto -> {
             Specialty s = specialtyMapper.toEntity(dto, departments.values().stream().toList());
             specialties.put(s.getTag(), s);
-        }
+        });
 
         Map<String, Group> groups = new HashMap<>();
-        for (GroupDto dto : groupDtos) {
+        groupDtos.forEach(dto -> {
             Group g = groupMapper.toEntity(dto, specialties.values().stream().toList());
             groups.put(g.getName(), g);
-        }
+        });
+
 
         Map<StudentId, Student> students = new HashMap<>();
-        for (StudentDto dto : studentDtos) {
+        studentDtos.forEach(dto -> {
             Student s = studentMapper.toEntity(dto, groups.values().stream().toList());
             students.put(s.getStudentId(), s);
-        }
+        });
 
 
         specialityRepo.initData(specialties.values().stream().toList());
