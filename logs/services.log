@@ -71,3 +71,5 @@
 2026-04-21 22:28:03 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-21 22:28:25 [main] INFO  s.StudentService - Found 1 tachers members matching surname 'fra'
 2026-04-21 22:31:04 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 22:33:18 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 22:37:53 [main] INFO  s.UniversityService - Saving university data: Test full name

@@ -351,3 +351,49 @@
 2026-04-21 22:31:00 [main] INFO  r.SpecialityRepository - Initialized SpecialityRepository with 8 specialities
 2026-04-21 22:31:00 [main] INFO  r.GroupRepository - Initialized GroupRepository with 11 groups
 2026-04-21 22:31:00 [main] INFO  r.StaffRepository - Initialized StudentRepository with 11 students
+2026-04-21 22:33:15 [main] INFO  r.FacultyRepository - Initializing FacultyRepository
+2026-04-21 22:33:15 [main] INFO  r.DepartmentRepository - Initializing DepartmentRepository
+2026-04-21 22:33:15 [main] INFO  r.StaffRepository - Initializing StaffRepository
+2026-04-21 22:33:15 [main] INFO  r.SpecialityRepository - Initializing SpecialityRepository
+2026-04-21 22:33:15 [main] INFO  r.GroupRepository - Initializing GroupRepository
+2026-04-21 22:33:15 [main] INFO  r.StaffRepository - Initializing StudentRepository
+2026-04-21 22:33:15 [main] INFO  r.i.PersistenceService - Loaded 6 objects from facultiesDto.json
+2026-04-21 22:33:15 [main] INFO  r.i.PersistenceService - Loaded 7 objects from departmentsDto.json
+2026-04-21 22:33:15 [main] INFO  r.i.PersistenceService - Loaded 10 objects from staffDto.json
+2026-04-21 22:33:15 [main] INFO  r.FacultyRepository - Initialized FacultyRepository with 6 faculties
+2026-04-21 22:33:15 [main] INFO  r.DepartmentRepository - Initialized DepartmentRepository with 7 departments
+2026-04-21 22:33:15 [main] INFO  r.StaffRepository - Initialized StaffRepository with 10 staff
+2026-04-21 22:33:15 [main] INFO  r.i.PersistenceService - Loaded 8 objects from specialtiesDto.json
+2026-04-21 22:33:15 [main] INFO  r.i.PersistenceService - Loaded 11 objects from groupsDto.json
+2026-04-21 22:33:15 [main] INFO  r.i.PersistenceService - Loaded 11 objects from studentsDto.json
+2026-04-21 22:33:15 [main] INFO  r.SpecialityRepository - Initialized SpecialityRepository with 8 specialities
+2026-04-21 22:33:15 [main] INFO  r.GroupRepository - Initialized GroupRepository with 11 groups
+2026-04-21 22:33:15 [main] INFO  r.StaffRepository - Initialized StudentRepository with 11 students
+2026-04-21 22:34:02 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:34:25 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:34:38 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:35:26 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:35:46 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:36:18 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:36:35 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:36:56 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:37:12 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:37:28 [pool-7-thread-1] INFO  r.i.PersistenceService - Saved 11 objects to studentsDto.json
+2026-04-21 22:37:49 [main] INFO  r.FacultyRepository - Initializing FacultyRepository
+2026-04-21 22:37:49 [main] INFO  r.DepartmentRepository - Initializing DepartmentRepository
+2026-04-21 22:37:49 [main] INFO  r.StaffRepository - Initializing StaffRepository
+2026-04-21 22:37:49 [main] INFO  r.SpecialityRepository - Initializing SpecialityRepository
+2026-04-21 22:37:49 [main] INFO  r.GroupRepository - Initializing GroupRepository
+2026-04-21 22:37:49 [main] INFO  r.StaffRepository - Initializing StudentRepository
+2026-04-21 22:37:49 [main] INFO  r.i.PersistenceService - Loaded 6 objects from facultiesDto.json
+2026-04-21 22:37:49 [main] INFO  r.i.PersistenceService - Loaded 7 objects from departmentsDto.json
+2026-04-21 22:37:50 [main] INFO  r.i.PersistenceService - Loaded 10 objects from staffDto.json
+2026-04-21 22:37:50 [main] INFO  r.FacultyRepository - Initialized FacultyRepository with 6 faculties
+2026-04-21 22:37:50 [main] INFO  r.DepartmentRepository - Initialized DepartmentRepository with 7 departments
+2026-04-21 22:37:50 [main] INFO  r.StaffRepository - Initialized StaffRepository with 10 staff
+2026-04-21 22:37:50 [main] INFO  r.i.PersistenceService - Loaded 8 objects from specialtiesDto.json
+2026-04-21 22:37:50 [main] INFO  r.i.PersistenceService - Loaded 11 objects from groupsDto.json
+2026-04-21 22:37:50 [main] INFO  r.i.PersistenceService - Loaded 11 objects from studentsDto.json
+2026-04-21 22:37:50 [main] INFO  r.SpecialityRepository - Initialized SpecialityRepository with 8 specialities
+2026-04-21 22:37:50 [main] INFO  r.GroupRepository - Initialized GroupRepository with 11 groups
+2026-04-21 22:37:50 [main] INFO  r.StaffRepository - Initialized StudentRepository with 11 students
