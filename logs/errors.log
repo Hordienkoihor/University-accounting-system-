@@ -1,0 +1,2 @@
+2026-04-21 22:42:41 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-21 22:44:42 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists

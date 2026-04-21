@@ -73,3 +73,31 @@
 2026-04-21 22:31:04 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-21 22:33:18 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-21 22:37:53 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 22:42:41 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-21 22:42:41 [main] INFO  s.DepartmentService - Department @se successfully registered.
+2026-04-21 22:42:41 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-21 22:42:41 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-21 22:42:41 [main] INFO  s.DepartmentService - Request to delete department: @se
+2026-04-21 22:42:41 [main] WARN  s.DepartmentService - Delete aborted: Department @se not found
+2026-04-21 22:42:41 [main] INFO  s.DepartmentService - Updating department: @se
+2026-04-21 22:42:41 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-21 22:42:41 [main] WARN  s.DepartmentService - Registration failed: Faculty #FI not found for department @se
+2026-04-21 22:44:11 [main] INFO  s.StaffService - Saving staff member: null null (ID: ST-ID-1)
+2026-04-21 22:44:11 [main] INFO  s.StaffService - Found 2 staff members matching surname 'shev'
+2026-04-21 22:44:11 [main] WARN  s.StaffService - Staff member with ID ST-ID-UNKNOWN not found
+2026-04-21 22:44:11 [main] INFO  s.StaffService - Attempting to delete staff member with ID: ST-ID-1
+2026-04-21 22:44:11 [main] INFO  s.StaffService - Staff member with ID ST-ID-1 deleted successfully
+2026-04-21 22:44:42 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-21 22:44:42 [main] INFO  s.DepartmentService - Department @se successfully registered.
+2026-04-21 22:44:42 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-21 22:44:42 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-21 22:44:42 [main] INFO  s.DepartmentService - Request to delete department: @se
+2026-04-21 22:44:42 [main] WARN  s.DepartmentService - Delete aborted: Department @se not found
+2026-04-21 22:44:42 [main] INFO  s.DepartmentService - Updating department: @se
+2026-04-21 22:44:42 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-21 22:44:42 [main] WARN  s.DepartmentService - Registration failed: Faculty #FI not found for department @se
+2026-04-21 22:44:45 [main] INFO  s.StaffService - Saving staff member: null null (ID: ST-ID-1)
+2026-04-21 22:44:45 [main] INFO  s.StaffService - Found 2 staff members matching surname 'shev'
+2026-04-21 22:44:45 [main] WARN  s.StaffService - Staff member with ID ST-ID-UNKNOWN not found
+2026-04-21 22:44:45 [main] INFO  s.StaffService - Attempting to delete staff member with ID: ST-ID-1
+2026-04-21 22:44:45 [main] INFO  s.StaffService - Staff member with ID ST-ID-1 deleted successfully
