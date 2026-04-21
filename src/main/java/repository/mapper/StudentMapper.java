@@ -9,6 +9,7 @@ import domain.records.StudentId;
 import repository.dto.StudentDto;
 import repository.mapper.interfaces.ObjectMapper;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class StudentMapper implements ObjectMapper<Student, StudentDto, Group> {
@@ -56,6 +57,9 @@ public class StudentMapper implements ObjectMapper<Student, StudentDto, Group> {
         if (dto.getStudentId() != null) {
             student.setStudentId(new StudentId(dto.getStudentId()));
         }
+
+
+        student.setDateOfBirth(dto.getDateOfBirth());
 
         student.setName(dto.getName());
         student.setSurname(dto.getSurname());
