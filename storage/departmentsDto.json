@@ -1,6 +1,44 @@
-[ {
-  "name" : "Cultural Studies",
-  "code" : "@culstud",
-  "facultyCode" : "#FOH",
-  "headId" : "ST-ID-845717702948412"
-} ]
+[
+  {
+    "name": "Department of Cultural Studies",
+    "code": "@culstud",
+    "facultyCode": "#FOH",
+    "headId": null
+  },
+  {
+    "name": "Department of History",
+    "code": "@hist",
+    "facultyCode": "#FOH",
+    "headId": null
+  },
+  {
+    "name": "Department of Finance",
+    "code": "@fin",
+    "facultyCode": "#FEN",
+    "headId": null
+  },
+  {
+    "name": "Department of Marketing and Business Management",
+    "code": "@mark",
+    "facultyCode": "#FEN",
+    "headId": null
+  },
+  {
+    "name": "Department of Software Engineering",
+    "code": "@se",
+    "facultyCode": "#FI",
+    "headId": null
+  },
+  {
+    "name": "Department of Mathematics",
+    "code": "@math",
+    "facultyCode": "#FI",
+    "headId": null
+  },
+  {
+    "name": "Department of Criminal Law",
+    "code": "@crimlaw",
+    "facultyCode": "#FPN",
+    "headId": null
+  }
+]

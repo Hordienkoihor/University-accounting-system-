@@ -68,7 +68,7 @@ public class Specialty {
         return "Specialty {" + '\n' +
                 "   name='" + name + ',' + '\n' +
                 "   tag='" + tag + ',' + '\n' +
-                "   department=" + depName + " id " + +',' + '\n' +
+                "   department=" + depName + '\n' +
                 '}';
     }
 }

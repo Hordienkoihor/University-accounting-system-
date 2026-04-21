@@ -17,12 +17,15 @@ public class GroupMapper implements ObjectMapper<Group, GroupDto, Specialty> {
     @Override
     public Group toEntity(GroupDto dto, List<Specialty> specialties) {
         Group group = new Group();
-        group.setName(dto.getName());
 
         group.setSpecialty(specialties.stream()
                 .filter(specialty -> specialty.getTag().equals(dto.getSpecialtyTag()))
                 .findFirst()
                 .orElse(null));
+
+        group.setName(dto.getName());
+
+
 
         return group;
     }

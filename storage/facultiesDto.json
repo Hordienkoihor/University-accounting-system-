@@ -2,4 +2,30 @@
   "name" : "Faculty of Humanities",
   "code" : "#FOH",
   "deanId" : "ST-ID-845717702948412"
-} ]
+},
+  {
+    "name": "Faculty of Economics",
+    "code": "#FEN",
+    "deanId": "ST-ID-492817364501928"
+  },
+  {
+    "name": "Faculty of Informatics",
+    "code": "#FI",
+    "deanId": "ST-ID-105827493810293"
+  },
+  {
+    "name": "Faculty of Law",
+    "code": "#FPN",
+    "deanId": "ST-ID-738291048573621"
+  },
+  {
+    "name": "Faculty of Natural Sciences",
+    "code": "#FPRN",
+    "deanId": "ST-ID-294857103948576"
+  },
+  {
+    "name": "Faculty of Social Sciences and Social Technologies",
+    "code": "#FSNST",
+    "deanId": "ST-ID-583920184756293"
+  }
+]

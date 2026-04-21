@@ -1,75 +1,69 @@
-2026-04-18 22:43:50 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-18 22:44:33 [main] INFO  s.StaffService - Found 1 tachers members matching surname 'pe'
-2026-04-20 11:50:46 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 11:51:18 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Economics (@FEN)
-2026-04-20 11:51:18 [main] INFO  s.FacultyService - Faculty registered successfully: @FEN
-2026-04-20 11:54:19 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 11:54:36 [main] INFO  s.StaffService - Found 1 teachers members matching surname 'pech'
-2026-04-20 12:01:03 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 12:05:30 [main] INFO  s.StaffService - Saving staff member: Tkachuk Maryna (ID: ST-ID-254064655548704)
-2026-04-20 12:05:40 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 12:06:16 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Humanities (@FOH)
-2026-04-20 12:06:16 [main] INFO  s.FacultyService - Faculty registered successfully: @FOH
-2026-04-20 12:07:18 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 12:07:33 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 12:08:32 [main] INFO  s.DepartmentService - Attempting to register new department: #cs
-2026-04-20 12:08:32 [main] INFO  s.DepartmentService - Department #cs successfully registered.
-2026-04-20 12:09:31 [main] INFO  s.StaffService - Saving staff member: Tkachuk Maryna (ID: ST-ID-254064655548704)
-2026-04-20 12:50:02 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 12:53:50 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 12:57:27 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 17:31:49 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 17:35:28 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 20:41:28 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 20:42:29 [main] INFO  s.SpecialityService - Attempting to register specialty: Software Engeniring (#IPZ)
-2026-04-20 20:42:29 [main] INFO  s.SpecialityService - Specialty registered successfully: #IPZ
-2026-04-20 20:43:50 [main] INFO  s.DepartmentService - Attempting to register new department: #CS
-2026-04-20 20:43:50 [main] INFO  s.DepartmentService - Department #CS successfully registered.
-2026-04-20 20:45:04 [main] INFO  s.StaffService - Saving staff member: Сергій Василенко (ID: ST-ID-85281940754544)
-2026-04-20 20:46:41 [main] INFO  s.SpecialityService - Updating specialty '#IPZ' with new name: 'Software enginiring'
-2026-04-20 20:46:41 [main] INFO  s.SpecialityService - Specialty '#IPZ' updated successfully
-2026-04-20 20:47:02 [main] INFO  s.SpecialityService - Updating specialty '#IPZ' with new name: 'Computer Science'
-2026-04-20 20:47:02 [main] INFO  s.SpecialityService - Specialty '#IPZ' updated successfully
-2026-04-20 20:47:23 [main] INFO  s.SpecialityService - Attempting to register specialty: Software Enginiring (#ipz)
-2026-04-20 20:47:23 [main] INFO  s.SpecialityService - Specialty registered successfully: #ipz
-2026-04-20 20:47:35 [main] INFO  s.SpecialityService - Attempting to remove specialty with tag: #IPZ
-2026-04-20 20:47:35 [main] INFO  s.SpecialityService - Specialty '#IPZ' removed successfully
-2026-04-20 20:48:10 [main] INFO  s.GroupService - Attempting to register group '#ipz-1' for specialty '#ipz'
-2026-04-20 20:48:10 [main] INFO  s.GroupService - Group '#ipz-1' successfully registered for specialty '#ipz'
-2026-04-20 20:54:33 [main] INFO  s.GroupService - Attempting to register group '#ipz-2' for specialty '#ipz'
-2026-04-20 20:54:33 [main] INFO  s.GroupService - Group '#ipz-2' successfully registered for specialty '#ipz'
-2026-04-20 20:54:53 [main] INFO  s.GroupService - Attempting to register group '@econ-23' for specialty '@econ'
-2026-04-20 20:54:53 [main] INFO  s.GroupService - Group '@econ-23' successfully registered for specialty '@econ'
-2026-04-20 21:00:10 [main] INFO  s.SpecialityService - Attempting to register specialty: german philology (@gph)
-2026-04-20 21:00:10 [main] INFO  s.SpecialityService - Specialty registered successfully: @gph
-2026-04-20 21:00:24 [main] WARN  s.SpecialityService - Search failed: Specialty with tag '@gph-1' not found
-2026-04-20 21:00:37 [main] INFO  s.GroupService - Attempting to register group '@gph-1' for specialty '@gph'
-2026-04-20 21:00:37 [main] INFO  s.GroupService - Group '@gph-1' successfully registered for specialty '@gph'
-2026-04-20 21:09:27 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:09:57 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:11:41 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:14:05 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:15:52 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:20:37 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:21:21 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:34:56 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:37:09 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 21:39:06 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Economics (#FEN)
-2026-04-20 21:39:06 [main] INFO  s.FacultyService - Faculty registered successfully: #FEN
-2026-04-20 21:40:14 [main] INFO  s.DepartmentService - Attempting to register new department: #finance
-2026-04-20 21:40:14 [main] INFO  s.DepartmentService - Department #finance successfully registered.
-2026-04-20 21:40:46 [main] INFO  s.StaffService - Saving staff member: Олексій Правовий (ID: ST-ID-88442211)
-2026-04-20 21:42:49 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 23:41:00 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 23:41:48 [main] INFO  s.FacultyService - Attempting to register faculty: Faculty of Humanities (#FOH)
-2026-04-20 23:41:48 [main] INFO  s.FacultyService - Faculty registered successfully: #FOH
-2026-04-20 23:42:29 [main] INFO  s.DepartmentService - Attempting to register new department: @culstud
-2026-04-20 23:42:29 [main] INFO  s.DepartmentService - Department @culstud successfully registered.
-2026-04-20 23:44:42 [main] INFO  s.StaffService - Saving staff member: Maryna Tkachuk (ID: ST-ID-845717702948412)
-2026-04-20 23:46:46 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-20 23:47:00 [main] INFO  s.StaffService - Found 1 teachers members matching surname 't'
-2026-04-20 23:47:58 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-21 00:02:49 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-21 00:04:55 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-21 00:06:44 [main] INFO  s.UniversityService - Saving university data: Test full name
-2026-04-21 00:07:44 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 00:25:11 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 00:25:30 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - Attempting to load university from path: config.csv
+2026-04-21 00:27:07 [main] INFO  s.UniversityService - University successfully loaded from config.csv
+2026-04-21 14:42:45 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 22:05:47 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-21 22:19:15 [main] INFO  s.UniversityService - Saving university data: Test full name

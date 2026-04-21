@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Culturology",
+    "specialtyTag": "031",
+    "departmentCode": "@culstud"
+  },
+  {
+    "name": "History and Archeology",
+    "specialtyTag": "032",
+    "departmentCode": "@hist"
+  },
+  {
+    "name": "Finance",
+    "specialtyTag": "072",
+    "departmentCode": "@fin"
+  },
+  {
+    "name": "Marketing",
+    "specialtyTag": "075",
+    "departmentCode": "@mark"
+  },
+  {
+    "name": "Software Engineering",
+    "specialtyTag": "121",
+    "departmentCode": "@se"
+  },
+  {
+    "name": "Computer Science",
+    "specialtyTag": "122",
+    "departmentCode": "@se"
+  },
+  {
+    "name": "Applied Mathematics",
+    "specialtyTag": "113",
+    "departmentCode": "@math"
+  },
+  {
+    "name": "Law",
+    "specialtyTag": "081",
+    "departmentCode": "@crimlaw"
+  }
+]
