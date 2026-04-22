@@ -23,6 +23,11 @@ public class StudentMapper implements ObjectMapper<Student, StudentDto, Group> {
         if (student.getStudentId() != null) {
             studentDto.setStudentId(student.getStudentId().toString());
         }
+
+        if (student.getDateOfBirth() != null) {
+            studentDto.setDateOfBirth(student.getDateOfBirth());
+        }
+
         studentDto.setName(student.getName());
         studentDto.setSurname(student.getSurname());
         studentDto.setFatherName(student.getFatherName());

@@ -101,3 +101,13 @@
 2026-04-21 22:44:45 [main] WARN  s.StaffService - Staff member with ID ST-ID-UNKNOWN not found
 2026-04-21 22:44:45 [main] INFO  s.StaffService - Attempting to delete staff member with ID: ST-ID-1
 2026-04-21 22:44:45 [main] INFO  s.StaffService - Staff member with ID ST-ID-1 deleted successfully
+2026-04-22 11:19:51 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 11:20:08 [main] INFO  s.StudentService - Found 1 tachers members matching surname 'fr'
+2026-04-22 17:59:21 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 17:59:42 [main] INFO  s.StudentService - Found 1 tachers members matching surname 'kaz'
+2026-04-22 17:59:47 [main] INFO  s.StudentService - Found 1 tachers members matching surname 'de'
+2026-04-22 17:59:50 [main] INFO  s.StudentService - Found 3 tachers members matching surname 'd'
+2026-04-22 18:02:37 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 18:03:01 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 18:03:05 [main] INFO  s.StudentService - Found 3 tachers members matching surname 'd'
+2026-04-22 18:03:52 [main] INFO  s.UniversityService - Saving university data: Test full name
