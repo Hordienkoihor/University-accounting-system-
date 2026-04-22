@@ -194,9 +194,7 @@ public class RoleBasedMenu {
                     List<Student> students = studentService.getAllOnFacultyAlphabetical(faculty);
 
                     if (!students.isEmpty()) {
-                        students.forEach(student -> {
-                            System.out.println(student.getFullName() + " " + student.getStudentId());
-                        });
+                        listStudents(students);
 
                     } else {
                         System.out.println("No students on faculty: " + faculty.getName());

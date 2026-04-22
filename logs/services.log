@@ -111,3 +111,5 @@
 2026-04-22 18:03:01 [main] INFO  s.UniversityService - Saving university data: Test full name
 2026-04-22 18:03:05 [main] INFO  s.StudentService - Found 3 tachers members matching surname 'd'
 2026-04-22 18:03:52 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 18:14:48 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 18:16:20 [main] INFO  s.UniversityService - Saving university data: Test full name
