@@ -68,13 +68,19 @@ class GroupServiceTest {
     @DisplayName("Should update group name successfully")
     void updateName_Success() {
         Group existingGroup = new Group();
-        existingGroup.setName("OLD NAME");
-        when(repository.findById("OLD NAME")).thenReturn(Optional.of(existingGroup));
 
-        service.updateName("OLD NAME", "NEW NAME");
+        Specialty specialty = mock(Specialty.class);
+        when(specialty.getTag()).thenReturn("cs");
+        existingGroup.setSpecialty(specialty);
+        existingGroup.setName("cs-11");
 
-        assertEquals("NEW NAME", existingGroup.getName());
+        when(repository.findById("cs-11")).thenReturn(Optional.of(existingGroup));
+
+        service.updateName("cs-11", "cs-12");
+
+        assertEquals("cs-12", existingGroup.getName());
     }
+
 
     @Test
     @DisplayName("Should delete group by name")
