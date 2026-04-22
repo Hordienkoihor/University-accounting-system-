@@ -63,10 +63,10 @@
             <AppenderRef ref="ServicesAppender"/>
         </Logger>
 
-        <Logger name="service.AuthenticationService" level="info" additivity="false">
+        <Logger name="auth.service.AuthenticationService" level="info" additivity="false">
             <AppenderRef ref="SecurityAppender"/>
         </Logger>
-        <Logger name="service.AuthorizationService" level="info" additivity="false">
+        <Logger name="auth.service.AuthorizationService" level="info" additivity="false">
             <AppenderRef ref="SecurityAppender"/>
         </Logger>
 

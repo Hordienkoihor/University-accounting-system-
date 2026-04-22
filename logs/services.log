@@ -493,3 +493,113 @@
 2026-04-22 18:41:02 [main] INFO  s.SpecialityService - Specialty 'TAG-1' updated successfully
 2026-04-22 18:41:02 [main] INFO  s.SpecialityService - Attempting to register specialty: КН (КН-1)
 2026-04-22 18:41:02 [main] ERROR s.SpecialityService - Registration failed: Specialty with tag 'КН-1' already exists
+2026-04-22 20:14:33 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:14:33 [main] INFO  s.DepartmentService - Department @se successfully registered.
+2026-04-22 20:14:33 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:14:33 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-22 20:14:33 [main] INFO  s.DepartmentService - Request to delete department: @se
+2026-04-22 20:14:33 [main] WARN  s.DepartmentService - Delete aborted: Department @se not found
+2026-04-22 20:14:33 [main] INFO  s.DepartmentService - Updating department: @se
+2026-04-22 20:14:33 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:14:33 [main] WARN  s.DepartmentService - Registration failed: Faculty #FI not found for department @se
+2026-04-22 20:14:33 [main] INFO  s.FacultyService - Attempting to register faculty: FI (#FI)
+2026-04-22 20:14:33 [main] INFO  s.FacultyService - Faculty registered successfully: #FI
+2026-04-22 20:14:33 [main] INFO  s.FacultyService - Updating faculty code: #FI to new name: FI
+2026-04-22 20:14:33 [main] INFO  s.FacultyService - Faculty #FI updated successfully
+2026-04-22 20:14:33 [main] INFO  s.FacultyService - Attempting to register faculty: FI (#FI)
+2026-04-22 20:14:33 [main] ERROR s.FacultyService - Registration failed: Faculty with code #FI already exists
+2026-04-22 20:14:33 [main] INFO  s.GroupService - Updating group name from 'cs-11' to 'cs-12'
+2026-04-22 20:14:33 [main] INFO  s.GroupService - Attempting to delete group '121-SE-11'
+2026-04-22 20:14:33 [main] INFO  s.GroupService - Group '121-SE-11' deleted successfully
+2026-04-22 20:14:33 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:14:33 [main] ERROR s.GroupService - Registration failed: Group '121-SE-11' already exists
+2026-04-22 20:14:33 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:14:33 [main] WARN  s.GroupService - Registration failed: Specialty '121' not found
+2026-04-22 20:14:33 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:14:33 [main] INFO  s.GroupService - Group '121-SE-11' successfully registered for specialty '121'
+2026-04-22 20:14:33 [main] INFO  s.StaffService - Saving staff member: null null (ID: ST-ID-1)
+2026-04-22 20:14:33 [main] INFO  s.StaffService - Found 2 staff members matching surname 'shev'
+2026-04-22 20:14:33 [main] WARN  s.StaffService - Staff member with ID ST-ID-UNKNOWN not found
+2026-04-22 20:14:33 [main] INFO  s.StaffService - Attempting to delete staff member with ID: ST-ID-1
+2026-04-22 20:14:33 [main] INFO  s.StaffService - Staff member with ID ST-ID-1 deleted successfully
+2026-04-22 20:14:33 [main] INFO  s.SpecialityService - Attempting to register specialty: ІПЗ (ІПЗ-1)
+2026-04-22 20:14:33 [main] INFO  s.SpecialityService - Specialty registered successfully: ІПЗ-1
+2026-04-22 20:14:33 [main] INFO  s.SpecialityService - Updating specialty 'TAG-1' with new name: 'New Name'
+2026-04-22 20:14:33 [main] INFO  s.SpecialityService - Specialty 'TAG-1' updated successfully
+2026-04-22 20:14:33 [main] INFO  s.SpecialityService - Attempting to register specialty: КН (КН-1)
+2026-04-22 20:14:33 [main] ERROR s.SpecialityService - Registration failed: Specialty with tag 'КН-1' already exists
+2026-04-22 20:16:44 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:16:44 [main] INFO  s.DepartmentService - Department @se successfully registered.
+2026-04-22 20:16:44 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:16:44 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-22 20:16:44 [main] INFO  s.DepartmentService - Request to delete department: @se
+2026-04-22 20:16:44 [main] WARN  s.DepartmentService - Delete aborted: Department @se not found
+2026-04-22 20:16:44 [main] INFO  s.DepartmentService - Updating department: @se
+2026-04-22 20:16:44 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:16:44 [main] WARN  s.DepartmentService - Registration failed: Faculty #FI not found for department @se
+2026-04-22 20:16:44 [main] INFO  s.FacultyService - Attempting to register faculty: FI (#FI)
+2026-04-22 20:16:44 [main] INFO  s.FacultyService - Faculty registered successfully: #FI
+2026-04-22 20:16:44 [main] INFO  s.FacultyService - Updating faculty code: #FI to new name: FI
+2026-04-22 20:16:44 [main] INFO  s.FacultyService - Faculty #FI updated successfully
+2026-04-22 20:16:44 [main] INFO  s.FacultyService - Attempting to register faculty: FI (#FI)
+2026-04-22 20:16:44 [main] ERROR s.FacultyService - Registration failed: Faculty with code #FI already exists
+2026-04-22 20:16:44 [main] INFO  s.GroupService - Updating group name from 'cs-11' to 'cs-12'
+2026-04-22 20:16:44 [main] INFO  s.GroupService - Attempting to delete group '121-SE-11'
+2026-04-22 20:16:44 [main] INFO  s.GroupService - Group '121-SE-11' deleted successfully
+2026-04-22 20:16:44 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:16:44 [main] ERROR s.GroupService - Registration failed: Group '121-SE-11' already exists
+2026-04-22 20:16:44 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:16:44 [main] WARN  s.GroupService - Registration failed: Specialty '121' not found
+2026-04-22 20:16:44 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:16:44 [main] INFO  s.GroupService - Group '121-SE-11' successfully registered for specialty '121'
+2026-04-22 20:16:44 [main] INFO  s.StaffService - Saving staff member: null null (ID: ST-ID-1)
+2026-04-22 20:16:44 [main] INFO  s.StaffService - Found 2 staff members matching surname 'shev'
+2026-04-22 20:16:44 [main] WARN  s.StaffService - Staff member with ID ST-ID-UNKNOWN not found
+2026-04-22 20:16:44 [main] INFO  s.StaffService - Attempting to delete staff member with ID: ST-ID-1
+2026-04-22 20:16:44 [main] INFO  s.StaffService - Staff member with ID ST-ID-1 deleted successfully
+2026-04-22 20:16:44 [main] INFO  s.SpecialityService - Attempting to register specialty: ІПЗ (ІПЗ-1)
+2026-04-22 20:16:44 [main] INFO  s.SpecialityService - Specialty registered successfully: ІПЗ-1
+2026-04-22 20:16:44 [main] INFO  s.SpecialityService - Updating specialty 'TAG-1' with new name: 'New Name'
+2026-04-22 20:16:44 [main] INFO  s.SpecialityService - Specialty 'TAG-1' updated successfully
+2026-04-22 20:16:44 [main] INFO  s.SpecialityService - Attempting to register specialty: КН (КН-1)
+2026-04-22 20:16:44 [main] ERROR s.SpecialityService - Registration failed: Specialty with tag 'КН-1' already exists
+2026-04-22 20:18:36 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:18:36 [main] INFO  s.DepartmentService - Department @se successfully registered.
+2026-04-22 20:18:36 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:18:36 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-22 20:18:36 [main] INFO  s.DepartmentService - Request to delete department: @se
+2026-04-22 20:18:36 [main] WARN  s.DepartmentService - Delete aborted: Department @se not found
+2026-04-22 20:18:36 [main] INFO  s.DepartmentService - Updating department: @se
+2026-04-22 20:18:36 [main] INFO  s.DepartmentService - Attempting to register new department: @se
+2026-04-22 20:18:36 [main] WARN  s.DepartmentService - Registration failed: Faculty #FI not found for department @se
+2026-04-22 20:18:36 [main] INFO  s.FacultyService - Attempting to register faculty: FI (#FI)
+2026-04-22 20:18:36 [main] INFO  s.FacultyService - Faculty registered successfully: #FI
+2026-04-22 20:18:36 [main] INFO  s.FacultyService - Updating faculty code: #FI to new name: FI
+2026-04-22 20:18:36 [main] INFO  s.FacultyService - Faculty #FI updated successfully
+2026-04-22 20:18:36 [main] INFO  s.FacultyService - Attempting to register faculty: FI (#FI)
+2026-04-22 20:18:36 [main] ERROR s.FacultyService - Registration failed: Faculty with code #FI already exists
+2026-04-22 20:18:36 [main] INFO  s.GroupService - Updating group name from 'cs-11' to 'cs-12'
+2026-04-22 20:18:36 [main] INFO  s.GroupService - Attempting to delete group '121-SE-11'
+2026-04-22 20:18:36 [main] INFO  s.GroupService - Group '121-SE-11' deleted successfully
+2026-04-22 20:18:36 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:18:36 [main] ERROR s.GroupService - Registration failed: Group '121-SE-11' already exists
+2026-04-22 20:18:36 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:18:36 [main] WARN  s.GroupService - Registration failed: Specialty '121' not found
+2026-04-22 20:18:36 [main] INFO  s.GroupService - Attempting to register group '121-SE-11' for specialty '121'
+2026-04-22 20:18:36 [main] INFO  s.GroupService - Group '121-SE-11' successfully registered for specialty '121'
+2026-04-22 20:18:36 [main] INFO  s.StaffService - Saving staff member: null null (ID: ST-ID-1)
+2026-04-22 20:18:36 [main] INFO  s.StaffService - Found 2 staff members matching surname 'shev'
+2026-04-22 20:18:36 [main] WARN  s.StaffService - Staff member with ID ST-ID-UNKNOWN not found
+2026-04-22 20:18:36 [main] INFO  s.StaffService - Attempting to delete staff member with ID: ST-ID-1
+2026-04-22 20:18:36 [main] INFO  s.StaffService - Staff member with ID ST-ID-1 deleted successfully
+2026-04-22 20:18:36 [main] INFO  s.SpecialityService - Attempting to register specialty: ІПЗ (ІПЗ-1)
+2026-04-22 20:18:36 [main] INFO  s.SpecialityService - Specialty registered successfully: ІПЗ-1
+2026-04-22 20:18:36 [main] INFO  s.SpecialityService - Updating specialty 'TAG-1' with new name: 'New Name'
+2026-04-22 20:18:36 [main] INFO  s.SpecialityService - Specialty 'TAG-1' updated successfully
+2026-04-22 20:18:36 [main] INFO  s.SpecialityService - Attempting to register specialty: КН (КН-1)
+2026-04-22 20:18:36 [main] ERROR s.SpecialityService - Registration failed: Specialty with tag 'КН-1' already exists
+2026-04-22 20:24:38 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 20:25:40 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 20:26:22 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 20:26:47 [main] INFO  s.UniversityService - Saving university data: Test full name
+2026-04-22 20:29:21 [main] INFO  s.UniversityService - Saving university data: Test full name

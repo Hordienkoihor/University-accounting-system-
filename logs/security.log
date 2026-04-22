@@ -1,0 +1,11 @@
+2026-04-22 20:26:19 [main] INFO  a.s.AuthenticationService - Initializing AuthenticationService
+2026-04-22 20:26:19 [main] INFO  a.s.AuthenticationService - Initialized AuthenticationService
+2026-04-22 20:26:44 [main] INFO  a.s.AuthenticationService - Initializing AuthenticationService
+2026-04-22 20:26:44 [main] INFO  a.s.AuthenticationService - Initialized AuthenticationService
+2026-04-22 20:26:47 [main] INFO  a.s.AuthenticationService - User logged in: auth.entities.HeadAdminRole@403f0a22
+2026-04-22 20:29:18 [main] INFO  a.s.AuthenticationService - Initializing AuthenticationService
+2026-04-22 20:29:18 [main] INFO  a.s.AuthenticationService - Initialized AuthenticationService
+2026-04-22 20:29:18 [main] INFO  a.s.AuthorizationService - Initializing AuthorizationService
+2026-04-22 20:29:18 [main] INFO  a.s.AuthorizationService - Initialized AuthorizationService
+2026-04-22 20:29:21 [main] INFO  a.s.AuthenticationService - User logged in: auth.entities.HeadAdminRole@2f1de2d6
+2026-04-22 20:29:21 [main] INFO  a.s.AuthorizationService - Provided rights mask for vor777

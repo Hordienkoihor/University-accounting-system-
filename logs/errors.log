@@ -44,3 +44,15 @@
 2026-04-22 18:41:02 [main] ERROR s.FacultyService - Registration failed: Faculty with code #FI already exists
 2026-04-22 18:41:02 [main] ERROR s.GroupService - Registration failed: Group '121-SE-11' already exists
 2026-04-22 18:41:02 [main] ERROR s.SpecialityService - Registration failed: Specialty with tag 'КН-1' already exists
+2026-04-22 20:14:33 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-22 20:14:33 [main] ERROR s.FacultyService - Registration failed: Faculty with code #FI already exists
+2026-04-22 20:14:33 [main] ERROR s.GroupService - Registration failed: Group '121-SE-11' already exists
+2026-04-22 20:14:33 [main] ERROR s.SpecialityService - Registration failed: Specialty with tag 'КН-1' already exists
+2026-04-22 20:16:44 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-22 20:16:44 [main] ERROR s.FacultyService - Registration failed: Faculty with code #FI already exists
+2026-04-22 20:16:44 [main] ERROR s.GroupService - Registration failed: Group '121-SE-11' already exists
+2026-04-22 20:16:44 [main] ERROR s.SpecialityService - Registration failed: Specialty with tag 'КН-1' already exists
+2026-04-22 20:18:36 [main] ERROR s.DepartmentService - Failed registration: Department with code @se already exists
+2026-04-22 20:18:36 [main] ERROR s.FacultyService - Registration failed: Faculty with code #FI already exists
+2026-04-22 20:18:36 [main] ERROR s.GroupService - Registration failed: Group '121-SE-11' already exists
+2026-04-22 20:18:36 [main] ERROR s.SpecialityService - Registration failed: Specialty with tag 'КН-1' already exists
