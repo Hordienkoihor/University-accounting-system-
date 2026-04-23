@@ -9,8 +9,8 @@
     "phoneNumber": "0959990011",
     "studentId": "S-ID-100009",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "031-CULT-11"
   },
   {
@@ -23,8 +23,8 @@
     "phoneNumber": "0671112233",
     "studentId": "S-ID-100010",
     "course": 2,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "032-HIST-11"
   },
   {
@@ -37,8 +37,8 @@
     "phoneNumber": "0680052368",
     "studentId": "SF-ID-117263548227870",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "032-HIST-11"
   },
   {
@@ -51,8 +51,8 @@
     "phoneNumber": "0504445566",
     "studentId": "S-ID-100004",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "032-HIST-11"
   },
   {
@@ -65,8 +65,8 @@
     "phoneNumber": "0633334455",
     "studentId": "S-ID-100003",
     "course": 2,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "122-CS-11"
   },
   {
@@ -79,8 +79,8 @@
     "phoneNumber": "0672223344",
     "studentId": "S-ID-100002",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "122-CS-11"
   },
   {
@@ -93,8 +93,8 @@
     "phoneNumber": "0951112233",
     "studentId": "S-ID-100001",
     "course": 3,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "113-AM-11"
   },
   {
@@ -107,8 +107,8 @@
     "phoneNumber": "0508889900",
     "studentId": "S-ID-100008",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "113-AM-11"
   },
   {
@@ -121,8 +121,8 @@
     "phoneNumber": "0637778899",
     "studentId": "S-ID-100007",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "121-SE-11"
   },
   {
@@ -135,8 +135,8 @@
     "phoneNumber": "0676667788",
     "studentId": "S-ID-100006",
     "course": 2,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "075-MARK-11"
   },
   {
@@ -149,8 +149,8 @@
     "phoneNumber": "0995556677",
     "studentId": "S-ID-100005",
     "course": 3,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "072-FIN-12"
   },
   {
@@ -163,8 +163,8 @@
     "phoneNumber": "0979990011",
     "studentId": "S-ID-100111",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "031-CULT-11"
   },
   {
@@ -177,8 +177,8 @@
     "phoneNumber": "0671212233",
     "studentId": "S-ID-111010",
     "course": 2,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "032-HIST-11"
   },
   {
@@ -191,8 +191,8 @@
     "phoneNumber": "0680062368",
     "studentId": "SF-ID-11726148227871",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "032-HIST-11"
   },
   {
@@ -205,8 +205,8 @@
     "phoneNumber": "0504345576",
     "studentId": "S-ID-102104",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "032-HIST-11"
   },
   {
@@ -219,8 +219,8 @@
     "phoneNumber": "0633344456",
     "studentId": "S-ID-101073",
     "course": 2,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "122-CS-11"
   },
   {
@@ -233,8 +233,8 @@
     "phoneNumber": "0672243345",
     "studentId": "S-ID-1803402",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "122-CS-11"
   },
   {
@@ -247,8 +247,8 @@
     "phoneNumber": "0635930535",
     "studentId": "S-ID-2783412",
     "course": 3,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "113-AM-11"
   },
   {
@@ -261,8 +261,8 @@
     "phoneNumber": "0981211628",
     "studentId": "S-ID-130908",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "113-AM-11"
   },
   {
@@ -275,8 +275,8 @@
     "phoneNumber": "0988219617",
     "studentId": "S-ID-1090237",
     "course": 1,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "121-SE-11"
   },
   {
@@ -289,8 +289,8 @@
     "phoneNumber": "0976076990",
     "studentId": "S-ID-1903067",
     "course": 2,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "075-MARK-11"
   },
   {
@@ -303,8 +303,8 @@
     "phoneNumber": "0505910447",
     "studentId": "S-ID-10800657",
     "course": 3,
-    "studyForm": null,
-    "studyStatus": null,
+    "studyForm": "tuition free",
+    "studyStatus": "studying",
     "groupName": "072-FIN-12"
   }
 ]
