@@ -1,46 +1,37 @@
-[
-  {
-    "name": "031-CULT-11",
-    "specialtyTag": "031"
-  },
-  {
-    "name": "032-HIST-11",
-    "specialtyTag": "032"
-  },
-  {
-    "name": "072-FIN-11",
-    "specialtyTag": "072"
-  },
-  {
-    "name": "072-FIN-12",
-    "specialtyTag": "072"
-  },
-  {
-    "name": "075-MARK-11",
-    "specialtyTag": "075"
-  },
-  {
-    "name": "121-SE-11",
-    "specialtyTag": "121"
-  },
-  {
-    "name": "121-SE-12",
-    "specialtyTag": "121"
-  },
-  {
-    "name": "122-CS-11",
-    "specialtyTag": "122"
-  },
-  {
-    "name": "113-AM-11",
-    "specialtyTag": "113"
-  },
-  {
-    "name": "081-LAW-11",
-    "specialtyTag": "081"
-  },
-  {
-    "name": "081-LAW-12",
-    "specialtyTag": "081"
-  }
-]
+[ {
+  "name" : "031-CULT-11",
+  "specialtyTag" : "031"
+}, {
+  "name" : "se-121-1",
+  "specialtyTag" : "121"
+}, {
+  "name" : "072-FIN-11",
+  "specialtyTag" : "072"
+}, {
+  "name" : "081-LAW-12",
+  "specialtyTag" : "081"
+}, {
+  "name" : "032-HIST-11",
+  "specialtyTag" : "032"
+}, {
+  "name" : "072-FIN-12",
+  "specialtyTag" : "072"
+}, {
+  "name" : "122-CS-11",
+  "specialtyTag" : "122"
+}, {
+  "name" : "081-LAW-11",
+  "specialtyTag" : "081"
+}, {
+  "name" : "113-AM-11",
+  "specialtyTag" : "113"
+}, {
+  "name" : "075-MARK-11",
+  "specialtyTag" : "075"
+}, {
+  "name" : "121-SE-12",
+  "specialtyTag" : "121"
+}, {
+  "name" : "121-SE-11",
+  "specialtyTag" : "121"
+} ]
